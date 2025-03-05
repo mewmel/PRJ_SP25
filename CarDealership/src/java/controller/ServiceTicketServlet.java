@@ -49,7 +49,7 @@ public class ServiceTicketServlet extends HttpServlet {
                ServiceTicketDAO d = new ServiceTicketDAO();
                String date="";
                ArrayList<ServiceTicket> list = d.getServiceTicket(custPerson.getCusId()+"", date);
-               s.setAttribute("TICKET_RESULT", list);
+               request.setAttribute("TICKET_RESULT", list);
                request.getRequestDispatcher("CustomerDashBoard.jsp").forward(request, response);
            }
         }

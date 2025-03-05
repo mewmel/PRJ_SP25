@@ -39,10 +39,10 @@ public class ServiceTicketDAO {
                     if (table != null) {
                         while (table.next()) {                            
                             String ticketId = table.getString("serviceTicketID");
-                            table.getString("dateReceived");
+                            String dateRec = table.getString("dateReceived");
                             String dateRet = table.getString("dateReturned");
                             String carId = table.getString("carID");
-                            ServiceTicket in = new ServiceTicket(ticketId, dateReceived, dateRet, cusId, carId);
+                            ServiceTicket in = new ServiceTicket(ticketId, dateRec, dateRet, cusId, carId);
                             rs.add(in);
                         }
                     } 
@@ -57,7 +57,6 @@ public class ServiceTicketDAO {
                 }  
             }
         return rs;
-    
     }  
 
         public ServiceTicket getServiceTicket1(String tickeId) {
