@@ -102,6 +102,6 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>LoginCustPage.jsp</welcome-file>
+        <welcome-file>LoginPage.html</welcome-file>
     </welcome-file-list>
 </web-app>
