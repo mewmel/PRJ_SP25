@@ -12,7 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Mechanic DashBoard</title>
+        <title>Sale DashBoard</title>
     </head>
     <body>
         <%
@@ -27,9 +27,8 @@
                              
             <div style="width: 100%">            
                 <h1>DASHBOARD</h1>
-                <p><a href="ViewCar.jsp">invoices</a></p>
-                <p><a href="ViewWishlist.jsp">view wishlist</a></p>
-                <p><a href="ServiceTicketServlet">service ticket</a></p>
+                <p><a href="ViewCar.jsp">Car</a></p>
+                <p><a href="ViewCustomer.jsp">Customer</a></p>
             </div> 
                     
                     
