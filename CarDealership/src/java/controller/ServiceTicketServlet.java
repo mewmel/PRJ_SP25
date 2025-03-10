@@ -5,7 +5,6 @@
  */
 package controller;
 
-import dao.InvoiceDAO;
 import dao.ServiceTicketDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,12 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Customer;
-import model.Invoice;
+import model.Mechanic;
 import model.ServiceTicket;
 
 /**
  *
- * @author trant
+ * @author ThinkPad
  */
 public class ServiceTicketServlet extends HttpServlet {
 
@@ -39,19 +38,31 @@ public class ServiceTicketServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-           HttpSession s = request.getSession();
-           Customer custPerson =(Customer) s.getAttribute("customer");
-           if(custPerson == null){
-               request.setAttribute("ERROR", "ban can login de thuc hien cac tinh nang");
-               request.getRequestDispatcher("LoginCustPage.jsp").forward(request, response);
-           }
-           else{
-               ServiceTicketDAO d = new ServiceTicketDAO();
-               String date="";
-               ArrayList<ServiceTicket> list = d.getServiceTicket(custPerson.getCusId()+"", date);
-               request.setAttribute("TICKET_RESULT", list);
-               request.getRequestDispatcher("CustomerDashBoard.jsp").forward(request, response);
-           }
+             request.setCharacterEncoding("utf-8"); 
+            
+            HttpSession s = request.getSession(false);
+            Customer custPerson = (Customer) s.getAttribute("customer");
+            Mechanic mechanic = (Mechanic) s.getAttribute("mechanic");
+            
+            ServiceTicketDAO d = new ServiceTicketDAO();
+            
+            if (custPerson == null) {
+                if (mechanic == null) {
+//                    request.setAttribute("ERROR", "ban can login de thuc hien cac tinh nang");
+                    request.getRequestDispatcher("LoginPage.html").forward(request, response);
+                } else {
+                    
+                    ArrayList<ServiceTicket> list = d.getAllServiceTicket(mechanic.getMechanicId());
+                    request.setAttribute("SERVICE_RESULT", list);
+                    request.getRequestDispatcher("MechanicDashBoard.jsp").forward(request, response);
+                }
+                
+            } else {
+                String date = "";
+                ArrayList<ServiceTicket> list = d.getServiceTicket(custPerson.getCusId() + "", date);
+                request.setAttribute("TICKET_RESULT", list);
+                request.getRequestDispatcher("CustomerDashBoard.jsp").forward(request, response);
+            }
         }
     }
 

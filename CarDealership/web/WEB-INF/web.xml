@@ -41,8 +41,8 @@
         <servlet-class>controller.LogoutCustServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServiceTicketServlet</servlet-name>
-        <servlet-class>controller.ServiceTicketServlet</servlet-class>
+        <servlet-name>ServiceCustTicketServlet</servlet-name>
+        <servlet-class>controller.ServiceCustTicketServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DetailServiceTicketServlet</servlet-name>
@@ -51,6 +51,18 @@
     <servlet>
         <servlet-name>ChangeProfileServlet</servlet-name>
         <servlet-class>controller.ChangeProfileServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServiceMechanTicketServlet</servlet-name>
+        <servlet-class>controller.ServiceMechanTicketServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServiceTicketServlet</servlet-name>
+        <servlet-class>controller.ServiceTicketServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServiceMechanicServlet</servlet-name>
+        <servlet-class>controller.ServiceMechanicServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginSalePersonServlet</servlet-name>
@@ -93,8 +105,8 @@
         <url-pattern>/LogoutCustServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServiceTicketServlet</servlet-name>
-        <url-pattern>/ServiceTicketServlet</url-pattern>
+        <servlet-name>ServiceCustTicketServlet</servlet-name>
+        <url-pattern>/ServiceCustTicketServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DetailServiceTicketServlet</servlet-name>
@@ -103,6 +115,18 @@
     <servlet-mapping>
         <servlet-name>ChangeProfileServlet</servlet-name>
         <url-pattern>/ChangeProfileServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServiceMechanTicketServlet</servlet-name>
+        <url-pattern>/ServiceMechanTicketServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServiceTicketServlet</servlet-name>
+        <url-pattern>/ServiceTicketServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServiceMechanicServlet</servlet-name>
+        <url-pattern>/ServiceMechanicServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

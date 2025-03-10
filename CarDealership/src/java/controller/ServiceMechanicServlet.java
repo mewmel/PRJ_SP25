@@ -5,7 +5,7 @@
  */
 package controller;
 
-import dao.ServiceCustTicketDAO;
+import dao.ServiceMechanicDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -14,13 +14,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.ServiceCustTicket;
+import model.Mechanic;
+import model.ServiceMechanic;
 
 /**
  *
- * @author trant
+ * @author ThinkPad
  */
-public class FindServiceTicketServlet extends HttpServlet {
+public class ServiceMechanicServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,18 +37,22 @@ public class FindServiceTicketServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            HttpSession s = request.getSession();
-            ServiceCustTicket ticket = (ServiceCustTicket) s.getAttribute("txt_ticket");
-            if (ticket != null) {
-                
-                ServiceCustTicketDAO d = new  ServiceCustTicketDAO();
-//                String date = "";
-//                ServiceCustTicket list = d.getServiceTicketby3(ticket.getCusID(), ticket.getCarID(), date);
-//                request.setAttribute("TICKET_RESULT", list);
-                request.getRequestDispatcher("MechanicDashBoard.jsp?txtticket=" + ticket).forward(request, response);
-            } else {    
-                request.getRequestDispatcher("LoginCustPage.jsp").forward(request, response);
-            }
+             request.setCharacterEncoding("utf-8"); 
+           HttpSession s = request.getSession(false);
+           Mechanic mechan = (Mechanic) s.getAttribute("mechanic");
+           
+           if(mechan == null){
+               request.setAttribute("ERROR", "ban can login de thuc hien cac tinh nang");
+               request.getRequestDispatcher("LoginStaffPage.jsp").forward(request, response);
+           }
+           else{
+               ServiceMechanicDAO d = new ServiceMechanicDAO();
+               String serviceTicketId = request.getParameter("txtServiceTicketId");
+               
+               ArrayList<ServiceMechanic> list = d.getServiceMechanic(mechan.getMechanicId(), serviceTicketId);
+               request.setAttribute("SERVICE_MECHANIC_RESULT", list);
+               request.getRequestDispatcher("MechanicDashBoard.jsp").forward(request, response);
+           }
         }
     }
 
