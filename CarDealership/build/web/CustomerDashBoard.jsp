@@ -43,7 +43,7 @@
             </div>      
             <section style="width: 50%; float: left" >
                 <%
-                    ArrayList<Invoice> kq = (ArrayList) session.getAttribute("INVOICE_RESULT"); //request.getAttribute("RESULT");
+                    ArrayList<Invoice> kq = (ArrayList) request.getAttribute("INVOICE_RESULT"); //request.getAttribute("RESULT");
                     if (kq != null && !kq.isEmpty()) {
                         for (Invoice v : kq) {
                 %>
@@ -86,7 +86,7 @@
             <!-- ticket result-->
             <div style="width: 100%; float: left">
                             <%
-                    ArrayList<ServiceTicket> tkq = (ArrayList) session.getAttribute("TICKET_RESULT"); 
+                    ArrayList<ServiceTicket> tkq = (ArrayList) request.getAttribute("TICKET_RESULT"); 
                     if (tkq != null && !tkq.isEmpty()) {
                         for (ServiceTicket t : tkq) {
                 %>

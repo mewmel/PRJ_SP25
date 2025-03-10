@@ -47,7 +47,7 @@ public class InvoiceServlet extends HttpServlet {
                InvoiceDAO d = new InvoiceDAO();
                String date="";
                ArrayList<Invoice> list = d.getInvoices(custPerson.getCusId()+"", date);
-               s.setAttribute("INVOICE_RESULT", list);
+               request.setAttribute("INVOICE_RESULT", list);
                request.getRequestDispatcher("CustomerDashBoard.jsp").forward(request, response);
            }
         }
