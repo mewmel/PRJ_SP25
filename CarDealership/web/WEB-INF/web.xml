@@ -48,6 +48,10 @@
         <servlet-name>DetailServiceTicketServlet</servlet-name>
         <servlet-class>controller.DetailServiceTicketServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ChangeProfileServlet</servlet-name>
+        <servlet-class>controller.ChangeProfileServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginSalePersonServlet</servlet-name>
         <url-pattern>/LoginSalePersonServlet</url-pattern>
@@ -95,6 +99,10 @@
     <servlet-mapping>
         <servlet-name>DetailServiceTicketServlet</servlet-name>
         <url-pattern>/DetailServiceTicketServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeProfileServlet</servlet-name>
+        <url-pattern>/ChangeProfileServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

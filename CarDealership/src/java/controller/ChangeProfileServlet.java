@@ -5,25 +5,22 @@
  */
 package controller;
 
-import dao.InvoiceDAO;
-import dao.ServiceTicketDAO;
+import dao.CustomerDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Customer;
-import model.Invoice;
-import model.ServiceTicket;
 
 /**
  *
- * @author trant
+ * @author ThinkPad
  */
-public class ServiceTicketServlet extends HttpServlet {
+public class ChangeProfileServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,19 +36,27 @@ public class ServiceTicketServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-           HttpSession s = request.getSession();
-           Customer custPerson =(Customer) s.getAttribute("customer");
-           if(custPerson == null){
-               request.setAttribute("ERROR", "ban can login de thuc hien cac tinh nang");
-               request.getRequestDispatcher("LoginCustPage.jsp").forward(request, response);
-           }
-           else{
-               ServiceTicketDAO d = new ServiceTicketDAO();
-               String date="";
-               ArrayList<ServiceTicket> list = d.getServiceTicket(custPerson.getCusId()+"", date);
-               request.setAttribute("TICKET_RESULT", list);
-               request.getRequestDispatcher("CustomerDashBoard.jsp").forward(request, response);
-           }
+            request.setCharacterEncoding("utf-8");
+            HttpSession s = request.getSession(false);
+            Customer cust = (Customer) s.getAttribute("customer");
+            String id = cust.getCusId();
+
+            String name = request.getParameter("name");
+            String phone = request.getParameter("phone");
+            String sex = request.getParameter("sex");
+            String address = request.getParameter("address");
+            Customer customer = new Customer(id, name, phone, sex, address);
+            CustomerDAO customerDAO = new CustomerDAO();
+
+            String complete = customerDAO.update(customer);
+            if (complete != null) {
+                request.setAttribute("ERROR", "UPDATE SUCCESSFUL");
+                s.setAttribute("customer", customer);
+            } else {
+                request.setAttribute("ERROR", "FAILED!");
+            }
+            RequestDispatcher rd = request.getRequestDispatcher("ChangeProfile.jsp");
+            rd.forward(request, response);
         }
     }
 

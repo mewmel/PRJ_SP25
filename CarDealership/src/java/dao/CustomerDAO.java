@@ -8,6 +8,9 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Customer;
 import mylib.DBUtils;
 
@@ -33,11 +36,11 @@ public class CustomerDAO {
                 if(table != null){
                     while(table.next()){
                         String cusId = table.getString("custID");
-                        String custName = table.getString("custName");
+//                        String custName = table.getString("custName");
 //                        String phoneResult = "" + table.getString("phone"); // Không bị ảnh hưởng nếu DB đảm bảo NOT NULL    
                         String sex = table.getString("sex");
                         String custAdd = table.getString("cusAddress");
-                        rs = new Customer(cusId, custName, phone, sex, custAdd);   
+                        rs = new Customer(cusId, cusName, phone, sex, custAdd);   
                     }
                 }
             }
@@ -51,5 +54,32 @@ public class CustomerDAO {
             }
         }
         return rs;
+    }
+     public String update(Customer customer){
+        String sql = "UPDATE Customer SET custName = ?, phone = ?, sex = ?, cusAddress = ? WHERE custID = ?";
+        try {
+            Connection conn = null;
+            try {
+                conn = DBUtils.getConnection();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            PreparedStatement ps = conn.prepareStatement(sql);
+            
+            ps.setString(1, customer.getCusName());
+            ps.setString(2, customer.getPhone());
+            ps.setString(3, customer.getSex());
+            ps.setString(4, customer.getCusAddress());
+            ps.setString(5, customer.getCusId());
+            
+            ps.executeUpdate();
+            conn.close();
+            
+            return customer.getCusId();
+        } catch (SQLException e) {
+            System.out.println("Update customer error: "+e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
     }
 }
