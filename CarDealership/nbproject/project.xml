@@ -11,6 +11,10 @@
                 </library>
                 <library dirs="200">
                     <file>${file.reference.sqljdbc4.jar}</file>
+<<<<<<< HEAD
+=======
+                    <path-in-war>WEB-INF/lib</path-in-war>
+>>>>>>> 630d976ed2c124329a08585d3fef997da60bc15f
                 </library>
             </web-module-libraries>
             <web-module-additional-libraries/>
