@@ -39,6 +39,7 @@
                 <h1>DASHBOARD</h1>
                 <p><a href="InvoiceServlet">invoices</a></p>
                 <p><a href="ViewWishlist.jsp">view wishlist</a></p>
+                <p><a href="ChangeProfile.jsp">change profile</a></p>
                 <p><a href="ServiceTicketServlet">service ticket</a></p>
             </div>      
             <section style="width: 50%; float: left" >
