@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Customer;
@@ -82,42 +83,78 @@ public class CustomerDAO {
         }
         return null;
     }
-         public int getCustomerIdByPhone(String phone) {
-        String sql = "SELECT [custID] FROM [Customer] WHERE [phone] = ?";
-        try (Connection conn = DBUtils.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, phone);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return rs.getInt("id");
-            }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return -1; // Không tìm thấy khách hàng
-    }
+//        
+    
+    
+    
+    
 
-    public int addCustomer(Customer customer) {
-        String sql = "INSERT INTO [Customer] ([custID], [custName], [phone], [sex],[cusAddress]) VALUES (?, ?, ?, ?, ?)";
-        try (Connection conn = DBUtils.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
-            
-            ps.setString(1, customer.getCusId());
-            ps.setString(2, customer.getCusName());
-            ps.setString(3, customer.getPhone());
-            ps.setString(4, customer.getSex());
-            ps.setString(5, customer.getCusAddress());
-
-            int affectedRows = ps.executeUpdate();
-            if (affectedRows > 0) {
-                ResultSet rs = ps.getGeneratedKeys();
-                if (rs.next()) {
-                    return rs.getInt(1); // Trả về ID của khách hàng vừa tạo
+//    public int addCustomer(Customer customer) {
+//        String sql = "INSERT INTO [Customer] ([custID], [custName], [phone], [sex],[cusAddress]) VALUES (?, ?, ?, ?, ?)";
+//        try (Connection conn = DBUtils.getConnection();
+//             PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+//            
+//            ps.setString(1, customer.getCusId());
+//            ps.setString(2, customer.getCusName());
+//            ps.setString(3, customer.getPhone());
+//            ps.setString(4, customer.getSex());
+//            ps.setString(5, customer.getCusAddress());
+//
+//            int affectedRows = ps.executeUpdate();
+//            if (affectedRows > 0) {
+//                ResultSet rs = ps.getGeneratedKeys();
+//                if (rs.next()) {
+//                    return rs.getInt(1); // Trả về ID của khách hàng vừa tạo
+//                }
+//            }
+//        } catch (SQLException | ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        return -1; // Thêm khách hàng thất bại
+//    }
+    
+    
+    public ArrayList<Customer> getAllCustomers() {
+        ArrayList<Customer> rs = new ArrayList<>();
+        Connection cnn = null;
+        
+        try{
+            cnn=DBUtils.getConnection();
+                if (cnn != null) {
+                    String sql = "SELECT    [custID]"+
+                                    "      ,[custName]\n" +
+                                    "      ,[phone]\n" +
+                                    "      ,[sex]\n" +
+                                    "      ,[cusAddress]\n" +
+                                    "  FROM [Car_Dealership].[dbo].[Customer]";
+                    PreparedStatement st = cnn.prepareStatement(sql);
+                    ResultSet table = st.executeQuery();
+                    if (table != null) {
+                        while (table.next()) {                
+                            
+                            String custID = table.getString("custID");
+                            String custName = table.getString("custName");
+                            String phone = table.getString("phone");
+                            String sex = table.getString("sex");
+                            String cusAddress = table.getString("cusAddress");
+                            
+                            
+                            
+                            Customer customer = new Customer(custID, custName, phone, sex, cusAddress);
+                            rs.add(customer);
+                        }
+                    } 
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }finally{
+                try {
+                    if (cnn != null) cnn.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }  
             }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return -1; // Thêm khách hàng thất bại
-    }
+        return rs;
+    
+    }  
 }

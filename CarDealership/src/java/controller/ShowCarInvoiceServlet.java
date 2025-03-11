@@ -8,13 +8,16 @@ package controller;
 import dao.CarDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Car;
+import model.SalePerson;
 
 /**
  *
@@ -36,13 +39,45 @@ public class ShowCarInvoiceServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
-        CarDAO car = new CarDAO();
-        List<Car> cars = car.getAllCars(); // Lấy danh sách xe có sẵn
+          request.setCharacterEncoding("utf-8");           
+        // Kiểm tra session
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("sale") == null) {
+            response.sendRedirect("LoginPage.jsp"); // Chuyển hướng nếu chưa đăng nhập
+            return;
+        }
 
-        request.setAttribute("cars", cars);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("CreateInvoice.jsp");
-        dispatcher.forward(request, response);
+        // Lấy thông tin SalePerson
+        SalePerson sale = (SalePerson) session.getAttribute("sale");
+
+        try {
+            // Lấy cusID từ request
+            String cusID = request.getParameter("txtcustomerid");
+            String cusname = request.getParameter("txtcustname");
+
+            // Lấy danh sách xe từ database
+            CarDAO carDAO = new CarDAO();
+            ArrayList<Car> carList = carDAO.getAllCars();
+
+            // Kiểm tra danh sách xe có rỗng không
+            if (carList == null || carList.isEmpty()) {
+                request.setAttribute("message", "Không có xe nào trong hệ thống.");
+            } else {
+                request.setAttribute("LISTCAR_RESULT", carList);
+            }
+
+            // Đẩy cusID lên JSP
+            request.setAttribute("cusID", cusID);
+            request.setAttribute("cusname", cusname);
+
+            // Chuyển đến SaleDashBoard.jsp
+            request.getRequestDispatcher("SaleDashBoard.jsp").forward(request, response);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi khi tải danh sách xe.");
+        }
+
         }
     }
 

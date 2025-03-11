@@ -1,42 +1,114 @@
-<%-- 
-    Document   : SaleDashBoard
-    Created on : Feb 21, 2025, 6:24:44 PM
-    Author     : trant
---%>
-
+<%@page import="model.Car"%>
+<%@page import="model.Customer"%>
 <%@page import="model.SalePerson"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="model.ServiceTicket"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Sale DashBoard</title>
+        <title>Sale Dashboard</title>
     </head>
     <body>
         <%
             if (session.getAttribute("sale") != null) {
+                SalePerson salePerson = (SalePerson) session.getAttribute("sale");
         %>
-        <nav class="text">
-            <ul class="menu" style="width: 100%; display: inline-block; list-style-type: none">
-                <li>Welcome  <%= ((SalePerson) session.getAttribute("sale")).getSaleName()%>  </li>
-                <li><a href="#">logout</a></li>
-                <li style="float:right;width: 30%; margin-right: 2%">
-                        
-                             
-            <div style="width: 100%">            
-                <h1>DASHBOARD</h1>
+        <nav>
+            <ul class="menu">
+                <li>Welcome <%= salePerson.getSaleName() %></li>
+                <li><a href="#">Logout</a></li>
+            </ul>
+        </nav>
+
+        <div class="dashboard-container">
+            <div class="left-section">
+                <h1>Dashboard</h1>
                 <p><a href="ViewCar.jsp">Car</a></p>
                 <p><a href="ViewCustomer.jsp">Customer</a></p>
-                <p><a href="CreateInvoice.jsp">Create Invoice For New Customer</a></p>
-            </div> 
+                <p><a href="CreateInvoiceServlet">Create Invoice For New Customer</a></p>
+            </div>
+
+            
+                <%
+                    ArrayList<Customer> customers = (ArrayList) request.getAttribute("LISTCUSTOMER_RESULT");
+                    if (customers != null && !customers.isEmpty()) {
+                    for (Customer customer : customers) {    
+                %>
+                <table>
+                    <tr>
+                        <th>Customer ID</th>
+                        <th>Customer Name</th>
+                        <th>Phone</th>
+                        <th>Sex</th>
+                        <th>Address</th>
+                        <th>Action</th>
+                    </tr>
                     
                     
-        <%
-            } else {
-                request.getRequestDispatcher("LoginStaffPage.jsp").forward(request, response);     
-            }
-            %>
+                    <form action="ShowCarInvoiceServlet" method="POST">
+                        <input type="hidden" name="txtcustomerid" value="<%= customer.getCusId() %>">
+                        <input type="hidden" name="txtcustname" value="<%= customer.getCusName()%>">
+                        <tr>
+                            <td><%= customer.getCusId() %></td>
+                            <td><%= customer.getCusName() %></td>
+                            <td><%= customer.getPhone() %></td>
+                            <td><%= customer.getSex() %></td>
+                            <td><%= customer.getCusAddress() %></td>
+                            <td><input type="submit" value="Choose"></td>
+                        </tr>
+                    </form>
+                    <% } %>
+                </table>
+                <%
+                    } 
+                %>
+
+                
+                <%
+                    ArrayList<Car> cars = (ArrayList) request.getAttribute("LISTCAR_RESULT");
+                    if (cars != null && !cars.isEmpty()) {
+                %>
+                <table>
+                    <tr>
+                        <th>Customer ID</th>
+                        <th>Customer name</th>
+                        <th>Car ID</th>
+                        <th>Serial Number</th>
+                        <th>Model</th>
+                        <th>Colour</th>
+                        <th>Year</th>
+                        <th>Action</th>
+                        
+                    </tr>
+                    <%
+                        for (Car car : cars) {
+                    %>
+                    <form action="CreateInvoiceForCust.jsp" method="POST">
+                        <input type="hidden" name="txtcustomerid" value="<%= request.getAttribute("cusID") %>">
+                        <input type="hidden" name="txtcarid" value="<%= request.getAttribute("carid") %>">
+                        <tr>
+                            <td><%= request.getAttribute("cusID")%></td>
+                            <td><%= request.getAttribute("cusname")%></td>
+                            <td><%= car.getCarId()%></td>
+                            <td><%= car.getSerialNumber()%></td>
+                            <td><%= car.getModel()%></td>
+                            <td><%= car.getColour()%></td>
+                            <td><%= car.getYear()%></td>
+                            <td><input type="submit" value="Create Invoice"></td>
+                        </tr>
+                    </form>
+                    <% } %>
+                </table>
+                <%
+                    }
+                %>
+            
+        </div>
+        
+        <% } else {
+            // Redirect to login page if session is not valid
+            request.getRequestDispatcher("LoginStaffPage.jsp").forward(request, response);
+        } %>
     </body>
 </html>
