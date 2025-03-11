@@ -26,8 +26,8 @@ public class CarDAO {
             cnn=DBUtils.getConnection();
                 if (cnn != null) {
                     String sql = "SELECT [carID]\n" 
-                                +"      ,[serialNumber]\n" 
-                                +"      ,[model]\n" 
+                                +"      ,[model]\n"
+                                +"      ,[serialNumber]\n"
                                 +"      ,[colour]\n" 
                                 +"      ,[year]\n" 
                                 +"      ,[statusName]\n" 
@@ -39,10 +39,10 @@ public class CarDAO {
                     if (table != null) {
                         while (table.next()) {                            
                             carId = table.getString("carId");
-                            String serialNumber = table.getString("serialNumber");
                             String model = table.getString("model");
-                            int year = table.getInt("year");
+                            String serialNumber = table.getString("serialNumber");
                             String colour = table.getString("colour");
+                            int year = table.getInt("year");
                             String staName = table.getString("statusName");
                             rs = new Car(carId, model, serialNumber, colour, year, staName);
                         }
@@ -68,8 +68,8 @@ public class CarDAO {
             cnn=DBUtils.getConnection();
             if(cnn != null){
                 String sql = "SELECT [carID]\n"
-                        + "      ,[serialNumber]\n"
                         + "      ,[model]\n"
+                        + "      ,[serialNumber]\n"
                         + "      ,[colour]\n"
                         + "      ,[year]\n"
                         + "      ,[statusName]\n"
@@ -81,10 +81,10 @@ public class CarDAO {
                 if(table != null){
                     while(table.next()){
                         String carId = table.getString("carID");
-                        String serialNumber = table.getString("serialNumber");
                         String model = table.getString("model");
-                        int year = table.getInt("year");
+                        String serialNumber = table.getString("serialNumber");
                         String colour = table.getString("colour");
+                        int year = table.getInt("year");
                         String staName = table.getString("statusName");
                         Car c = new Car(carId, model, serialNumber, colour, year, staName);
                         rs.add(c);
@@ -110,9 +110,9 @@ public class CarDAO {
 //        try{
 //            cnn = DBUtils.getConnection();
 //            if(cnn != null){
-//                  String sql = "SELECT [carID]\n"
-//                            + "      ,[serialNumber]\n"
+//                  String sql = "SELECT [carID]\n"   
 //                            + "      ,[model]\n"
+//                            + "      ,[serialNumber]\n"
 //                            + "      ,[colour]\n"
 //                            + "      ,[year]\n"
 //                            + "  FROM [Car_Dealership].[dbo].[Cars]\n"
@@ -125,8 +125,9 @@ public class CarDAO {
 //                if(table != null){
 //                    while(table.next()){
 //                        String carId = table.getString("carID");
-//                        String serialNumber = table.getString("serialNumber");
-//                        String model = table.getString("model");
+//                          String model = table.getString("model");
+//                          String serialNumber = table.getString("serialNumber");
+                        
 //                        int year = table.getInt("year");
 //                        String colour = table.getString("colour");
 //                        Car c = new Car(carId, model, serialNumber, colour, year);
@@ -153,8 +154,8 @@ public class CarDAO {
             cnn = DBUtils.getConnection();
             if(cnn != null){
                   String sql = "SELECT [carID]\n"
-                            + "      ,[serialNumber]\n"
                             + "      ,[model]\n"
+                            + "      ,[serialNumber]\n"
                             + "      ,[colour]\n"
                             + "      ,[year]\n"
                             + "      ,[statusName]\n"
@@ -164,11 +165,11 @@ public class CarDAO {
                 if(table != null){
                     while(table.next()){
                         String carId = table.getString("carID");
-                        String serialNumber = table.getString("serialNumber");
                         String model = table.getString("model");
-                        int year = table.getInt("year");
+                        String serialNumber = table.getString("serialNumber");
                         String colour = table.getString("colour");
-                        String sta = table.getString("colour");
+                        int year = table.getInt("year");
+                        String sta = table.getString("statusName");
                         Car c = new Car(carId, model, serialNumber, colour, year, sta);
                         rs.add(c);
                     }
