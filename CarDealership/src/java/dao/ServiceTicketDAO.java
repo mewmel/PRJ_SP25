@@ -14,10 +14,10 @@ import mylib.DBUtils;
 
 /**
  *
- * @author trant
+ * @author ThinkPad
  */
 public class ServiceTicketDAO {
-    public ArrayList<ServiceTicket> getServiceTicket(String cusId, String dateReceived) {
+     public ArrayList<ServiceTicket> getServiceTicket(String cusId, String dateReceived) {
         ArrayList<ServiceTicket> rs = new ArrayList<>();
         Connection cnn = null;
         
@@ -39,10 +39,10 @@ public class ServiceTicketDAO {
                     if (table != null) {
                         while (table.next()) {                            
                             String ticketId = table.getString("serviceTicketID");
-                            String dateRec = table.getString("dateReceived");
+                            table.getString("dateReceived");
                             String dateRet = table.getString("dateReturned");
                             String carId = table.getString("carID");
-                            ServiceTicket in = new ServiceTicket(ticketId, dateRec, dateRet, cusId, carId);
+                            ServiceTicket in = new ServiceTicket(ticketId, dateReceived, dateRet, cusId, carId);
                             rs.add(in);
                         }
                     } 
@@ -57,6 +57,7 @@ public class ServiceTicketDAO {
                 }  
             }
         return rs;
+    
     }  
 
         public ServiceTicket getServiceTicket1(String tickeId) {
@@ -98,4 +99,91 @@ public class ServiceTicketDAO {
             }
         return trs;
     } 
+        
+    public ArrayList<ServiceTicket> getAllServiceTicket(String mechanicID) {
+        ArrayList<ServiceTicket> rs = new ArrayList<>();
+        Connection cnn = null;
+        
+        try{
+            cnn=DBUtils.getConnection();
+                if (cnn != null) {
+                    String sql = "SELECT    st.[serviceTicketID]"+
+                                    "      ,st.[dateReceived]\n" +
+                                    "      ,st.[dateReturned]\n" +
+                                    "      ,st.[custID]\n" +
+                                    "      ,st.[carID]\n" +
+                                    "  FROM [Car_Dealership].[dbo].[ServiceTicket] st\n"+
+                                    "  JOIN [Car_Dealership].[dbo].[ServiceMehanic] sm ON st.serviceTicketID = sm.serviceTicketID\n" +
+                                    "  WHERE sm.[mechanicID] = ?";
+                    PreparedStatement st = cnn.prepareStatement(sql);
+                    st.setString(1, mechanicID);
+                    ResultSet table = st.executeQuery();
+                    if (table != null) {
+                        while (table.next()) {                
+                            
+                            String serviceTicketID  = table.getString("serviceTicketID");                            
+                            String dateReceived = table.getString("dateReceived");
+                            String dateReturned = table.getString("dateReturned");
+                            String custID = table.getString("custID");
+                            String carID = table.getString("carID");
+                            
+                            ServiceTicket serviceTicket = new ServiceTicket(serviceTicketID, dateReceived, dateReturned, custID, carID);
+                            rs.add(serviceTicket);
+                        }
+                    } 
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }finally{
+                try {
+                    if (cnn != null) cnn.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }  
+            }
+        return rs;
+    
+    }
+    
+    public ArrayList<ServiceTicket> getAllServiceTicket() {
+        ArrayList<ServiceTicket> rs = new ArrayList<>();
+        Connection cnn = null;
+        
+        try{
+            cnn=DBUtils.getConnection();
+                if (cnn != null) {
+                    String sql = "SELECT    [serviceTicketID]"+
+                                    "      ,[dateReceived]\n" +
+                                    "      ,[dateReturned]\n" +
+                                    "      ,[custID]\n" +
+                                    "      ,[carID]\n" +
+                                    "  FROM [Car_Dealership].[dbo].[ServiceTicket]";
+                    PreparedStatement st = cnn.prepareStatement(sql);
+                    ResultSet table = st.executeQuery();
+                    if (table != null) {
+                        while (table.next()) {                
+                            
+                            String serviceTicketID  = table.getString("serviceTicketID");                            
+                            String dateReceived = table.getString("dateReceived");
+                            String dateReturned = table.getString("dateReturned");
+                            String custID = table.getString("custID");
+                            String carID = table.getString("carID");
+                            
+                            ServiceTicket serviceTicket = new ServiceTicket(serviceTicketID, dateReceived, dateReturned, custID, carID);
+                            rs.add(serviceTicket);
+                        }
+                    } 
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }finally{
+                try {
+                    if (cnn != null) cnn.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }  
+            }
+        return rs;
+    
+    }  
 }

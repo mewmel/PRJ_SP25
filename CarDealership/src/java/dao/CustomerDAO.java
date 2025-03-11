@@ -55,7 +55,7 @@ public class CustomerDAO {
         }
         return rs;
     }
-     public String update(Customer customer){
+    public String update(Customer customer){
         String sql = "UPDATE Customer SET custName = ?, phone = ?, sex = ?, cusAddress = ? WHERE custID = ?";
         try {
             Connection conn = null;
@@ -81,5 +81,43 @@ public class CustomerDAO {
             e.printStackTrace();
         }
         return null;
+    }
+         public int getCustomerIdByPhone(String phone) {
+        String sql = "SELECT [custID] FROM [Customer] WHERE [phone] = ?";
+        try (Connection conn = DBUtils.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, phone);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id");
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return -1; // Không tìm thấy khách hàng
+    }
+
+    public int addCustomer(Customer customer) {
+        String sql = "INSERT INTO [Customer] ([custID], [custName], [phone], [sex],[cusAddress]) VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = DBUtils.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            
+            ps.setString(1, customer.getCusId());
+            ps.setString(2, customer.getCusName());
+            ps.setString(3, customer.getPhone());
+            ps.setString(4, customer.getSex());
+            ps.setString(5, customer.getCusAddress());
+
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows > 0) {
+                ResultSet rs = ps.getGeneratedKeys();
+                if (rs.next()) {
+                    return rs.getInt(1); // Trả về ID của khách hàng vừa tạo
+                }
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return -1; // Thêm khách hàng thất bại
     }
 }

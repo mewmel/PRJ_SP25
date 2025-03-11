@@ -9,19 +9,19 @@ import java.io.Serializable;
 
 /**
  *
- * @author ThinkPad
+ * @author trant
  */
-public class ServiceTicket implements Serializable{
-     private String id;
+public class ServiceCustTicket implements Serializable{
+    private String id;
     private String dateReceived;
     private String dateReturn;
     private String cusID;
     private String carID;
 
-    public ServiceTicket() {
+    public ServiceCustTicket() {
     }
 
-    public ServiceTicket(String id, String dateReceived, String dateReturn, String cusID, String carID) {
+    public ServiceCustTicket(String id, String dateReceived, String dateReturn, String cusID, String carID) {
         this.id = id;
         this.dateReceived = dateReceived;
         this.dateReturn = dateReturn;
@@ -68,4 +68,5 @@ public class ServiceTicket implements Serializable{
     public void setCarID(String carID) {
         this.carID = carID;
     }
+   
 }

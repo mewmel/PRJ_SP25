@@ -5,22 +5,22 @@
  */
 package controller;
 
-import dao.ServiceCustTicketDAO;
+import dao.CarDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.ServiceCustTicket;
+import model.Car;
 
 /**
  *
- * @author trant
+ * @author ThinkPad
  */
-public class FindServiceTicketServlet extends HttpServlet {
+public class ShowCarInvoiceServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,18 +36,13 @@ public class FindServiceTicketServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            HttpSession s = request.getSession();
-            ServiceCustTicket ticket = (ServiceCustTicket) s.getAttribute("txt_ticket");
-            if (ticket != null) {
-                
-                ServiceCustTicketDAO d = new  ServiceCustTicketDAO();
-//                String date = "";
-//                ServiceCustTicket list = d.getServiceTicketby3(ticket.getCusID(), ticket.getCarID(), date);
-//                request.setAttribute("TICKET_RESULT", list);
-                request.getRequestDispatcher("MechanicDashBoard.jsp?txtticket=" + ticket).forward(request, response);
-            } else {    
-                request.getRequestDispatcher("LoginCustPage.jsp").forward(request, response);
-            }
+            
+        CarDAO car = new CarDAO();
+        List<Car> cars = car.getAllCars(); // Lấy danh sách xe có sẵn
+
+        request.setAttribute("cars", cars);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("CreateInvoice.jsp");
+        dispatcher.forward(request, response);
         }
     }
 

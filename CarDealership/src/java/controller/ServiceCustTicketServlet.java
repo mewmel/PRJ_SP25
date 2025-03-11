@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dao.InvoiceDAO;
 import dao.ServiceCustTicketDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,13 +15,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Customer;
+import model.Invoice;
 import model.ServiceCustTicket;
 
 /**
  *
  * @author trant
  */
-public class FindServiceTicketServlet extends HttpServlet {
+public class ServiceCustTicketServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,18 +39,19 @@ public class FindServiceTicketServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            HttpSession s = request.getSession();
-            ServiceCustTicket ticket = (ServiceCustTicket) s.getAttribute("txt_ticket");
-            if (ticket != null) {
-                
-                ServiceCustTicketDAO d = new  ServiceCustTicketDAO();
-//                String date = "";
-//                ServiceCustTicket list = d.getServiceTicketby3(ticket.getCusID(), ticket.getCarID(), date);
-//                request.setAttribute("TICKET_RESULT", list);
-                request.getRequestDispatcher("MechanicDashBoard.jsp?txtticket=" + ticket).forward(request, response);
-            } else {    
-                request.getRequestDispatcher("LoginCustPage.jsp").forward(request, response);
-            }
+           HttpSession s = request.getSession();
+           Customer custPerson =(Customer) s.getAttribute("customer");
+           if(custPerson == null){
+               request.setAttribute("ERROR", "ban can login de thuc hien cac tinh nang");
+               request.getRequestDispatcher("LoginCustPage.jsp").forward(request, response);
+           }
+           else{
+               ServiceCustTicketDAO d = new ServiceCustTicketDAO();
+               String date="";
+               ArrayList<ServiceCustTicket> list = d.getServiceTicket(custPerson.getCusId()+"", date);
+               request.setAttribute("TICKET_RESULT", list);
+               request.getRequestDispatcher("CustomerDashBoard.jsp").forward(request, response);
+           }
         }
     }
 

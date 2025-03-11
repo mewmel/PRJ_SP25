@@ -4,7 +4,7 @@
     Author     : trant
 --%>
 
-<%@page import="model.ServiceTicket"%>
+<%@page import="model.ServiceCustTicket"%>
 <%@page import="model.Car"%>
 <%@page import="model.Invoice"%>
 <%@page import="java.util.ArrayList"%>
@@ -40,7 +40,7 @@
                 <p><a href="InvoiceServlet">invoices</a></p>
                 <p><a href="ViewWishlist.jsp">view wishlist</a></p>
                 <p><a href="ChangeProfile.jsp">change profile</a></p>
-                <p><a href="ServiceTicketServlet">service ticket</a></p>
+                <p><a href="ServiceCustTicketServlet">service ticket</a></p>
             </div>      
             <section style="width: 50%; float: left" >
                 <%
@@ -87,9 +87,9 @@
             <!-- ticket result-->
             <div style="width: 100%; float: left">
                             <%
-                    ArrayList<ServiceTicket> tkq = (ArrayList) request.getAttribute("TICKET_RESULT"); 
+                    ArrayList<ServiceCustTicket> tkq = (ArrayList) request.getAttribute("TICKET_RESULT"); 
                     if (tkq != null && !tkq.isEmpty()) {
-                        for (ServiceTicket t : tkq) {
+                        for (ServiceCustTicket t : tkq) {
                 %>
                 <table>
                     <tr>
@@ -129,7 +129,7 @@
             <!-- hien thi detail service ticket sau khi click nut detail -->
             <div style="width: 20%; float:left">   
                 <%
-                    ServiceTicket ticket = (ServiceTicket) request.getAttribute("FOUND_TICKET");
+                    ServiceCustTicket ticket = (ServiceCustTicket) request.getAttribute("FOUND_TICKET");
                     if (ticket != null) {
                 %>
                 <p>

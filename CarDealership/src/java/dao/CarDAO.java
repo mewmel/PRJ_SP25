@@ -186,20 +186,21 @@ public class CarDAO {
         return rs;
     } 
     
-    public void updateCar(String carId, String statusName) {
-        Car rs = null; 
+    public void updateCar(String carId, String statusName) { 
         Connection cnn = null;
         //nhớ check giá tri nhap vao cua status name
         try{
             cnn=DBUtils.getConnection();
                 if (cnn != null) {
-                    String sql = "UPDATE [Car_Dealership].[dbo].[Status] \n" 
-                                +"SET [status] = ?\n" 
-                                +"  WHERE [carID]= ?";
+                    String sql = "UPDATE [Car_Dealership].[dbo].[Cars] \n" 
+                                +"SET [statusName] = ?\n" 
+                                +"WHERE [carID]= ?";
                     PreparedStatement st = cnn.prepareStatement(sql);
-            st.setString(1, carId);
-            st.setString(2, statusName);
+            st.setString(1, statusName);
+            st.setString(2, carId);
+
             st.executeUpdate();
+
                         }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -211,5 +212,5 @@ public class CarDAO {
                 }  
             }
     } 
-
+         
 }

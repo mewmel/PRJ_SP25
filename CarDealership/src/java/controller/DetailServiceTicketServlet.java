@@ -6,7 +6,7 @@
 package controller;
 
 import dao.CarDAO;
-import dao.ServiceTicketDAO;
+import dao.ServiceCustTicketDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Car;
-import model.ServiceTicket;
+import model.ServiceCustTicket;
 
 /**
  *
@@ -38,8 +38,8 @@ public class DetailServiceTicketServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String ticketId = request.getParameter("txtticketid");
             if (ticketId != null) {
-                ServiceTicketDAO d = new ServiceTicketDAO();
-                ServiceTicket ticket = d.getServiceTicket1(ticketId.trim());
+                ServiceCustTicketDAO d = new ServiceCustTicketDAO();
+                ServiceCustTicket ticket = d.getServiceTicket1(ticketId.trim());
                 if (ticket != null) {
                     request.setAttribute("FOUND_TICKET", ticket);
                     request.getRequestDispatcher("CustomerDashBoard.jsp").forward(request, response);

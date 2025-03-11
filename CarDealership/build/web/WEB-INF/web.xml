@@ -41,8 +41,8 @@
         <servlet-class>controller.LogoutCustServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServiceTicketServlet</servlet-name>
-        <servlet-class>controller.ServiceTicketServlet</servlet-class>
+        <servlet-name>ServiceCustTicketServlet</servlet-name>
+        <servlet-class>controller.ServiceCustTicketServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DetailServiceTicketServlet</servlet-name>
@@ -55,6 +55,26 @@
     <servlet>
         <servlet-name>CarSaleServlet</servlet-name>
         <servlet-class>controller.CarSaleServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServiceMechanicTicketServlet</servlet-name>
+        <servlet-class>controller.ServiceMechanicTicketServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServiceTicketServlet</servlet-name>
+        <servlet-class>controller.ServiceTicketServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServiceMechanicServlet</servlet-name>
+        <servlet-class>controller.ServiceMechanicServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateInvoiceServlet</servlet-name>
+        <servlet-class>controller.CreateInvoiceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowCarInvoiceServlet</servlet-name>
+        <servlet-class>controller.ShowCarInvoiceServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginSalePersonServlet</servlet-name>
@@ -97,8 +117,8 @@
         <url-pattern>/LogoutCustServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServiceTicketServlet</servlet-name>
-        <url-pattern>/ServiceTicketServlet</url-pattern>
+        <servlet-name>ServiceCustTicketServlet</servlet-name>
+        <url-pattern>/ServiceCustTicketServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DetailServiceTicketServlet</servlet-name>
@@ -111,6 +131,26 @@
     <servlet-mapping>
         <servlet-name>CarSaleServlet</servlet-name>
         <url-pattern>/CarSaleServlet</url-pattern>
+    </servlet-mapping>    
+    <servlet-mapping>
+        <servlet-name>ServiceMechanicTicketServlet</servlet-name>
+        <url-pattern>/ServiceMechanicTicketServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServiceTicketServlet</servlet-name>
+        <url-pattern>/ServiceTicketServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServiceMechanicServlet</servlet-name>
+        <url-pattern>/ServiceMechanicServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateInvoiceServlet</servlet-name>
+        <url-pattern>/CreateInvoiceServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowCarInvoiceServlet</servlet-name>
+        <url-pattern>/ShowCarInvoiceServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
