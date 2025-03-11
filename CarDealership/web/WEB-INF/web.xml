@@ -64,6 +64,14 @@
         <servlet-name>ServiceMechanicServlet</servlet-name>
         <servlet-class>controller.ServiceMechanicServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CreateInvoiceServlet</servlet-name>
+        <servlet-class>controller.CreateInvoiceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowCarInvoiceServlet</servlet-name>
+        <servlet-class>controller.ShowCarInvoiceServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginSalePersonServlet</servlet-name>
         <url-pattern>/LoginSalePersonServlet</url-pattern>
@@ -127,6 +135,14 @@
     <servlet-mapping>
         <servlet-name>ServiceMechanicServlet</servlet-name>
         <url-pattern>/ServiceMechanicServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateInvoiceServlet</servlet-name>
+        <url-pattern>/CreateInvoiceServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowCarInvoiceServlet</servlet-name>
+        <url-pattern>/ShowCarInvoiceServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

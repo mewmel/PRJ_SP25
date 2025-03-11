@@ -8,6 +8,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import model.Invoice;
 import mylib.DBUtils;
@@ -53,6 +54,27 @@ public class InvoiceDAO {
         }      
         return rs;
     }
+    
+    public boolean createInvoice(Invoice invoice) {
+        String sql = "INSERT INTO [SalesInvoice] ([invoiceID], [invoiceDate], [salesID], [carID], [custID]) VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = DBUtils.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, invoice.getInvoiceId());
+            ps.setString(2, invoice.getInvoiceDate());
+            ps.setString(3, invoice.getSaleId());
+            ps.setString(4, invoice.getCarId());
+            ps.setString(5, invoice.getCustid());            
+            
+
+            return ps.executeUpdate() > 0;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+//   c
     
 }
 

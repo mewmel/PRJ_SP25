@@ -29,6 +29,7 @@
                 <h1>DASHBOARD</h1>
                 <p><a href="ViewCar.jsp">Car</a></p>
                 <p><a href="ViewCustomer.jsp">Customer</a></p>
+                <p><a href="CreateInvoice.jsp">Create Invoice For New Customer</a></p>
             </div> 
                     
                     

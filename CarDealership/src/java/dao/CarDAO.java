@@ -9,7 +9,9 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import model.Car;
 import mylib.DBUtils;
 
@@ -141,4 +143,44 @@ public class CarDAO {
         }
         return rs;
     }      
+    
+
+    public List<Car> getAllCars() {
+        List<Car> cars = new ArrayList<>();
+        Connection cnn = null;
+        try {
+            cnn = DBUtils.getConnection();
+            if (cnn != null) {
+                String sql = "SELECT * FROM [dbo].[Cars]";
+
+                PreparedStatement st = cnn.prepareStatement(sql);
+                ResultSet table = st.executeQuery();
+
+                if (table != null) {
+                    while (table.next()) {
+                        String carId = table.getString("carID");
+                        String serialNumber = table.getString("serialNumber");
+                        String model = table.getString("model");
+                        int year = table.getInt("year");
+                        String colour = table.getString("colour");
+                        Car c = new Car(carId, model, serialNumber, colour, year);
+                        cars.add(c);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cnn != null) {
+                    cnn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return cars;
+    }
+
+
 }
