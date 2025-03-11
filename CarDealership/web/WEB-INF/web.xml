@@ -52,6 +52,10 @@
         <servlet-name>ChangeProfileServlet</servlet-name>
         <servlet-class>controller.ChangeProfileServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CarSaleServlet</servlet-name>
+        <servlet-class>controller.CarSaleServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginSalePersonServlet</servlet-name>
         <url-pattern>/LoginSalePersonServlet</url-pattern>
@@ -103,6 +107,10 @@
     <servlet-mapping>
         <servlet-name>ChangeProfileServlet</servlet-name>
         <url-pattern>/ChangeProfileServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CarSaleServlet</servlet-name>
+        <url-pattern>/CarSaleServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

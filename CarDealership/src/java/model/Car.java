@@ -15,25 +15,26 @@ public class Car {
     private String serialNumber;
     private String colour;
     private int year;
+    private String statusName;
 
     public Car() {
     }
 
-    public Car(String  carId, String model, String serialNumber, String colour, int year) {
-        this. carId =  carId;
+    public Car(String carId, String model, String serialNumber, String colour, int year, String statusName) {
+        this.carId = carId;
         this.model = model;
         this.serialNumber = serialNumber;
         this.colour = colour;
         this.year = year;
+        this.statusName = statusName;
     }
-    
 
     public String getCarId() {
-        return  carId;
+        return carId;
     }
 
-    public void setCarId(String  carId) {
-        this. carId =  carId;
+    public void setCarId(String carId) {
+        this.carId = carId;
     }
 
     public String getModel() {
@@ -66,5 +67,15 @@ public class Car {
 
     public void setYear(int year) {
         this.year = year;
-    }     
+    }
+
+    public String getStatusName() {
+        return statusName;
+    }
+
+    public void setStatusName(String statusName) {
+        this.statusName = statusName;
+    }
+
+         
 }
