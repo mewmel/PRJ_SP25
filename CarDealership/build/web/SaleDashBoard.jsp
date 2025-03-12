@@ -30,11 +30,7 @@
                 <p><a href="CreateInvoice.jsp">Create Invoice For New Customer</a></p>
             </div>          
 
-            <%
-                } else {
-                    request.getRequestDispatcher("LoginStaffPage.jsp").forward(request, response);     
-                }
-%>
+          
                     <p><a href="CreateInvoiceServlet">Create Invoice For New Customer</a></p>
                 <%
                     ArrayList<Customer> customers = (ArrayList) request.getAttribute("LISTCUSTOMER_RESULT");
