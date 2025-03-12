@@ -80,6 +80,14 @@
         <servlet-name>ConfirmInvoiceServlet</servlet-name>
         <servlet-class>controller.ConfirmInvoiceServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LogoutStaffServlet</servlet-name>
+        <servlet-class>controller.LogoutStaffServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogoutSaleServlet</servlet-name>
+        <servlet-class>controller.LogoutSaleServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginSalePersonServlet</servlet-name>
         <url-pattern>/LoginSalePersonServlet</url-pattern>
@@ -159,6 +167,14 @@
     <servlet-mapping>
         <servlet-name>ConfirmInvoiceServlet</servlet-name>
         <url-pattern>/ConfirmInvoiceServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutStaffServlet</servlet-name>
+        <url-pattern>/LogoutStaffServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutSaleServlet</servlet-name>
+        <url-pattern>/LogoutSaleServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

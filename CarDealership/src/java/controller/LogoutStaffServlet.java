@@ -15,9 +15,9 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author trant
+ * @author ThinkPad
  */
-public class LogoutCustServlet extends HttpServlet {
+public class LogoutStaffServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,9 +34,9 @@ public class LogoutCustServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession s=request.getSession(false);
-            s.removeAttribute("customer");           
+            s.removeAttribute("mechanic");           
             request.setAttribute("ERROR", "Logout success!");
-            request.getRequestDispatcher("LoginCustPage.jsp").forward(request, response);
+            request.getRequestDispatcher("MechanicDashBoard.jsp").forward(request, response);
         }
     }
 

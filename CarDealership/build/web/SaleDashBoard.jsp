@@ -14,20 +14,25 @@
             if (session.getAttribute("sale") != null) {
                 SalePerson salePerson = (SalePerson) session.getAttribute("sale");
         %>
+         
+
         <nav>
-            <ul class="menu">
+            <ul class="menu" style="width: 100%; display: inline-block; list-style-type: none; background: yellowgreen">
                 <li>Welcome <%= salePerson.getSaleName()%></li>
-                <li><a href="#">Logout</a></li>
+                <li><a href="LogoutSaleServlet">Logout</a></li>
+                <li style="float:right;width: 30%; margin-right: 2%"></li>
             </ul>
         </nav>
-
-        <div class="dashboard-container">
-            <div class="left-section">
-                <h1>Dashboard</h1>
+            
+                <div style="width: 100%">
+            <%--menu--%>
+            <div style="width: 30%; float: left;">        
+                <h1>SALE DASHBOARD</h1>
                 <p><a href="ViewCar.jsp">Car</a></p>
                 <p><a href="ViewCustomer.jsp">Customer</a></p>
                 <p><a href="CreateInvoiceServlet">Create Invoice For New Customer</a></p>
-            </div>          
+            </div>
+                       
 
                 <%
                     ArrayList<Customer> customers = (ArrayList) request.getAttribute("LISTCUSTOMER_RESULT");
