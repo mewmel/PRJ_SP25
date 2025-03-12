@@ -79,7 +79,7 @@ public class ShowCarInvoiceServlet extends HttpServlet {
             
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi khi tải danh sách xe.");
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi khi tải");
         }
 
         }

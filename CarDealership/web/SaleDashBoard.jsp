@@ -26,12 +26,9 @@
                 <h1>Dashboard</h1>
                 <p><a href="ViewCar.jsp">Car</a></p>
                 <p><a href="ViewCustomer.jsp">Customer</a></p>
-
-                <p><a href="CreateInvoice.jsp">Create Invoice For New Customer</a></p>
+                <p><a href="CreateInvoiceServlet">Create Invoice For New Customer</a></p>
             </div>          
 
-          
-                    <p><a href="CreateInvoiceServlet">Create Invoice For New Customer</a></p>
                 <%
                     ArrayList<Customer> customers = (ArrayList) request.getAttribute("LISTCUSTOMER_RESULT");
                     if (customers != null && !customers.isEmpty()) {
@@ -79,8 +76,6 @@ Customer customer = (Customer) request.getAttribute("Customer");
 
             <table>
                 <tr>
-                    <th>Customer ID</th>
-                    <th>Customer name</th>
                     <th>Car ID</th>
                     <th>Serial Number</th>
                     <th>Model</th>
@@ -92,15 +87,13 @@ Customer customer = (Customer) request.getAttribute("Customer");
                 <%
                     for (Car car : cars) {
                 %>
-                <form action="DetailInvoice.jsp" method="POST"> 
+                <form action="ConfirmInvoiceServlet" method="POST"> 
                     <input type="hidden" name="txtcustomerid" value="<%= customer.getCusId()%>">  
                     <input type="hidden" name="txtcustomername" value="<%= customer.getCusName()%>">  
                     <input type="hidden" name="txtcarmodel" value="<%= car.getModel()%>">  
                     <input type="hidden" name="txtcarid" value="<%= car.getCarId()%>">
 
-                    <tr>
-                        <td><%= customer.getCusId()%></td>
-                        <td><%= customer.getCusName()%></td>        
+                    <tr>                             
                         <td><%= car.getCarId()%></td>
                         <td><%= car.getSerialNumber()%></td>
                         <td><%= car.getModel()%></td>
