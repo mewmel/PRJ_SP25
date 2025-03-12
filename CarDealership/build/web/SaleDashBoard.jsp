@@ -26,15 +26,9 @@
                 <h1>Dashboard</h1>
                 <p><a href="ViewCar.jsp">Car</a></p>
                 <p><a href="ViewCustomer.jsp">Customer</a></p>
-
                 <p><a href="CreateInvoice.jsp">Create Invoice For New Customer</a></p>
             </div>          
 
-            <%
-                } else {
-                    request.getRequestDispatcher("LoginStaffPage.jsp").forward(request, response);     
-                }
-%>
                     <p><a href="CreateInvoiceServlet">Create Invoice For New Customer</a></p>
                 <%
                     ArrayList<Customer> customers = (ArrayList) request.getAttribute("LISTCUSTOMER_RESULT");
@@ -50,8 +44,6 @@
                     <th>Address</th>
                     <th>Action</th>
                 </tr>
-
-
                 <form action="ShowCarInvoiceServlet" method="POST">
                     <input type="hidden" name="txtcustomerid" value="<%= customer.getCusId()%>">
                     <input type="hidden" name="txtcustname" value="<%= customer.getCusName()%>">
@@ -67,20 +59,16 @@
                         <td><input type="submit" value="Choose"></td>
                     </tr>
                 </form>
-                <% } %>
             </table>
-            <%
+            <%}
                 }
             %>
-
 
             <%
                 ArrayList<Car> cars = (ArrayList) request.getAttribute("LISTCAR_RESULT");
                 if (cars != null && !cars.isEmpty()) {
                     Customer customer = (Customer) request.getAttribute("Customer");
             %>
-             
-
             <table>
                 <tr>
                     <th>Customer ID</th>
@@ -113,7 +101,6 @@
                         <td><input type="submit" value="Create Invoice"></td>
                     </tr>
                 </form>
-
                 <% } %>
             </table>
             <%
