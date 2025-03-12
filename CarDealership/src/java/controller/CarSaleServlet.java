@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Car;
 
 /**
@@ -34,23 +35,23 @@ public class CarSaleServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */           
-        String model = request.getParameter("txtmodel");
-            CarDAO d = new CarDAO();
-            ArrayList<Car> list = d.getAllCars();
+            /* TODO output your page here. You may use following sample code. */
+            CarDAO carDAO = new CarDAO();
+            ArrayList<Car> list = new ArrayList<>();
+            list = carDAO.getAllCars();
+            String action = request.getParameter("action");
+            
+            // model search
+            String model = request.getParameter("txtmodel");
+            if (model != null && !model.trim().isEmpty()) {
+                list = carDAO.getCarsByModel(model);
+                request.setAttribute("SEARCH_MODEL", model);
+            }
+
             request.setAttribute("CAR_SALE_RESULT", list);
-        if (model != null && !model.trim().isEmpty()) {
-            list = d.getCarsByModel(model);
-             // Cập nhật danh sách hiển thị
-            request.setAttribute("SEARCH_MODEL", model); // Lưu lại giá trị tìm kiếm
-        } else {
-            list = d.getAllCars();
+            request.getRequestDispatcher("ViewCar.jsp").forward(request, response);
         }
-        request.setAttribute("CAR_SALE_RESULT", list);
-        request.getRequestDispatcher("ViewCar.jsp").forward(request, response); 
-        
-        }
-}
+    }
 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -79,29 +80,75 @@ public class CarSaleServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-                String action = request.getParameter("action");
         CarDAO carDAO = new CarDAO();
+        ArrayList<Car> list = new ArrayList<>();
+        list = carDAO.getAllCars();
+        String action = request.getParameter("action");
 
-                if ("more".equals(action)) {
-        String carId = request.getParameter("carId");
-        ArrayList<Car> list = carDAO.getAllCars();
+        if (action.equals("more")) {
+            String carId = request.getParameter("carId");
+            Car selectedCar = carDAO.getCarById(carId);
 
-        // Tìm xe có carId trong danh sách
-        for (Car c : list) {
-            if (c.getCarId().equals(carId)) {
-                request.setAttribute("SELECTED_CAR", c);
-                break;
+            if (selectedCar != null) {
+                request.setAttribute("SELECTED_CAR", selectedCar); // Gán xe được chọn vào request
             }
+
+            request.setAttribute("CAR_SALE_RESULT", list);
+            request.getRequestDispatcher("ViewCar.jsp").forward(request, response);
+            return;
         }
-        } else if ("update".equals(action)) {
+        if (action.equals("update")) {
             String carId = request.getParameter("carId");
             String statusName = request.getParameter("statusName");
 
-            carDAO.updateCar(carId, statusName); // Cập nhật trạng thái của xe
-            response.sendRedirect("CarSaleServlet"); // Load lại danh sách
+            if (carId != null && statusName != null) {
+                carDAO.updateCar(carId, statusName);
+                response.sendRedirect("CarSaleServlet"); //  Chuyển hướng để tránh lỗi
+                return;
+            }
+
+        }
+        if (action.equals("delete")) {
+            String carId = request.getParameter("carId");
+
+            if (carId != null) {
+                carDAO.deleteCar(carId);
+                response.sendRedirect("CarSaleServlet");
+            return;
+            }
+        }
+        if (action.equals("Add")) {
+            String carId = request.getParameter("txtcarId");
+            String carModel = request.getParameter("txtcarModel");
+            String serialNumber = request.getParameter("txtcarSerialNumber");
+            String colour = request.getParameter("txtcarColour");
+            String yearStr = request.getParameter("txtcarYear");
+
+            int year = 0;
+            try {
+                year = Integer.parseInt(yearStr);
+            } catch (NumberFormatException e) {
+                request.setAttribute("ERROR", "Year must be YYYY");
+                request.getRequestDispatcher("ViewCar.jsp").forward(request, response);
+                return;
+            }
+            String staName = "available";
+            Car newCar = new Car(carId, carModel, serialNumber, colour, year, staName);
+            carDAO.addCar(newCar);
+
+            // Cập nhật lại danh sách xe ngay tại đây
+            request.setAttribute("CAR_SALE_RESULT", list);
+
+            // Chuyển hướng tới trang ViewCar.jsp kèm danh sách mới
+            request.getRequestDispatcher("ViewCar.jsp").forward(request, response);
+            return;
+        } else {
+            // Mặc định: Load danh sách xe nếu không có action cụ thể
+            request.setAttribute("CAR_SALE_RESULT", list);
+            request.getRequestDispatcher("ViewCar.jsp").forward(request, response);
         }
     }
+
     /**
      * Returns a short description of the servlet.
      *

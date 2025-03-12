@@ -95,57 +95,80 @@ public class CarDAO {
             e.printStackTrace();
         }finally{
             try {
-                if(cnn != null) cnn.close();
+                if (cnn != null) {
+                    cnn.close();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         return rs;
-    }   
+    }
 
-//    public ArrayList<Car> getNewCars(String carModel){
-//        ArrayList<Car> rs = new ArrayList();       
-//        Connection cnn = null;
-//        
-//        try{
-//            cnn = DBUtils.getConnection();
-//            if(cnn != null){
-//                  String sql = "SELECT [carID]\n"   
-//                            + "      ,[model]\n"
-//                            + "      ,[serialNumber]\n"
-//                            + "      ,[colour]\n"
-//                            + "      ,[year]\n"
-//                            + "  FROM [Car_Dealership].[dbo].[Cars]\n"
-//                            + "  WHERE model like ? and year=?";
-//            PreparedStatement st = cnn.prepareStatement(sql);
-//            st.setString(1,"%"+ carModel +"%");
-//            int currentYear = java.time.LocalDate.now().getYear();
-//            st.setInt(2, currentYear);
-//            ResultSet table = st.executeQuery();
-//                if(table != null){
-//                    while(table.next()){
-//                        String carId = table.getString("carID");
-//                          String model = table.getString("model");
-//                          String serialNumber = table.getString("serialNumber");
-                        
-//                        int year = table.getInt("year");
-//                        String colour = table.getString("colour");
-//                        Car c = new Car(carId, model, serialNumber, colour, year);
-//                        rs.add(c);
-//                    }
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }finally{
-//            try {
-//                if(cnn != null) cnn.close();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        return rs;
-//    } 
+    public Car getCarById(String carId) {
+        Connection cnn = null;
+        Car rs = null;
+
+        try {
+            cnn = DBUtils.getConnection();
+            if (cnn != null) {
+                String sql = "SELECT carID, model, serialNumber, colour, year, statusName "
+                        + "FROM Cars WHERE carID = ?";
+                PreparedStatement st = cnn.prepareStatement(sql);
+                st.setString(1, carId);
+
+                ResultSet table = st.executeQuery();
+                if (table.next()) {
+                    String model = table.getString("model");
+                    String serialNumber = table.getString("serialNumber");
+                    String colour = table.getString("colour");
+                    int year = table.getInt("year");
+                    String statusName = table.getString("statusName");
+
+                    rs = new Car(carId, model, serialNumber, colour, year, statusName);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cnn != null) {
+                    cnn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return rs;
+    }
+
+    public void addCar(Car car) {
+        Connection cnn = null;
+        try {
+            cnn = DBUtils.getConnection();
+            String sql = "INSERT INTO Cars (carID, model, serialNumber, colour, year, statusName) VALUES (?, ?, ?, ?, ?, ?)";
+                
+            PreparedStatement st = cnn.prepareStatement(sql);
+
+            st.setString(1, car.getCarId());
+            st.setString(2, car.getModel());
+            st.setString(3, car.getSerialNumber());
+            st.setString(4, car.getColour());
+            st.setInt(5, car.getYear());
+            st.setString(6, car.getStatusName());
+
+            st.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            try {
+                if(cnn != null) cnn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    } 
+
     public ArrayList<Car> getAllCars(){
         ArrayList<Car> rs = new ArrayList();       
         Connection cnn = null;
@@ -187,31 +210,60 @@ public class CarDAO {
         return rs;
     } 
     
-    public void updateCar(String carId, String statusName) { 
+    public void updateCar(String carId, String statusName) {
         Connection cnn = null;
         //nhớ check giá tri nhap vao cua status name
-        try{
-            cnn=DBUtils.getConnection();
+        try {
+            cnn = DBUtils.getConnection();
+            if (cnn != null) {
+                String sql = "UPDATE [Car_Dealership].[dbo].[Cars] \n"
+                        + "SET [statusName] = ?\n"
+                        + "WHERE [carID]= ?";
+                PreparedStatement st = cnn.prepareStatement(sql);
+                st.setString(1, statusName);
+                st.setString(2, carId);
+
+                st.executeUpdate();
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
                 if (cnn != null) {
-                    String sql = "UPDATE [Car_Dealership].[dbo].[Cars] \n" 
-                                +"SET [statusName] = ?\n" 
-                                +"WHERE [carID]= ?";
-                    PreparedStatement st = cnn.prepareStatement(sql);
-            st.setString(1, statusName);
-            st.setString(2, carId);
-
-            st.executeUpdate();
-
-                        }
+                    cnn.close();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
-            }finally{
-                try {
-                    if (cnn != null) cnn.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }  
             }
-    } 
-         
+        }
+    }
+    
+    public void deleteCar(String carId) {
+        Connection cnn = null;
+        //nhớ check giá tri nhap vao cua status name
+        try {
+            cnn = DBUtils.getConnection();
+            if (cnn != null) {
+                String sql = "DELETE FROM [Car_Dealership].[dbo].[Cars]\n"
+                           + "WHERE [carID]= ?";
+                PreparedStatement st = cnn.prepareStatement(sql);
+                st.setString(1, carId);
+
+                st.executeUpdate();
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cnn != null) {
+                    cnn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

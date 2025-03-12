@@ -39,9 +39,7 @@ public class CreateInvoiceServlet extends HttpServlet {
             request.setCharacterEncoding("UTF-8");
             
             
-            // Lấy dữ liệu từ form
-            
-            
+            // Lấy dữ liệu từ form  
         }
     }
 }
