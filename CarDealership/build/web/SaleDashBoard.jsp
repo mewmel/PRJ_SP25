@@ -73,7 +73,7 @@
             <%
                 ArrayList<Car> cars = (ArrayList) request.getAttribute("LISTCAR_RESULT");
                 if (cars != null && !cars.isEmpty()) {
-                    Customer customer = (Customer) request.getAttribute("Customer");
+Customer customer = (Customer) request.getAttribute("Customer");
             %>
              
 
