@@ -27,6 +27,10 @@ public class Customer {
         this.cusAddress = cusAddress;
     }
 
+    public Customer(String cusID, String cusname) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public String getCusId() {
         return cusId;
     }

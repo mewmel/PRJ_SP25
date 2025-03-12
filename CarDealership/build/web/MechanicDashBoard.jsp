@@ -1,9 +1,3 @@
-<%-- 
-    Document   : MechanicDashBoard
-    Created on : Feb 21, 2025, 6:25:05 PM
-    Author     : trant
---%>
-
 <%@page import="model.ServiceMechanic"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.ServiceTicket"%>
@@ -67,7 +61,7 @@
                                 <td><input type="submit" value="show"></td>
 
                             </tr>
-                        </form>
+   </form>
                     </table>       
                     <%}
                         }
@@ -112,4 +106,5 @@
             }
         %>
     </body>
-</html>
+</html>                         
+
