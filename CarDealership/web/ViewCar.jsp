@@ -17,7 +17,7 @@
     <body>
         
         <c:if test="${not empty sessionScope.sale}">
-        <p><a href="SaleDashboard.jsp">back</a></p>
+        <p><a href="SaleDashBoard.jsp">back</a></p>
             <h1>List car</h1>
             <form action="CarSaleServlet">
                 <input type="text" name="txtmodel" placeholder="Enter model..." value="${SEARCH_MODEL}">

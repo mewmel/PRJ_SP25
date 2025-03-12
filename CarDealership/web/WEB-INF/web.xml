@@ -80,6 +80,10 @@
         <servlet-name>ConfirmInvoiceServlet</servlet-name>
         <servlet-class>controller.ConfirmInvoiceServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CusSaleServlet</servlet-name>
+        <servlet-class>CusSaleServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginSalePersonServlet</servlet-name>
         <url-pattern>/LoginSalePersonServlet</url-pattern>
@@ -159,6 +163,10 @@
     <servlet-mapping>
         <servlet-name>ConfirmInvoiceServlet</servlet-name>
         <url-pattern>/ConfirmInvoiceServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CusSaleServlet</servlet-name>
+        <url-pattern>/CusSaleServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

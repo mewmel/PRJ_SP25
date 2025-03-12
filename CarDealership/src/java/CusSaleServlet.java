@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
 
-import dao.CarDAO;
+import dao.CustomerDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -14,13 +13,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Car;
+import model.Customer;
 
 /**
  *
  * @author trant
  */
-public class CarSaleServlet extends HttpServlet {
+public class CusSaleServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,19 +35,21 @@ public class CarSaleServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            CarDAO carDAO = new CarDAO();
-            ArrayList<Car> list = new ArrayList<>();
-            list = carDAO.getAllCars();
 
-            // model search
-            String model = request.getParameter("txtmodel");
-            if (model != null && !model.trim().isEmpty()) {
-                list = carDAO.getCarsByModel(model);
-                request.setAttribute("SEARCH_MODEL", model);
+            CustomerDAO cusDAO = new CustomerDAO();
+            ArrayList<Customer> list = cusDAO.getAllCustomers();
+
+            String id = request.getParameter("txtcusId");
+            if (id != null && !id.trim().isEmpty()) {
+                ArrayList<Customer> searchList = cusDAO.getCus(id);
+                if (!searchList.isEmpty()) {
+                    list = searchList;
+                }
+                request.setAttribute("SEARCH_ID", id);
             }
 
-            request.setAttribute("CAR_SALE_RESULT", list);
-            request.getRequestDispatcher("ViewCar.jsp").forward(request, response);
+            request.setAttribute("CUS_SALE_RESULT", list);
+            request.getRequestDispatcher("ViewCustomer.jsp").forward(request, response);
         }
     }
 
@@ -78,74 +79,63 @@ public class CarSaleServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        CarDAO carDAO = new CarDAO();
-        ArrayList<Car> list = new ArrayList<>();
-        list = carDAO.getAllCars();
+        CustomerDAO cusDAO = new CustomerDAO();
+        ArrayList<Customer> list = new ArrayList<>();
+        list = cusDAO.getAllCustomers();
         String action = request.getParameter("action");
 
         if (action.equals("more")) {
-            String carId = request.getParameter("carId");
-            Car selectedCar = carDAO.getCarById(carId);
-
-            if (selectedCar != null) {
-                request.setAttribute("SELECTED_CAR", selectedCar); // Gán xe được chọn vào request
-            }
-
-            request.setAttribute("CAR_SALE_RESULT", list);
-            request.getRequestDispatcher("ViewCar.jsp").forward(request, response);
+            String cusId = request.getParameter("cusId"); 
+            Customer selectedCustomer = cusDAO.getCus1(cusId);
+            if (selectedCustomer != null) {
+                    request.getSession().setAttribute("SELECTED_CUS", selectedCustomer); // Đưa vào session
+                }  
+            request.setAttribute("CUS_SALE_RESULT", list);
+            request.getRequestDispatcher("ViewCustomer.jsp").forward(request, response);
             return;
         }
         if (action.equals("update")) {
-            String carId = request.getParameter("carId");
-            String statusName = request.getParameter("statusName");
+            String cusId = request.getParameter("cusId");
 
-            if (carId != null && statusName != null) {
-                carDAO.updateCar(carId, statusName);
-                response.sendRedirect("CarSaleServlet"); //  Chuyển hướng để tránh lỗi
+            if (cusId != null) {
+                cusDAO.updateByCusId(cusId);
+                response.sendRedirect("CusSaleServlet");
                 return;
             }
-
         }
         if (action.equals("delete")) {
-            String carId = request.getParameter("carId");
+            String cusId = request.getParameter("cusId");
 
-            if (carId != null) {
-                carDAO.deleteCar(carId);
-                response.sendRedirect("CarSaleServlet");
+            if (cusId != null) {
+                cusDAO.deleteCus(cusId);
+                response.sendRedirect("CusSaleServlet");
                 return;
             }
         }
-        if (action.equals("Add")) {
-            String carId = request.getParameter("txtcarId");
-            String carModel = request.getParameter("txtcarModel");
-            String serialNumber = request.getParameter("txtcarSerialNumber");
-            String colour = request.getParameter("txtcarColour");
-            String yearStr = request.getParameter("txtcarYear");
 
-            int year = 0;
-            try {
-                year = Integer.parseInt(yearStr);
-            } catch (NumberFormatException e) {
-                request.setAttribute("ERROR", "Year must be YYYY");
-                request.getRequestDispatcher("ViewCar.jsp").forward(request, response);
-                return;
-            }
-            String staName = "available";
-            Car newCar = new Car(carId, carModel, serialNumber, colour, year, staName);
-            carDAO.addCar(newCar);
+        if (action.equals("Add")) {
+            String cusId = request.getParameter("txtcusId");
+            String name = request.getParameter("txtcusName");
+            String phone = request.getParameter("txtcusPhone");
+            String sex = request.getParameter("txtcusSex");
+            String ad = request.getParameter("txtcusAd");
+
+            Customer newCus = new Customer(cusId, name, phone, sex, ad);
+            cusDAO.addCustomer(newCus);
 
             // Cập nhật lại danh sách xe ngay tại đây
-            request.setAttribute("CAR_SALE_RESULT", list);
+            request.setAttribute("CUS_SALE_RESULT", list);
 
             // Chuyển hướng tới trang ViewCar.jsp kèm danh sách mới
-            request.getRequestDispatcher("ViewCar.jsp").forward(request, response);
+            request.getRequestDispatcher("ViewCustomer.jsp").forward(request, response);
             return;
+
         } else {
             // Mặc định: Load danh sách xe nếu không có action cụ thể
-            request.setAttribute("CAR_SALE_RESULT", list);
-            request.getRequestDispatcher("ViewCar.jsp").forward(request, response);
+            request.setAttribute("CUS_SALE_RESULT", list);
+            request.getRequestDispatcher("ViewCustomer.jsp").forward(request, response);
         }
+
     }
 
     /**
