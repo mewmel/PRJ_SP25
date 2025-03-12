@@ -34,8 +34,7 @@ public class LogoutCustServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession s=request.getSession(false);
-            s.removeAttribute("customer");
-            
+            s.removeAttribute("customer");           
             request.setAttribute("ERROR", "Logout success!");
             request.getRequestDispatcher("LoginCustPage.jsp").forward(request, response);
         }

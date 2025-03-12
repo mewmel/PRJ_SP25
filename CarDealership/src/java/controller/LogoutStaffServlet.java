@@ -5,26 +5,19 @@
  */
 package controller;
 
-import dao.CarDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Car;
-import model.Customer;
-import model.SalePerson;
 
 /**
  *
  * @author ThinkPad
  */
-public class ShowCarInvoiceServlet extends HttpServlet {
+public class LogoutStaffServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,48 +33,10 @@ public class ShowCarInvoiceServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-          request.setCharacterEncoding("utf-8");           
-        // Kiểm tra session
-        HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("sale") == null) {
-            response.sendRedirect("LoginPage.jsp"); // Chuyển hướng nếu chưa đăng nhập
-            return;
-        }
-
-        // Lấy thông tin SalePerson
-        SalePerson sale = (SalePerson) session.getAttribute("sale");
-
-        try {
-            // Lấy cusID từ request
-            String cusID = request.getParameter("txtcustomerid");
-            String cusname = request.getParameter("txtcustname");
-            String phone = request.getParameter("txtcustphone");
-            String sex= request.getParameter("txtcustsex");
-            String address = request.getParameter("txtcustaddress");
-
-            // Lấy danh sách xe từ database
-            CarDAO carDAO = new CarDAO();
-            ArrayList<Car> carList = carDAO.getAllCars();
-
-            // Kiểm tra danh sách xe có rỗng không
-            if (carList == null || carList.isEmpty()) {
-                request.setAttribute("message", "Không có xe nào trong hệ thống.");
-            } else {
-                request.setAttribute("LISTCAR_RESULT", carList);
-            }
-
-            // Tao lai doi tuong customer va dua lai len trang JSP
-            Customer customer = new Customer(cusID, cusname, phone, sex, address);
-            request.setAttribute("Customer", customer);
-
-            // Chuyển đến SaleDashBoard.jsp
-            request.getRequestDispatcher("SaleDashBoard.jsp").forward(request, response);
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi khi tải");
-        }
-
+            HttpSession s=request.getSession(false);
+            s.removeAttribute("mechanic");           
+            request.setAttribute("ERROR", "Logout success!");
+            request.getRequestDispatcher("MechanicDashBoard.jsp").forward(request, response);
         }
     }
 

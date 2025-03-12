@@ -83,6 +83,12 @@
     <servlet>
         <servlet-name>CusSaleServlet</servlet-name>
         <servlet-class>CusSaleServlet</servlet-class>
+        <servlet-name>LogoutStaffServlet</servlet-name>
+        <servlet-class>controller.LogoutStaffServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogoutSaleServlet</servlet-name>
+        <servlet-class>controller.LogoutSaleServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginSalePersonServlet</servlet-name>
@@ -167,6 +173,12 @@
     <servlet-mapping>
         <servlet-name>CusSaleServlet</servlet-name>
         <url-pattern>/CusSaleServlet</url-pattern>
+        <servlet-name>LogoutStaffServlet</servlet-name>
+        <url-pattern>/LogoutStaffServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutSaleServlet</servlet-name>
+        <url-pattern>/LogoutSaleServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

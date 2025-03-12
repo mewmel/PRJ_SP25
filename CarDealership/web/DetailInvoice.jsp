@@ -15,22 +15,23 @@
         <h1> Detail Invoice</h1> 
         
         <%
-        request.setCharacterEncoding("utf-8"); 
-        String customerID = request.getParameter("txtcustomerid");
-        String carID = request.getParameter("txtcarid");
-        String customerName = request.getParameter("txtcustomername");
-        String carModel = request.getParameter("txtcarmodel");
-        
-        out.println("Customer ID: " + customerID + "<br>");
-        out.println("Customer Name: " + customerName + "<br>");
-        out.println("Car ID: " + carID + "<br>");
-        out.println("Car Model: " + carModel + "<br>");
-        
-        %>
-        <form action="ConfirmInvoiceServlet" accept-charset="utf-8">
-            <p>Date <input type="date" name="date" required=""/>*</p>
-            <p><input type="submit" value="confirm"/></p>
-        </form>
-        
+    // Lấy invoiceID từ request
+    Integer invoiceID = (Integer) request.getAttribute("invoiceID");
+    if (invoiceID == null) {
+               invoiceID =1; // Giá trị mặc định nếu không có dữ liệu
+    }
+    %>
+
+
+    <form action="ConfirmInvoiceServlet" accept-charset="utf-8">
+        <p>Customer ID: <%= request.getAttribute("customerID")%></p>
+        <p>Customer Name: <%= request.getAttribute("customerName")%></p>
+        <p>Car Model: <%= request.getAttribute("carModel")%></p>
+        <p>Car ID: <%= request.getAttribute("carID")%></p>
+        <p>Invoice ID: <%= invoiceID%></p>
+        <p>Date <input type="hiden" name="txtdate" required=""/>*</p>
+        <p><input type="submit" value="Confirm"/></p>
+    </form>
+
     </body>
 </html>
