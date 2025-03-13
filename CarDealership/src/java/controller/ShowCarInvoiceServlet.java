@@ -6,6 +6,7 @@
 package controller;
 
 import dao.CarDAO;
+import dao.CustomerDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -54,10 +55,6 @@ public class ShowCarInvoiceServlet extends HttpServlet {
         try {
             // Lấy cusID từ request
             String cusID = request.getParameter("txtcustomerid");
-            String cusname = request.getParameter("txtcustname");
-            String phone = request.getParameter("txtcustphone");
-            String sex= request.getParameter("txtcustsex");
-            String address = request.getParameter("txtcustaddress");
 
             // Lấy danh sách xe từ database
             CarDAO carDAO = new CarDAO();
@@ -69,9 +66,9 @@ public class ShowCarInvoiceServlet extends HttpServlet {
             } else {
                 request.setAttribute("LISTCAR_RESULT", carList);
             }
-
-            // Tao lai doi tuong customer va dua lai len trang JSP
-            Customer customer = new Customer(cusID, cusname, phone, sex, address);
+            
+            CustomerDAO customerDAO = new CustomerDAO();
+            Customer customer = customerDAO.getCus1(cusID);
             request.setAttribute("Customer", customer);
 
             // Chuyển đến SaleDashBoard.jsp

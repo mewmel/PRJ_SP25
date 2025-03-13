@@ -50,48 +50,28 @@ public class ConfirmInvoiceServlet extends HttpServlet {
         
         try {
             String customerID = request.getParameter("txtcustomerid");
-            String customerName = request.getParameter("txtcustomername");
-            String carModel = request.getParameter("txtcarmodel");
             String carID = request.getParameter("txtcarid");
-            String invoiceDate = request.getParameter("txtdate");
-
-            // Set các giá trị vào request attribute
-            request.setAttribute("customerID", customerID);
-            request.setAttribute("customerName", customerName);
-            request.setAttribute("carModel", carModel);
-            request.setAttribute("carID", carID);
-            request.setAttribute("invoicedate", invoiceDate);
 
             // Lấy invoiceID từ DAO
             InvoiceDAO invoiceDAO = new InvoiceDAO();
-            int invoiceID = invoiceDAO.getMaxInvoiceID();  // Lấy invoiceID cao nhất hiện tại
-            
-            // Đưa invoiceID vào request attribute để chuyển cho JSP
-            request.setAttribute("invoiceID", invoiceID);
+            Integer invoiceID_int = invoiceDAO.getMaxInvoiceID();  // Lấy invoiceID cao nhất hiện tại
+            String invoiceID = invoiceID_int.toString();
 
             // Gọi phương thức saveInvoice để lưu vào cơ sở dữ liệu
-            boolean isSaved = invoiceDAO.saveInvoice(
-                String.valueOf(invoiceID),  // invoiceID là số nguyên, convert thành String
-                invoiceDate,
-                String.valueOf(sale.getSaleId()),  // saleID lấy từ đối tượng SalePerson
-                carID,
-                customerID
-            );
             
-            if (isSaved) {
-                out.println("Hóa đơn đã được lưu thành công!");
-                // Chuyển hướng tới JSP để hiển thị hóa đơn
-                RequestDispatcher dispatcher = request.getRequestDispatcher("DetailInvoice.jsp");
-                dispatcher.forward(request, response);
+            
+            if (invoiceDAO.saveInvoice(invoiceID, sale.getSaleId(), carID, customerID)) {
+                request.setAttribute("ERROR", "TẠO HÓA ĐƠN THÀNH CÔNG!");
             } else {
-                out.println("Lỗi khi lưu hóa đơn.");
-                // Gửi lỗi nếu không thể lưu hóa đơn
-                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi khi lưu hóa đơn.");
+                request.setAttribute("ERROR", "TẠO HÓA ĐƠN THẤT BẠI!");
             }
 
+            
+            RequestDispatcher dispatcher = request.getRequestDispatcher("SaleDashBoard.jsp");
+            dispatcher.forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi khi tải danh sách xe.");
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi khi ở ConfirmInvoiceServlet");
         }
         }
     }

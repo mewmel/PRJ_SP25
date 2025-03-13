@@ -92,6 +92,16 @@
         <servlet-name>LogoutSaleServlet</servlet-name>
         <servlet-class>controller.LogoutSaleServlet</servlet-class>
     </servlet>
+    
+    <servlet>
+        <servlet-name>DetailInvoiceServlet</servlet-name>
+        <servlet-class>controller.DetailInvoiceServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DetailInvoiceServlet</servlet-name>
+        <url-pattern>/DetailInvoiceServlet</url-pattern>
+    </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>LoginSalePersonServlet</servlet-name>
         <url-pattern>/LoginSalePersonServlet</url-pattern>
