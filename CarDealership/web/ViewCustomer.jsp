@@ -18,6 +18,7 @@
         
         <c:if test="${not empty sessionScope.sale}">
         <p><a href="SaleDashBoard.jsp">back</a></p>
+        
             <h1>List customer</h1>
             <form action="CusSaleServlet">
                 <input type="text" name="txtcusId" placeholder="Enter customer's id..." value="${SEARCH_ID}">

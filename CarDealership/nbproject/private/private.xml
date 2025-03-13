@@ -3,12 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group name="prj">
-            <file>file:/D:/TLMonHoc/PRJ/PRJ301/workshop/PRJ_SP25/CarDealership/web/SaleDashBoard.jsp</file>
             <file>file:/D:/TLMonHoc/PRJ/PRJ301/workshop/PRJ_SP25/CarDealership/src/java/dao/CustomerDAO.java</file>
-            <file>file:/D:/TLMonHoc/PRJ/PRJ301/workshop/PRJ_SP25/CarDealership/web/ViewCar.jsp</file>
+            <file>file:/D:/TLMonHoc/PRJ/PRJ301/workshop/PRJ_SP25/CarDealership/src/java/CusSaleServlet.java</file>
             <file>file:/D:/TLMonHoc/PRJ/PRJ301/workshop/PRJ_SP25/CarDealership/src/java/controller/CarSaleServlet.java</file>
-            <file>file:/D:/TLMonHoc/PRJ/PRJ301/workshop/PRJ_SP25/CarDealership/src/java/model/Car.java</file>
-            <file>file:/D:/TLMonHoc/PRJ/PRJ301/workshop/PRJ_SP25/CarDealership/src/java/dao/CarDAO.java</file>
+            <file>file:/D:/TLMonHoc/PRJ/PRJ301/workshop/PRJ_SP25/CarDealership/web/ViewCustomer.jsp</file>
+            <file>file:/D:/TLMonHoc/PRJ/PRJ301/workshop/PRJ_SP25/CarDealership/web/WEB-INF/web.xml</file>
         </group>
     </open-files>
 </project-private>

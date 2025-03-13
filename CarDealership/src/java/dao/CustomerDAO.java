@@ -119,16 +119,18 @@ public class CustomerDAO {
     }
 
     public void deleteCus(String cusId) {
-        String sql = "DELETE FROM Customer WHERE cusId = ?";
         Connection cnn = null;
 
         try {
             cnn = DBUtils.getConnection();
-
+            
+            if (cnn != null) {
+                String sql = "DELETE FROM Customer WHERE cusId = ?";
             PreparedStatement ps = cnn.prepareStatement(sql);
 
             ps.setString(1, cusId);
             ps.executeUpdate();
+            }
 
         } catch (Exception e) {
             e.printStackTrace();

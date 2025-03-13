@@ -18,8 +18,8 @@
 
         <nav>
             <ul class="menu" style="width: 100%; display: inline-block; list-style-type: none; background: yellowgreen">
-                <li>Welcome <%= salePerson.getSaleName()%></li>
-                <li><a href="LogoutSaleServlet">Logout</a></li>
+                <p>Welcome <%= salePerson.getSaleName()%></p>
+                <li><a href="LogoutSaleServlet">logout</a></li>
                 <li style="float:right;width: 30%; margin-right: 2%"></li>
             </ul>
         </nav>

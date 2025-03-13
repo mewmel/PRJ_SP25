@@ -33,7 +33,7 @@ public class LogoutSaleServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            HttpSession s = request.getSession();
+            HttpSession s = request.getSession(false);
             s.removeAttribute("sale");
             request.setAttribute("ERROR", "Logout success!");
             request.getRequestDispatcher("SaleDashBoard.jsp").forward(request, response);
