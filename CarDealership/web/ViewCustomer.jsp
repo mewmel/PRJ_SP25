@@ -40,7 +40,7 @@
                     <input type="text" name="txtcusSex"><br/>
                     <label>Address</label>
                     <input type="text" name="txtcusAddress"><br/>
-                    <input type="submit" value="ADD">
+                    <input type="submit" value="ADD" style="background-color: #ccffcc">
                 </form>
             </div>                
             <c:choose>
@@ -72,19 +72,25 @@
                          <c:if test="${not empty SELECTED_CUS}">
                             <div style="width: 35%; margin-left: 20px; padding: 10px;">
                                 <form action="CusSaleServlet" method="POST">
-                                    <h3> DETAIL </h3>
+                                    <h3> CUSTOMER'S ID ${SELECTED_CUS.cusId}</h3>
+                    
+                                    <input type="hidden" name="cusId" value="${SELECTED_CUS.cusId}">
+                                    <label>NAME</label><br/>
+                                    <input type="text" name="txtcusName" value="${SELECTED_CUS.cusName}">
+                                    <label>PHONE</label><br/>
+                                    <input type="text" name="txtcusPhone" value="${SELECTED_CUS.phone}"><br/>
+                                    <label>SEX</label><br/>
+                                    <input type="text" name="txtcusSex" value="${SELECTED_CUS.sex}">
+                                    <label>ADDRESS</label><br/>
+                                    <input type="text" name="txtcusAd" value="${SELECTED_CUS.cusAddress}">
                                     <input type="hidden" name="action" value="update">
-                                    ID <td>${SELECTED_CUS.cusId}</td><br/>
-                                    <input type="text" name="txtcusName" value="${SELECTED_CUS.cusName}">NAME<br/>
-                                    <input type="text" name="txtcusPhone" value="${SELECTED_CUS.phone}">PHONE<br/>
-                                    <input type="text" name="txtcusSex" value="${SELECTED_CUS.sex}">SEX<br/>
-                                    <input type="text" name="txtcusAd" value="${SELECTED_CUS.cusAddress}">ADDRESS<br/>
                                     <input type="submit" value="UPDATE"><br/>
                                 </form>
                         <!--delete-->
                                 <form action="CusSaleServlet" method="POST" onsubmit="return confirm('Bạn có chắc muốn xóa khách hàng này không?');">
-                                    <input type="hidden" name="action" value="delete">
                                     <input type="hidden" name="cusId" value="${SELECTED_CUS.cusId}">
+                                    <input type="hidden" name="action" value="delete">
+                                    
                                     <input type="submit" value="DELETE" style="background-color: #ffcccc;">
                                 </form>
                             </div>

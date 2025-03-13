@@ -37,7 +37,7 @@ public class CusSaleServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-
+            request.setCharacterEncoding("utf-8");
             CustomerDAO cusDAO = new CustomerDAO();
             ArrayList<Customer> list = cusDAO.getAllCustomers();
 
@@ -81,6 +81,8 @@ public class CusSaleServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
         CustomerDAO cusDAO = new CustomerDAO();
         ArrayList<Customer> list = new ArrayList<>();
         list = cusDAO.getAllCustomers();
@@ -98,10 +100,16 @@ public class CusSaleServlet extends HttpServlet {
         }
         if (action.equals("update")) {
             String cusId = request.getParameter("cusId");
+            String cusName = request.getParameter("txtcusName");
+            String cusPhone = request.getParameter("txtcusPhone");
+            String sex = request.getParameter("txtcusSex");
+            String cusAd = request.getParameter("txtcusAd");
+            
 
             if (cusId != null) {
-                cusDAO.updateByCusId(cusId);
+                cusDAO.updateByCusId(cusId, cusName, cusPhone, sex, cusAd);
                 response.sendRedirect("CusSaleServlet");
+                
                 return;
             }
         }
@@ -111,6 +119,7 @@ public class CusSaleServlet extends HttpServlet {
             if (cusId != null) {
                 cusDAO.deleteCus(cusId);
                 response.sendRedirect("CusSaleServlet");
+                
                 return;
             }
         }
@@ -120,10 +129,10 @@ public class CusSaleServlet extends HttpServlet {
             String name = request.getParameter("txtcusName");
             String phone = request.getParameter("txtcusPhone");
             String sex = request.getParameter("txtcusSex");
-            String ad = request.getParameter("txtcusAd");
+            String ad = request.getParameter("txtcusAddress");
 
-            Customer newCus = new Customer(cusId, name, phone, sex, ad);
-            cusDAO.addCustomer(newCus);
+            Customer newCusAdd = new Customer(cusId, name, phone, sex, ad);
+            cusDAO.addCustomer(newCusAdd);
 
             // Cập nhật lại danh sách xe ngay tại đây
             request.setAttribute("CUS_SALE_RESULT", list);
