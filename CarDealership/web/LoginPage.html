@@ -1,26 +1,91 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>...</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-       <form action="LoginRedirect.jsp" method="POST" accept-charset="utf-8">
-    <label for="lang-select">Chọn loại tài khoản để đăng nhập:</label>
-    <select name="userType" id="lang-select" required>
-        <option value="">-- Hãy chọn để đăng nhập --</option>
-        <option value="customer">Customer</option>
-        <option value="staff">Staff Person</option> 
-    </select>  
-    <br><br>
-    <p><input type="submit" value="GO"/></p>
-</form>
-    </body>
+<html lang="vi">
+<head>
+    <link rel="stylesheet" href="style.css" type="text/css"/>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(to right, #2c3e50, #4ca1af);
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 350px;
+        }
+
+        .login-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background: #27ae60;
+            color: white;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #219150;
+        }
+
+        .car-image {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>WELCOME!</h2>
+        <p>Choose your role</p>
+
+        <form action="LoginRedirect.jsp" method="POST">
+            <select name="userType" required>
+                <option value="">-- Choose your type account --</option>
+                <option value="customer">Customer</option>
+                <option value="staff">Staff</option> 
+            </select>  
+            <button type="submit" class="btn">Login</button>
+        </form>
+    </div>
+
+</body>
 </html>
+
 
