@@ -59,19 +59,18 @@ public class CustomerDAO {
         return rs;
     }
 
-    public void updateByCusId(String cusID) {
-        Customer customer = null;
+    public void updateByCusId(String cusID, String cusName, String cusPhone, String sex, String cusAd) {
         Connection cnn = null;
         try {
             cnn = DBUtils.getConnection();
             if (cnn != null) {
                 String sql = "UPDATE Customer SET custName = ?, phone = ?, sex = ?, cusAddress = ? WHERE custID = ?";
                 PreparedStatement st = cnn.prepareStatement(sql);
-                st.setString(1, customer.getCusName());
-                st.setString(2, customer.getPhone());
-                st.setString(3, customer.getSex());
-                st.setString(4, customer.getCusAddress());
-                st.setString(5, customer.getCusId());
+                st.setString(1, cusName);
+                st.setString(2, cusPhone);
+                st.setString(3, sex);
+                st.setString(4, cusAd);
+                st.setString(5, cusID);
 
                 st.executeUpdate();
             }
@@ -89,7 +88,7 @@ public class CustomerDAO {
 
         }
     }
-
+    //update cua Linh
     public String update(Customer customer) {
         String sql = "UPDATE Customer SET custName = ?, phone = ?, sex = ?, cusAddress = ? WHERE custID = ?";
         try {
@@ -125,7 +124,7 @@ public class CustomerDAO {
             cnn = DBUtils.getConnection();
             
             if (cnn != null) {
-                String sql = "DELETE FROM Customer WHERE cusId = ?";
+                String sql = "DELETE FROM Customer WHERE custID = ?";
             PreparedStatement ps = cnn.prepareStatement(sql);
 
             ps.setString(1, cusId);
@@ -231,9 +230,10 @@ public class CustomerDAO {
                         + "      ,[sex]\n"
                         + "      ,[cusAddress]\n"
                         + "  FROM [Car_Dealership].[dbo].[Customer]\n"
-                        + "  WHERE [custID]= ?";
+                        + "  WHERE [custID] like ? or [custName] like ?";
                 PreparedStatement st = cnn.prepareStatement(sql);
-                st.setString(1,cusId);
+                st.setString(1, "%" + cusId + "%");
+                st.setString(2, "%" + cusId + "%");
                 ResultSet table = st.executeQuery();
                 if (table != null) {
                     while (table.next()) {
@@ -241,7 +241,8 @@ public class CustomerDAO {
                         String name = table.getString("custName");
                         String phone = table.getString("phone");
                         String sex = table.getString("sex");
-                        cus = new Customer(cusId, name, phone, sex, cusId);
+                        String ad = table.getString("cusAddress");
+                        cus = new Customer(cusId, name, phone, sex, ad);
                     }
                 }
             }
@@ -272,9 +273,10 @@ public class CustomerDAO {
                         + "      ,[sex]\n"
                         + "      ,[cusAddress]\n"
                         + "  FROM [Car_Dealership].[dbo].[Customer]\n"
-                        + "  WHERE [custID]= ?";
+                        + "  WHERE [custID] like ? or [custName] like ?";
                 PreparedStatement st = cnn.prepareStatement(sql);
                 st.setString(1, "%" + cusId + "%");
+                st.setString(2, "%" + cusId + "%");
                 ResultSet table = st.executeQuery();
                 if (table != null) {
                     while (table.next()) {
@@ -282,7 +284,8 @@ public class CustomerDAO {
                         String name = table.getString("custName");
                         String phone = table.getString("phone");
                         String sex = table.getString("sex");
-                        Customer cus = new Customer(cusId, name, phone, sex, cusId);
+                        String ad = table.getString("cusAddress");
+                        Customer cus = new Customer(cusId, name, phone, sex, ad);
                         rs.add(cus);
                     }
                 }
