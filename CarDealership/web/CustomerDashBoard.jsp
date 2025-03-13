@@ -12,6 +12,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -23,7 +24,7 @@
             if (session.getAttribute("customer") != null) {
         %>
         <nav class="text">
-            <ul class="menu" style="width: 100%; display: inline-block; list-style-type: none">
+            
                 <li>welcome  <%= ((Customer) session.getAttribute("customer")).getCusName()%>  </li>
                 <li><a href="LogoutCustServlet">logout</a></li>
                 <li style="float:right;width: 30%; margin-right: 2%">
@@ -31,7 +32,7 @@
                         <input type="text" name="txtmodel" value="<%= (request.getParameter("txtmodel") != null) ? request.getParameter("txtmodel") : ""%>"/>
                         <input type="submit" value="go"/>
                     </form></li>
-            </ul>
+
         </nav>  
         <div style="width: 100%">
             <%--menu--%>

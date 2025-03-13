@@ -1,27 +1,95 @@
-<%-- 
-    Document   : LoginStaffPage
-    Created on : Mar 3, 2025, 11:07:35 PM
-    Author     : trant
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Login for Staff</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <form action="LoginSalePersonServlet" accept-charset="utf-8">
-            <p>Name <input type="text" name="txtname" required=""/>*</p>
-            <p><input type="submit" value="login"/></p>
+<html lang="vi">
+<head>
+    <%@page contentType="text/html" pageEncoding="UTF-8"%>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(to right, #2c3e50, #4ca1af);
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 350px;
+        }
+
+        .login-container h2 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background: #27ae60;
+            color: white;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #219150;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+
+        .car-image {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>Staff Login</h2>
+        <p>Enter your information</p>
+
+        <form action="LoginSalePersonServlet" method="POST" accept-charset="utf-8">
+            <input type="text" name="txtname" placeholder="Enter your name" required="">
+            <button type="submit" class="btn">Login</button>
         </form>
-        <p>
-        <%
-            if(request.getAttribute("ERROR")!= null)
-                out.print(request.getAttribute("ERROR"));
-        %>
+
+        <p class="error-message">
+            <% if (request.getAttribute("ERROR") != null) { %>
+                <%= request.getAttribute("ERROR") %>
+            <% } %>
         </p>
-    </body>
+    </div>
+
+</body>
 </html>

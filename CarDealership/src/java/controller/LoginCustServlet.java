@@ -42,7 +42,7 @@ public class LoginCustServlet extends HttpServlet {
                 CustomerDAO d = new CustomerDAO();
                 Customer custPerson = d.checkLogin(cusName, phone);
                 if (custPerson == null) {
-                request.setAttribute("ERROR", "name or phone is invalid!");
+                request.setAttribute("ERROR", "Name or phone is invalid!");
                 request.getRequestDispatcher("LoginCustPage.jsp").forward(request, response);    
                 } else {
 //                    luu object customer vao session customer cua client
