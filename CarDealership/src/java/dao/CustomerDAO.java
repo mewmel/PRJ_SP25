@@ -240,13 +240,12 @@ public class CustomerDAO {
                         String name = table.getString("custName");
                         String phone = table.getString("phone");
                         String sex = table.getString("sex");
-<<<<<<< HEAD
                         String address = table.getString("cusAddress");
                         cus = new Customer(cusId, name, phone, sex, address);
-=======
+
                         String ad = table.getString("cusAddress");
                         cus = new Customer(cusId, name, phone, sex, ad);
->>>>>>> 977a1fab7f1c21d3af32eb77bb1803890de415d9
+
                     }
                 }
             }
