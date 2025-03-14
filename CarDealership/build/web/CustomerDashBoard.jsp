@@ -4,7 +4,7 @@
     Author     : trant
 --%>
 
-<%@page import="model.ServiceCustTicket"%>
+
 <%@page import="model.Car"%>
 <%@page import="model.Invoice"%>
 <%@page import="java.util.ArrayList"%>

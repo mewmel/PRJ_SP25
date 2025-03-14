@@ -32,7 +32,7 @@
                     <p><a href="ServiceTicketServlet">Your Service Ticket</a></p>
                 </div>
                 <div style="width: 100%">    
-                <div style="width: 50%; float: left">
+                <div style="width: 50%; float: right">
                     <c:if test="${not empty SERVICE_MECHANIC_RESULT}">
                         <table>
                             <tr>
@@ -63,7 +63,7 @@
                         </table>
                     </c:if>
                 </div> 
-                    <section style="width: 40%; float: right">
+                    <section style="width: 50%; float: right">
                         <c:if test="${not empty requestScope.SERVICE_RESULT}">
                             <table>
                                 <tr>
@@ -92,39 +92,20 @@
                             </table>
                         </c:if>
                     </section>
-                    <div style="width: 60%; float: left">
+                    <div style="width: 50%; float: left">
                         <c:if test="${not empty TICKET_RESULT}">
-                            <table>
-                                <tr>
-                                    <th>Service Ticket ID</th>
-                                    <th>Date Received</th>
-                                    <th>Action</th>
-                                </tr>
                                 <c:forEach var="t" items="${TICKET_RESULT}">
                                     <tr>
-                                        <td>${t.id}</td>
-                                        <td>${t.dateReceived}</td>
-                                        <td>
-                                            <form action="DetailServiceTicketServlet">
-                                                <input type="hidden" name="txtticketid" value="${t.id}"/>
-                                                <input type="submit" value="Detail"/>
-                                            </form>
-                                        </td>
+                                        <th>Service Ticket ID:</th><td>${t.id}</td><br/>
+                                        <th>Date Received: </th><td>${t.dateReceived}</td><br/>
+                                        <th>Date Return: </th><td>${t.dateReturn}</td><br/>
+                                        <th>Customer ID: </th><td>${t.cusID}</td><br/>
+                                        <th>Car ID: </th><td>${t.carID}</td><br/>
+                                        <br/>
                                     </tr>
                                 </c:forEach>
-                            </table>
                         </c:if>
                     </div>
-                <div style="width: 20%; float:left">
-                    <c:if test="${not empty FOUND_TICKET}">
-                        <p>
-                            Service Ticket ID: ${FOUND_TICKET.id} <br/>
-                            Date Received: ${FOUND_TICKET.dateReceived}<br/>
-                            Date Return: ${FOUND_TICKET.dateReturn}<br/>
-                            Car ID: ${FOUND_TICKET.carID}
-                        </p>
-                    </c:if>
-                </div>
             </div>
         </c:if>
 
