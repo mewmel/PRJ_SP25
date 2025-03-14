@@ -46,16 +46,11 @@
                     <th>Phone</th>
                     <th>Sex</th>
                     <th>Address</th>
-                    <th>Action</th>
                 </tr>
 
 
                 <form action="ShowCarInvoiceServlet" method="POST">
                     <input type="hidden" name="txtcustomerid" value="<%= customer.getCusId()%>">
-                    <input type="hidden" name="txtcustname" value="<%= customer.getCusName()%>">
-                    <input type="hidden" name="txtcustomerphone" value="<%= customer.getPhone()%>">
-                    <input type="hidden" name="txtcustomersex" value="<%= customer.getSex()%>">
-                    <input type="hidden" name="txtcustomeraddress" value="<%= customer.getCusAddress()%>">
                     <tr>
                         <td><%= customer.getCusId()%></td>
                         <td><%= customer.getCusName()%></td>
@@ -92,11 +87,11 @@ Customer customer = (Customer) request.getAttribute("Customer");
                 <%
                     for (Car car : cars) {
                 %>
-                <form action="ConfirmInvoiceServlet" method="POST"> 
-                    <input type="hidden" name="txtcustomerid" value="<%= customer.getCusId()%>">  
-                    <input type="hidden" name="txtcustomername" value="<%= customer.getCusName()%>">  
-                    <input type="hidden" name="txtcarmodel" value="<%= car.getModel()%>">  
+                <form action="DetailInvoiceServlet" method="POST"> 
+                    <input type="hidden" name="txtcustomerid" value="<%= customer.getCusId()%>">
                     <input type="hidden" name="txtcarid" value="<%= car.getCarId()%>">
+                    <input type="hidden" name="txtcarmodel" value="<%= car.getModel() %>">
+                    <input type="hidden" name="txtcustomername" value="<%= customer.getCusName() %>">
 
                     <tr>                             
                         <td><%= car.getCarId()%></td>
@@ -113,6 +108,12 @@ Customer customer = (Customer) request.getAttribute("Customer");
             <%
                 }
             %>
+            
+        <p><%
+            if (request.getAttribute("ERROR") != null) {
+                out.print(request.getAttribute("ERROR"));
+            }
+            %></p>
 
         </div>
 

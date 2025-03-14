@@ -9,5 +9,13 @@
             <file>file:/D:/TLMonHoc/PRJ/PRJ301/workshop/PRJ_SP25/CarDealership/web/ViewCustomer.jsp</file>
             <file>file:/D:/TLMonHoc/PRJ/PRJ301/workshop/PRJ_SP25/CarDealership/web/WEB-INF/web.xml</file>
         </group>
+        <group>
+            <file>file:/D:/gitgubprj_re/PRJ_SP25/CarDealership/web/LoginRedirect.jsp</file>
+            <file>file:/D:/gitgubprj_re/PRJ_SP25/CarDealership/web/CustomerDashBoard.jsp</file>
+            <file>file:/D:/gitgubprj_re/PRJ_SP25/CarDealership/src/java/controller/CusSaleServlet.java</file>
+            <file>file:/D:/gitgubprj_re/PRJ_SP25/CarDealership/src/java/dao/CustomerDAO.java</file>
+            <file>file:/D:/gitgubprj_re/PRJ_SP25/CarDealership/web/LoginPage.html</file>
+            <file>file:/D:/gitgubprj_re/PRJ_SP25/CarDealership/src/java/controller/ChangeProfileServlet.java</file>
+        </group>
     </open-files>
 </project-private>

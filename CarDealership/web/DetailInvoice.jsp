@@ -13,23 +13,16 @@
     </head>
     <body>
         <h1> Detail Invoice</h1> 
-        
-        <%
-    // Lấy invoiceID từ request
-    Integer invoiceID = (Integer) request.getAttribute("invoiceID");
-    if (invoiceID == null) {
-               invoiceID =1; // Giá trị mặc định nếu không có dữ liệu
-    }
-    %>
-
 
     <form action="ConfirmInvoiceServlet" accept-charset="utf-8">
-        <p>Customer ID: <%= request.getAttribute("customerID")%></p>
-        <p>Customer Name: <%= request.getAttribute("customerName")%></p>
+        <input type="hidden" name="txtcustomerid" value="<%= request.getAttribute("cusID")%>">
+        <input type="hidden" name="txtcarid" value="<%= request.getAttribute("carID")%>">
+        
+        
+        <p>Customer ID: <%= request.getAttribute("cusID")%></p>
+        <p>Customer Name: <%= request.getAttribute("cusName")%></p>
         <p>Car Model: <%= request.getAttribute("carModel")%></p>
         <p>Car ID: <%= request.getAttribute("carID")%></p>
-        <p>Invoice ID: <%= invoiceID%></p>
-        <p>Date <input type="hiden" name="txtdate" required=""/>*</p>
         <p><input type="submit" value="Confirm"/></p>
     </form>
 

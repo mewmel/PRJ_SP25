@@ -237,12 +237,15 @@ public class CustomerDAO {
                 ResultSet table = st.executeQuery();
                 if (table != null) {
                     while (table.next()) {
-                        cusId = table.getString("custID");
                         String name = table.getString("custName");
                         String phone = table.getString("phone");
                         String sex = table.getString("sex");
+                        String address = table.getString("cusAddress");
+                        cus = new Customer(cusId, name, phone, sex, address);
+
                         String ad = table.getString("cusAddress");
                         cus = new Customer(cusId, name, phone, sex, ad);
+
                     }
                 }
             }

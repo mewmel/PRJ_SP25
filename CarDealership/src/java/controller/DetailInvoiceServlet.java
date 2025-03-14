@@ -5,24 +5,22 @@
  */
 package controller;
 
-
-import dao.CustomerDAO;
+import dao.InvoiceDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Customer;
 import model.SalePerson;
 
 /**
  *
  * @author ThinkPad
  */
-public class CreateInvoiceServlet extends HttpServlet {
+public class DetailInvoiceServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,45 +36,30 @@ public class CreateInvoiceServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+             request.setCharacterEncoding("UTF-8");
 
-            request.setCharacterEncoding("UTF-8");
-            
-            
-            // Lấy dữ liệu từ form  
-
-            out.println("<!DOCTYPE html>");
-            request.setCharacterEncoding("utf-8");           
         // Kiểm tra session
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("sale") == null) {
             response.sendRedirect("LoginPage.jsp"); // Chuyển hướng nếu chưa đăng nhập
             return;
         }
-
-        // Lấy thông tin SalePerson
-        SalePerson sale = (SalePerson) session.getAttribute("sale");
-
         try {
+            String cusID = request.getParameter("txtcustomerid");
+            String carID = request.getParameter("txtcarid");
+            String carModel = request.getParameter("txtcarmodel");
+            String cusName = request.getParameter("txtcustomername");
             
-            // Lấy danh sách khách hàng từ database
-            CustomerDAO customer = new CustomerDAO();
-            ArrayList<Customer> customerList = customer.getAllCustomers();
-
-            // Kiểm tra danh sách xe có rỗng không
-            if (customerList == null || customerList.isEmpty()) {
-                request.setAttribute("message", "Không có KH nào trong hệ thống.");
-            } else {
-                request.setAttribute("LISTCUSTOMER_RESULT", customerList);
-            }
-
-            // Chuyển đến SaleDashBoard.jsp
-            request.getRequestDispatcher("SaleDashBoard.jsp").forward(request, response);
+            request.setAttribute("cusID", cusID);
+            request.setAttribute("carID", carID);
+            request.setAttribute("carModel", carModel);
+            request.setAttribute("cusName", cusName);
             
+            request.getRequestDispatcher("DetailInvoice.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi khi tải danh sách KH.");
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi khi ở DetailInvoiceServlet");
         }
-
         }
     }
 

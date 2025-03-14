@@ -75,17 +75,16 @@ public class InvoiceDAO {
 
     
      // Phương thức lưu hóa đơn vào database
-    public boolean saveInvoice( String invoiceID, String invoiceDate, String saleID, String carID, String custID) throws ClassNotFoundException {
-        String query = "INSERT INTO SalesInvoice (invoiceID, invoiceDate, salesID, carID ,custID) VALUES (?, ?, ?, ?, ?)";
+    public boolean saveInvoice( String invoiceID, String saleID, String carID, String custID) throws ClassNotFoundException {
+        String query = "INSERT INTO SalesInvoice (invoiceID, invoiceDate, salesID, carID ,custID) VALUES (?, GETDATE(), ?, ?, ?)";
 
         try (Connection conn = DBUtils.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
 
             ps.setString(1, invoiceID);
-            ps.setString(2, invoiceDate);
-            ps.setString(3, saleID);
-            ps.setString(4, carID);
-            ps.setString(5, custID);
+            ps.setString(2, saleID);
+            ps.setString(3, carID);
+            ps.setString(4, custID);
 
             int rowsInserted = ps.executeUpdate();
             return rowsInserted > 0;
