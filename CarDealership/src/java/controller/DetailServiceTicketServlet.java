@@ -39,7 +39,7 @@ public class DetailServiceTicketServlet extends HttpServlet {
             String ticketId = request.getParameter("txtticketid");
             if (ticketId != null) {
                 ServiceCustTicketDAO d = new ServiceCustTicketDAO();
-                ServiceCustTicket ticket = d.getServiceTicket1(ticketId.trim());
+                ServiceCustTicket ticket = d.getServiceTicketByID(ticketId.trim());
                 if (ticket != null) {
                     request.setAttribute("FOUND_TICKET", ticket);
                     request.getRequestDispatcher("CustomerDashBoard.jsp").forward(request, response);

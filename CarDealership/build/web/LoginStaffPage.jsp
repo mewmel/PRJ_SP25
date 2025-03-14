@@ -74,7 +74,7 @@
     </style>
 </head>
 <body>
-
+       
     <div class="login-container">
         <h2>Staff Login</h2>
         <p>Enter your information</p>
@@ -89,6 +89,7 @@
                 <%= request.getAttribute("ERROR") %>
             <% } %>
         </p>
+        <a href="LoginPage.html">&larr;</a>
     </div>
 
 </body>

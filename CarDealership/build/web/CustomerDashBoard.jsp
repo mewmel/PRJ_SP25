@@ -25,13 +25,13 @@
         %>
         <nav class="text">
             
-                <li>welcome  <%= ((Customer) session.getAttribute("customer")).getCusName()%>  </li>
+                Welcome <a href="ChangeProfile.jsp"><%= ((Customer) session.getAttribute("customer")).getCusName()%></a>
                 <li><a href="LogoutCustServlet">logout</a></li>
-                <li style="float:right;width: 30%; margin-right: 2%">
+                <a style="float:right;width: 30%; margin-right: 2%">
                     <form action="FindCarServlet">
                         <input type="text" name="txtmodel" value="<%= (request.getParameter("txtmodel") != null) ? request.getParameter("txtmodel") : ""%>"/>
                         <input type="submit" value="go"/>
-                    </form></li>
+                    </form></a>
 
         </nav>  
         <div style="width: 100%">
@@ -40,7 +40,6 @@
                 <h1>DASHBOARD</h1>
                 <p><a href="InvoiceServlet">invoices</a></p>
                 <p><a href="ViewWishlist.jsp">view wishlist</a></p>
-                <p><a href="ChangeProfile.jsp">change profile</a></p>
                 <p><a href="ServiceCustTicketServlet">service ticket</a></p>
             </div>      
             <section style="width: 50%; float: left" >
@@ -85,31 +84,9 @@
                     }
                 } 
             %>
-            <!-- ticket result-->
-            <div style="width: 100%; float: left">
-                            <%
-                    ArrayList<ServiceCustTicket> tkq = (ArrayList) request.getAttribute("TICKET_RESULT"); 
-                    if (tkq != null && !tkq.isEmpty()) {
-                        for (ServiceCustTicket t : tkq) {
-                %>
-                <table>
-                    <tr>
-                        <th>ServiceTicket ID</th>
-                        <th>Date Received</th>
-                    </tr>
-                    <form action="DetailServiceTicketServlet">
-                        <input type="hidden" name="txtticketid" value="<%=t.getId()%>">
-                        <tr>
-                            <td><%=  t.getId()%></td>
-                            <td><%=  t.getDateReceived()%></td>
-                            <td><input type="submit" value="detail"></td>
-                        </tr>
-                    </form>
-                </table>      
-                <%}
-                    }
-                %>
-            </div>
+            
+            <!-- ticket detail-->
+            
         </section>
             <!-- hien thi detail car sau khi click nut detail -->
             <div style="width: 20%; float:left">   
@@ -127,22 +104,7 @@
                     }
                 %>
             </div>
-            <!-- hien thi detail service ticket sau khi click nut detail -->
-            <div style="width: 20%; float:left">   
-                <%
-                    ServiceCustTicket ticket = (ServiceCustTicket) request.getAttribute("FOUND_TICKET");
-                    if (ticket != null) {
-                %>
-                <p>
-                    Service_ticket ID: <%= ticket.getId()%><br/>
-                    Date Received: <%= ticket.getDateReceived()%><br/>
-                    Date Return: <%= ticket.getDateReturn()%><br/>
-                    Car ID: <%= ticket.getCarID()%>
-                </p>
-                <%
-                    }
-                %>
-            </div>
+            <!--detail ticket -->
             
             <%
                 } else {

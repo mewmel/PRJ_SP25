@@ -5,7 +5,7 @@
  */
 package controller;
 
-import dao.ServiceCustTicketDAO;
+import dao.ServiceTicketDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -13,8 +13,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.ServiceCustTicket;
+import model.ServiceTicket;
+
 
 /**
  *
@@ -25,7 +25,7 @@ public class FindServiceTicketServlet extends HttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
-     *
+     *hàm nay dùng
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -36,18 +36,19 @@ public class FindServiceTicketServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            HttpSession s = request.getSession();
-            ServiceCustTicket ticket = (ServiceCustTicket) s.getAttribute("txt_ticket");
-            if (ticket != null) {
-                
-                ServiceCustTicketDAO d = new  ServiceCustTicketDAO();
-//                String date = "";
-//                ServiceCustTicket list = d.getServiceTicketby3(ticket.getCusID(), ticket.getCarID(), date);
-//                request.setAttribute("TICKET_RESULT", list);
-                request.getRequestDispatcher("MechanicDashBoard.jsp?txtticket=" + ticket).forward(request, response);
-            } else {    
-                request.getRequestDispatcher("LoginCustPage.jsp").forward(request, response);
-            }
+            String ticket = request.getParameter("txt_ticket");
+            ArrayList<ServiceTicket> list;
+            ServiceTicketDAO d = new  ServiceTicketDAO();
+            if (ticket != null || !ticket.trim().isEmpty()) {
+                 list = d.getServiceTicket(ticket);
+            } else {
+                list = d.getServiceTicket(ticket);
+            }    
+                request.setAttribute("TICKET_RESULT", list);
+                request.getRequestDispatcher("MechanicDashBoard.jsp").forward(request, response);
+                return;
+    
+
         }
     }
 

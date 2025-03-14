@@ -12,9 +12,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.http.HttpSession;
-import model.Mechanic;
+import model.ServiceCustTicket;
 import model.ServiceMechanic;
+import model.ServiceTicket;
 import mylib.DBUtils;
 
 /**
@@ -22,6 +22,7 @@ import mylib.DBUtils;
  * @author ThinkPad
  */
 public class ServiceMechanicDAO {
+    //linh
      public ArrayList<ServiceMechanic> getServiceMechanic(String mechanicId, String serviceTicketId) {
         ArrayList<ServiceMechanic> rs = new ArrayList<>();
         Connection cnn = null;
@@ -34,7 +35,7 @@ public class ServiceMechanicDAO {
                         + "      ,[hours]\n"
                         + "      ,[comment]\n"
                         + "      ,[rate]\n"
-                        + "  FROM [dbo].[ServiceMehanic]\n"
+                        + "  FROM [dbo].[ServiceMechanic]\n"
                         + "  WHERE [mechanicID] = ? AND [serviceTicketID] = ? ";
                 PreparedStatement st = cnn.prepareStatement(sql);
                 st.setString(1, mechanicId);
@@ -65,9 +66,9 @@ public class ServiceMechanicDAO {
         }
         return rs;
     }
-    
+    //linh
     public boolean update(ServiceMechanic serviceMechanic){
-        String sql = "UPDATE [ServiceMehanic] SET [hours] = ?, [comment] = ?, [rate] = ?\n"+
+        String sql = "UPDATE [ServiceMechanic] SET [hours] = ?, [comment] = ?, [rate] = ?\n"+
                     "WHERE [serviceTicketID] = ? AND [serviceID] = ? AND [mechanicID] = ?";
         try {
             Connection conn = null;
@@ -97,6 +98,88 @@ public class ServiceMechanicDAO {
         return false;
     }
     
+    //thuw
+        public ArrayList<ServiceTicket> getServiceTicket(String cusId, String dateReceived) {
+        ArrayList<ServiceTicket> rs = new ArrayList<>();
+        Connection cnn = null;
+        
+        try{
+            cnn=DBUtils.getConnection();
+                if (cnn != null) {
+                    String sql = "SELECT [serviceTicketID]\n" +
+                                    "      ,[dateReceived]\n" +
+                                    "      ,[dateReturned]\n" +
+                                    "      ,[custID]\n" +
+                                    "      ,[carID]\n" +
+                                    "  FROM [Car_Dealership].[dbo].[ServiceTicket]\n" +
+                                    "  WHERE [custID] = ? and [dateReceived] like ?";
+                    PreparedStatement st = cnn.prepareStatement(sql);
+                    st.setString(1, cusId );
+                    st.setString(2, "%"+dateReceived+"%" );
+                    
+                    ResultSet table = st.executeQuery();
+                    if (table != null) {
+                        while (table.next()) {                            
+                            String ticketId = table.getString("serviceTicketID");
+                            String dateRec = table.getString("dateReceived");
+                            String dateRet = table.getString("dateReturned");
+                            String carId = table.getString("carID");
+                            ServiceTicket in = new ServiceTicket(ticketId, dateRec, dateRet, cusId, carId);
+                            rs.add(in);
+                        }
+                    } 
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }finally{
+                try {
+                    if (cnn != null) cnn.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }  
+            }
+        return rs;
+    }  
+//thuw
+        public ServiceTicket getServiceTicketByID(String tickeId) {
+        ServiceTicket trs = null; 
+        Connection cnn = null;
+        
+        try{
+            cnn=DBUtils.getConnection();
+                if (cnn != null) {
+                    String sql = "SELECT [serviceTicketID]\n" 
+                                +"      ,[dateReceived]\n" 
+                                +"      ,[dateReturned]\n" 
+                                +"      ,[custID]\n" 
+                                +"      ,[carID]\n" 
+                                +"  FROM [Car_Dealership].[dbo].[ServiceTicket]\n" 
+                                +"  WHERE [serviceTicketID]= ?";
+                    PreparedStatement st = cnn.prepareStatement(sql);
+                    st.setString(1, tickeId);
+                    ResultSet table = st.executeQuery();
+                    if (table != null) {
+                        while (table.next()) {                            
+                            String ticketId = table.getString("serviceTicketID");
+                            String dateReceived = table.getString("dateReceived");
+                            String dateRet = table.getString("dateReturned");
+                            String cusId = table.getString("custID");
+                            String carId = table.getString("carID");
+                            trs = new ServiceTicket(ticketId, dateReceived, dateRet, cusId, carId);
+                        }
+                    } 
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }finally{
+                try {
+                    if (cnn != null) cnn.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }  
+            }
+        return trs;
+    } 
      
     }
 

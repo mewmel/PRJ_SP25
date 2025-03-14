@@ -13,7 +13,7 @@ import model.ServiceCustTicket;
 import mylib.DBUtils;
 
 /**
- *
+ *co van de
  * @author trant
  */
 public class ServiceCustTicketDAO {
@@ -59,7 +59,7 @@ public class ServiceCustTicketDAO {
         return rs;
     }  
 
-        public ServiceCustTicket getServiceTicket1(String tickeId) {
+        public ServiceCustTicket getServiceTicketByID(String tickeId) {
         ServiceCustTicket trs = null; 
         Connection cnn = null;
         

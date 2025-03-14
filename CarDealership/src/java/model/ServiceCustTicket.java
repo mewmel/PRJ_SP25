@@ -8,8 +8,8 @@ package model;
 import java.io.Serializable;
 
 /**
- *
- * @author trant
+ *co van de
+ * @author trant 
  */
 public class ServiceCustTicket implements Serializable{
     private String id;
