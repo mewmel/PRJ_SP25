@@ -31,7 +31,8 @@
                     <p><a href="ServiceView">Service</a></p>
                     <p><a href="ServiceTicketServlet">Your Service Ticket</a></p>
                 </div>
-                <div style="width: 30%; float: right">
+                <div style="width: 100%">    
+                <div style="width: 50%; float: left">
                     <c:if test="${not empty SERVICE_MECHANIC_RESULT}">
                         <table>
                             <tr>
@@ -62,7 +63,7 @@
                         </table>
                     </c:if>
                 </div> 
-                    <section style="width: 50%; float: left">
+                    <section style="width: 40%; float: right">
                         <c:if test="${not empty requestScope.SERVICE_RESULT}">
                             <table>
                                 <tr>

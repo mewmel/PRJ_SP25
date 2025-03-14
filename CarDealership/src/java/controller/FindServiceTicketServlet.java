@@ -39,16 +39,13 @@ public class FindServiceTicketServlet extends HttpServlet {
             String ticket = request.getParameter("txt_ticket");
             ArrayList<ServiceTicket> list;
             ServiceTicketDAO d = new  ServiceTicketDAO();
-            if (ticket != null || !ticket.trim().isEmpty()) {
+            if (ticket != null && !ticket.trim().isEmpty()) {
                  list = d.getServiceTicket(ticket);
             } else {
-                list = d.getServiceTicket(ticket);
+                list = d.getAllServiceTicket();
             }    
                 request.setAttribute("TICKET_RESULT", list);
                 request.getRequestDispatcher("MechanicDashBoard.jsp").forward(request, response);
-                return;
-    
-
         }
     }
 

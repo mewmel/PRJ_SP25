@@ -41,37 +41,37 @@ public class ServiceMechanicServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
              request.setCharacterEncoding("utf-8"); 
-//           HttpSession s = request.getSession(false);
-//           Mechanic mechan = (Mechanic) s.getAttribute("mechanic");
-//           
-//           if(mechan == null){
-//               request.setAttribute("ERROR", "ban can login de thuc hien cac tinh nang");
-//               request.getRequestDispatcher("LoginStaffPage.jsp").forward(request, response);
-//           }
-//           else{
-//               ServiceMechanicDAO d = new ServiceMechanicDAO();
-//               String serviceTicketId = request.getParameter("txtServiceTicketId");
-//               
-//               ArrayList<ServiceMechanic> list = d.getServiceMechanic(mechan.getMechanicId()+"", serviceTicketId);
-//               request.setAttribute("SERVICE_MECHANIC_RESULT", list);
-//               request.getRequestDispatcher("MechanicDashBoard.jsp").forward(request, response);
-//           }
-//        }
-            HttpSession s = request.getSession();
-           Mechanic mecha = (Mechanic) s.getAttribute("mechanic");
-           if(mecha == null){
-               request.setAttribute("ERROR", "You need to log in to do this!");
+           HttpSession s = request.getSession(false);
+           Mechanic mechan = (Mechanic) s.getAttribute("mechanic");
+           
+           if(mechan == null){
+               request.setAttribute("ERROR", "ban can login de thuc hien cac tinh nang");
                request.getRequestDispatcher("LoginStaffPage.jsp").forward(request, response);
            }
            else{
                ServiceMechanicDAO d = new ServiceMechanicDAO();
                String serviceTicketId = request.getParameter("txtServiceTicketId");
-               String date="";
-               ArrayList<ServiceTicket> list = d.getServiceTicket(mecha.getMechanicId()+"", date);
-               request.setAttribute("TICKET_RESULT", list);
+               
+               ArrayList<ServiceMechanic> list = d.getServiceMechanic(mechan.getMechanicId()+"", serviceTicketId);
+               request.setAttribute("SERVICE_MECHANIC_RESULT", list);
                request.getRequestDispatcher("MechanicDashBoard.jsp").forward(request, response);
            }
-        }}
+        }
+//            HttpSession s = request.getSession();
+//           Mechanic mecha = (Mechanic) s.getAttribute("mechanic");
+//           if(mecha == null){
+//               request.setAttribute("ERROR", "You need to log in to do this!");
+//               request.getRequestDispatcher("LoginStaffPage.jsp").forward(request, response);
+//           }
+//           else{
+//               ServiceMechanicDAO d = new ServiceMechanicDAO();
+//               String serviceTicketId = request.getParameter("txtServiceTicketId");
+//               String date="";
+//               ArrayList<ServiceTicket> list = d.getServiceTicket(mecha.getMechanicId()+"", date);
+//               request.setAttribute("TICKET_RESULT", list);
+//               request.getRequestDispatcher("MechanicDashBoard.jsp").forward(request, response);
+//           }
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

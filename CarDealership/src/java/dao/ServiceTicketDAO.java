@@ -66,7 +66,50 @@ public class ServiceTicketDAO {
         return rs;
     
     }  
-         //dung cho: ?
+    //thuw 
+     public ArrayList<ServiceTicket> getAllServiceTicket() {
+        ArrayList<ServiceTicket> rs = new ArrayList<>();
+        Connection cnn = null;
+        
+        try{
+            cnn=DBUtils.getConnection();
+                if (cnn != null) {
+                    String sql = "SELECT [serviceTicketID]\n" +
+                                    "      ,[dateReceived]\n" +
+                                    "      ,[dateReturned]\n" +
+                                    "      ,[custID]\n" +
+                                    "      ,[carID]\n" +
+                                    "  FROM [Car_Dealership].[dbo].[ServiceTicket]\n";
+
+                    PreparedStatement st = cnn.prepareStatement(sql);
+
+                    
+                    ResultSet table = st.executeQuery();
+                    if (table != null) {
+                        while (table.next()) {                            
+                            String Id = table.getString("serviceTicketID");
+                            String dateRec = table.getString("dateReceived");
+                            String dateRet = table.getString("dateReturned");
+                            String cusId = table.getString("custID");
+                            String carId = table.getString("carID");
+                            ServiceTicket in = new ServiceTicket(Id, dateRec, dateRet, cusId, carId);
+                            rs.add(in);
+                        }
+                    } 
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }finally{
+                try {
+                    if (cnn != null) cnn.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }  
+            }
+        return rs;
+    
+    }  
+         //dung cho: ?- Linh
     public ArrayList<ServiceTicket> getServiceTicket(String cusId, String date) {
         ArrayList<ServiceTicket> rs = new ArrayList<>();
         Connection cnn = null;
