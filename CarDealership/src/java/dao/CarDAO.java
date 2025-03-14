@@ -169,6 +169,7 @@ public class CarDAO {
         }
     } 
 
+    
     public ArrayList<Car> getAllCars(){
         ArrayList<Car> rs = new ArrayList();       
         Connection cnn = null;
@@ -224,9 +225,8 @@ public class CarDAO {
                 st.setString(2, carId);
 
                 st.executeUpdate();
-
             }
-        } catch (Exception e) {
+} catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
@@ -238,6 +238,7 @@ public class CarDAO {
             }
         }
     }
+    
     
     public void deleteCar(String carId) {
         Connection cnn = null;

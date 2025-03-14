@@ -49,12 +49,12 @@
                             </tr>
                             <c:forEach var="s" items="${requestScope.SERVICE_MECHA_RESULT}">
                                 <tr>
-                                    <td>${s.carId}</td>
-                                    <td>${c.model}</td>
-                                    <td>${c.statusName}</td>
+                                    <td>${s.serviceId}</td>
+                                    <td>${c.serviceName}</td>
+                                    <td>${c.hourlyRate}</td>
                                     <td>
                                         <form action="ServiceSaleServlet" method="POST" style="display:inline;">
-                                            <input type="hidden" name="carId" value="${c.carId}">
+                                            <input type="hidden" name="seId" value="${c.serviceId}">
                                             <input type="submit" value="more" name="action">
                                         </form>
                                     </td>
@@ -65,20 +65,19 @@
                         <c:if test="${not empty SELECTED_SERVICE}">
                             <div style="width: 35%; margin-left: 20px; padding: 10px;">
                                 <form action="ServiceSaleServlet" method="POST">
-                                    <h3> id ${SELECTED_SERVICE.carId}</h3>
+                                    <h3> ID ${SELECTED_SERVICE.serviceId}</h3>
                                     <input type="hidden" name="action" value="update">
-                                    <input type="hidden" name="carId" value="${SELECTED_SERVICE.carId}">
-                                   
-                        
-                                    <label>Status</label>
-                                    <input type="text" name="statusName" value="${SELECTED_SERVICE.statusName}">
-                                    
+                                    <input type="hidden" name="seId" value="${SELECTED_SERVICE.serviceId}">
+                                    <label>NAME</label>
+                                    <input type="text" name="seName" value="${SELECTED_SERVICE.serviceName}">
+                                    <label>HOURLY RATE</label>
+                                    <input type="text" name="seRate" value="${SELECTED_SERVICE.hourlyRate}">
                                     <input type="submit" value="UPDATE"><br/>
                                 </form>
                         <!--delete-->
                                 <form action="ServiceSaleServlet" method="POST" onsubmit="return confirm('Are you sure?');">
                                     <input type="hidden" name="action" value="delete">
-                                    <input type="hidden" name="carId" value="${SELECTED_SERVICE.carId}">
+                                    <input type="hidden" name="seId" value="${SELECTED_SERVICE.serviceId}">
                                     <input type="submit" value="DELETE" style="background-color: pink;">
                                 </form>
                             </div>
