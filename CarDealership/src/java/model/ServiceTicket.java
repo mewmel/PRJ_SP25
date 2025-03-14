@@ -19,6 +19,11 @@ public class ServiceTicket implements Serializable{
     private String carID;
 
     public ServiceTicket() {
+        id = "";
+        dateReceived = "";
+        dateReturn = "";
+        cusID = "";
+        carID = "";
     }
 
     public ServiceTicket(String id, String dateReceived, String dateReturn, String cusID, String carID) {

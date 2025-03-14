@@ -17,6 +17,11 @@ public class Customer {
     private String cusAddress;
 
     public Customer() {
+        cusId = "";
+        cusName = "";
+        phone = "";
+        sex = "";
+        cusAddress = "";
     }
 
     public Customer(String cusId, String cusName, String phone, String sex, String cusAddress) {

@@ -14,6 +14,8 @@ public class Mechanic {
     private String mechanicName;
 
     public Mechanic() {
+        mechanicId = "";
+        mechanicName = "";
     }
 
     public Mechanic(String mechanicId, String mechanicName) {

@@ -20,6 +20,12 @@ public class ServiceMechanic implements Serializable{
     private String mechanicID;
 
     public ServiceMechanic() {
+        hours = "";
+        comment = "";
+        rate = "";
+        serviceTicketID = "";
+        serviceID = "";
+        mechanicID = "";
     }
 
     public ServiceMechanic(String hours, String comment, String rate, String serviceTicketID, String serviceID, String mechanicID) {

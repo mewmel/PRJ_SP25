@@ -19,7 +19,7 @@
         <c:if test="${not empty sessionScope.sale}">
         <p><a href="SaleDashBoard.jsp">back</a></p>
         
-            <h1>List customer</h1>
+            <h1>CUSTOMER LIST</h1>
             <form action="CusSaleServlet">
                 <input type="text" name="txtcusId" placeholder="Enter customer's id..." value="${SEARCH_ID}">
                 <input type="submit" value="Search">
@@ -32,13 +32,13 @@
                     <input type="hidden" name="action" value="Add">
                     <label>ID</label>
                     <input type="text" name="txtcusId"><br/>
-                    <label>Name</label>
+                    <label>NAME</label>
                     <input type="text" name="txtcusName"><br/>
-                    <label>Phone</label>
+                    <label>PHONE</label>
                     <input type="text" name="txtcusPhone"><br/>
-                    <label>Sex</label>
+                    <label>SEX</label>
                     <input type="text" name="txtcusSex"><br/>
-                    <label>Address</label>
+                    <label>ADDRESS</label>
                     <input type="text" name="txtcusAddress"><br/>
                     <input type="submit" value="ADD" style="background-color: #ccffcc">
                 </form>
@@ -48,10 +48,10 @@
                         <table style="width: 60%">
                             <tr>
                                 <th>ID</th>
-                                <th>Name</th>
-                                <th>Phone</th>
-                                <th>Sex</th>
-                                <th>Address</th>
+                                <th>NAME</th>
+                                <th>PHONE</th>
+                                <th>SEX</th>
+                                <th>ADDRESS</th>
                             </tr>
                             <c:forEach var="c" items="${requestScope.CUS_SALE_RESULT}">
                                 <tr>
@@ -73,21 +73,20 @@
                             <div style="width: 35%; margin-left: 20px; padding: 10px;">
                                 <form action="CusSaleServlet" method="POST">
                                     <h3> CUSTOMER'S ID ${SELECTED_CUS.cusId}</h3>
-                    
-                                    <input type="hidden" name="cusId" value="${SELECTED_CUS.cusId}">
+                                    <input type="hidden" name="cusId" value="${SELECTED_CUS.cusId}"><br/>
                                     <label>NAME</label><br/>
-                                    <input type="text" name="txtcusName" value="${SELECTED_CUS.cusName}">
+                                    <input type="text" name="txtcusName" value="${SELECTED_CUS.cusName}"><br/>
                                     <label>PHONE</label><br/>
                                     <input type="text" name="txtcusPhone" value="${SELECTED_CUS.phone}"><br/>
                                     <label>SEX</label><br/>
-                                    <input type="text" name="txtcusSex" value="${SELECTED_CUS.sex}">
+                                    <input type="text" name="txtcusSex" value="${SELECTED_CUS.sex}"><br/>
                                     <label>ADDRESS</label><br/>
-                                    <input type="text" name="txtcusAd" value="${SELECTED_CUS.cusAddress}">
+                                    <input type="text" name="txtcusAd" value="${SELECTED_CUS.cusAddress}"><br/>
                                     <input type="hidden" name="action" value="update">
                                     <input type="submit" value="UPDATE"><br/>
                                 </form>
                         <!--delete-->
-                                <form action="CusSaleServlet" method="POST" onsubmit="return confirm('Bạn có chắc muốn xóa khách hàng này không?');">
+                                <form action="CusSaleServlet" method="POST" onsubmit="return confirm('Are you sure?');">
                                     <input type="hidden" name="cusId" value="${SELECTED_CUS.cusId}">
                                     <input type="hidden" name="action" value="delete">
                                     
@@ -98,7 +97,7 @@
                 </div>
             </c:when>
                 <c:otherwise>
-                    <p>click "Search" để tải lại danh sách khách hàng nha!</p>
+                    <p>Click "Search" to reload the customer list <3</p>
                 </c:otherwise>
             </c:choose>
         </c:if>

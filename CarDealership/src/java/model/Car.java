@@ -18,6 +18,12 @@ public class Car {
     private String statusName;
 
     public Car() {
+        carId ="";
+        model ="";
+        serialNumber ="";
+        colour ="";
+        year = 0;
+        statusName ="";
     }
 
     public Car(String carId, String model, String serialNumber, String colour, int year, String statusName) {

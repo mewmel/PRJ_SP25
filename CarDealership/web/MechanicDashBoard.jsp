@@ -13,7 +13,7 @@
     <body>
         <c:if test="${not empty sessionScope.mechanic}">
             <nav class="text">
-                <ul class="menu" style="width: 100%; display: inline-block; list-style-type: none; background: chartreuse">
+                <ul class="menu" style="width: 100%; display: inline-block; list-style-type: none; background: #ccccff">
                     <li>Welcome ${sessionScope.mechanic.mechanicName}</li>
                     <li><a href="LogoutMechaServlet">Logout</a></li>
                     <li style="float:right;width: 30%; margin-right: 2%">

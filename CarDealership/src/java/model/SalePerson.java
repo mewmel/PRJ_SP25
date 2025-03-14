@@ -17,6 +17,11 @@ public class SalePerson {
     private String address;
 
     public SalePerson() {
+        saleId = "";
+        saleName = "";
+        bd = "";
+        sex = "";
+        address = "";
     }
 
     public SalePerson(String saleId, String saleName, String bd, String sex, String address) {

@@ -19,6 +19,11 @@ public class Invoice implements Serializable{
     private String carId;
 
     public Invoice() {
+        invoiceId = "";
+        invoiceDate = "";
+        saleId = "";
+        custid = "";
+        carId = "";
     }
 
     public Invoice(String invoiceId, String invoiceDate, String saleId, String custid, String carId) {
@@ -67,6 +72,5 @@ public class Invoice implements Serializable{
 
     public void setCarId(String carId) {
         this.carId = carId;
-    }
-      
+    }   
 }

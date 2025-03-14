@@ -92,16 +92,18 @@
         <servlet-name>LogoutSaleServlet</servlet-name>
         <servlet-class>controller.LogoutSaleServlet</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>DetailInvoiceServlet</servlet-name>
         <servlet-class>controller.DetailInvoiceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServiceSaleServlet</servlet-name>
+        <servlet-class>controller.ServiceSaleServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DetailInvoiceServlet</servlet-name>
         <url-pattern>/DetailInvoiceServlet</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>LoginSalePersonServlet</servlet-name>
         <url-pattern>/LoginSalePersonServlet</url-pattern>
@@ -193,6 +195,10 @@
     <servlet-mapping>
         <servlet-name>LogoutSaleServlet</servlet-name>
         <url-pattern>/LogoutSaleServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServiceSaleServlet</servlet-name>
+        <url-pattern>/ServiceSaleServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
