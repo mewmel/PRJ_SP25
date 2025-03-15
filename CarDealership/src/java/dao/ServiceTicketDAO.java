@@ -152,46 +152,7 @@ public class ServiceTicketDAO {
         return rs;
     
     } 
-//Linh
-        public ServiceTicket getServiceTicketById(String tickeId) {
-        ServiceTicket trs = null; 
-        Connection cnn = null;
-        
-        try{
-            cnn=DBUtils.getConnection();
-                if (cnn != null) {
-                    String sql = "SELECT [serviceTicketID]\n" 
-                                +"      ,[dateReceived]\n" 
-                                +"      ,[dateReturned]\n" 
-                                +"      ,[custID]\n" 
-                                +"      ,[carID]\n" 
-                                +"  FROM [Car_Dealership].[dbo].[ServiceTicket]\n" 
-                                +"  WHERE [serviceTicketID]= ?";
-                    PreparedStatement st = cnn.prepareStatement(sql);
-                    st.setString(1, tickeId);
-                    ResultSet table = st.executeQuery();
-                    if (table != null) {
-                        while (table.next()) {                            
-                            String ticketId = table.getString("serviceTicketID");
-                            String dateReceived = table.getString("dateReceived");
-                            String dateRet = table.getString("dateReturned");
-                            String cusId = table.getString("custID");
-                            String carId = table.getString("carID");
-                            trs = new ServiceTicket(ticketId, dateReceived, dateRet, cusId, carId);
-                        }
-                    } 
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }finally{
-                try {
-                    if (cnn != null) cnn.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }  
-            }
-        return trs;
-    } 
+
     /**
      * Linh
      * get from ServiceMechanic
@@ -242,5 +203,44 @@ public class ServiceTicketDAO {
         return rs;
     
     }
+        
+    public ArrayList<ServiceTicket> getServiceTicketsByCusID(String cusID) {
+    Connection cnn = null;
+    ArrayList<ServiceTicket> tickets = new ArrayList<>();
+
+    try {
+        cnn = DBUtils.getConnection();
+        if (cnn != null) {
+            String sql =  "SELECT [serviceTicketID], [dateReceived], [dateReturned], [cusID], [carID] " 
+                          + "FROM [Car_Dealership].[dbo].[ServiceTicket] "
+                          + "WHERE [custID] = ?";
+            PreparedStatement st = cnn.prepareStatement(sql);
+            st.setString(1, cusID);
+
+            ResultSet table = st.executeQuery();
+            while (table.next()) {
+                String ticketId = String.valueOf(table.getInt("serviceTicketID"));
+                String dateReceived = table.getString("dateReceived");
+                String dateRet = table.getString("dateReturned");
+                String carId = table.getString("carID");
+
+                tickets.add(new ServiceTicket(ticketId, dateReceived, dateRet, cusID, carId));
+            }
+
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        try {
+            if (cnn != null) {
+                cnn.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    return tickets;
+}
+
  
 }

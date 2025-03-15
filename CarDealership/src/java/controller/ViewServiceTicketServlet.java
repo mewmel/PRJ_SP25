@@ -5,24 +5,21 @@
  */
 package controller;
 
-import dao.CarDAO;
-import dao.MechanicDAO;
+import dao.ServiceTicketDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.CarCounting;
-import model.Mechanic;
+import model.ServiceTicket;
 
 /**
  *
  * @author ThinkPad
  */
-public class ReportServlet extends HttpServlet {
+public class ViewServiceTicketServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,17 +35,20 @@ public class ReportServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-        CarDAO carDAO = new CarDAO(); // Tạo đối tượng DAO
-        ArrayList<CarCounting> bestSellingCars = carDAO.getBestSellingCarModels(); // Gọi hàm DAO      
-        request.setAttribute("bestSellingCars", bestSellingCars); // Đưa danh sách lên request  
-        request.getRequestDispatcher("best_selling_cars.jsp").forward(request, response);
-        
-//            MechanicDAO mechanicDAO = new MechanicDAO();
-//            ArrayList<Mechanic> top3Mechanics = mechanicDAO.getTop3Mechanics();
-//            request.setAttribute("top3Mechanics", top3Mechanics);
-//            request.getRequestDispatcher("top3Mechanics.jsp").forward(request, response);
+            request.setCharacterEncoding("utf-8");
+            ServiceTicketDAO serDAO = new ServiceTicketDAO();
 
+            String id = request.getParameter("txtcusId");
+
+            ArrayList<ServiceTicket> serviceTickets = serDAO.getServiceTicketsByCusID(id);
+            request.setAttribute("serviceticketforcus", serviceTickets); // Đưa danh sách lên request
+
+            request.getRequestDispatcher("serviceticketforcustomer.jsp").forward(request, response);
             
+            
+            
+            
+
         }
     }
 

@@ -63,8 +63,15 @@
                                     <td>
                                         <form action="CusSaleServlet" method="POST" style="display:inline;">
                                             <input type="hidden" name="cusId" value="${c.cusId}">
-                                            <input type="submit" value="more" name="action">
+                                            <button type="submit" value="more" name="action">more</button>
                                         </form>
+
+                                        <form action="ViewServiceTicketServlet" method="post">
+                                            <input type="hidden" name="cusId" value="${c.cusId}">
+                                            <button type="submit" name="action">view</button>
+                                        </form>
+
+
                                     </td>
                                 </tr>
                             </c:forEach>
