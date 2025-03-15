@@ -198,7 +198,7 @@ public class ServiceTicketDAO {
      * @param mechanicID
      * @return 
      */    
-    public ArrayList<ServiceTicket> getAllServiceTicket(String mechanicID) {
+        public ArrayList<ServiceTicket> getAllServiceTicket(String mechanicID) {
         ArrayList<ServiceTicket> rs = new ArrayList<>();
         Connection cnn = null;
         

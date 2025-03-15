@@ -100,6 +100,10 @@
         <servlet-name>ServiceSaleServlet</servlet-name>
         <servlet-class>controller.ServiceSaleServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReportServlet</servlet-name>
+        <servlet-class>controller.ReportServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DetailInvoiceServlet</servlet-name>
         <url-pattern>/DetailInvoiceServlet</url-pattern>
@@ -199,6 +203,10 @@
     <servlet-mapping>
         <servlet-name>ServiceSaleServlet</servlet-name>
         <url-pattern>/ServiceSaleServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportServlet</servlet-name>
+        <url-pattern>/ReportServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
