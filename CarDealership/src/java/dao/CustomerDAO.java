@@ -240,9 +240,6 @@ public class CustomerDAO {
                         String name = table.getString("custName");
                         String phone = table.getString("phone");
                         String sex = table.getString("sex");
-                        String address = table.getString("cusAddress");
-                        cus = new Customer(cusId, name, phone, sex, address);
-
                         String ad = table.getString("cusAddress");
                         cus = new Customer(cusId, name, phone, sex, ad);
 
@@ -264,7 +261,7 @@ public class CustomerDAO {
     }
 
     public ArrayList<Customer> getCus(String cusId) {
-        ArrayList<Customer> rs = new ArrayList();
+        ArrayList<Customer> rs = new ArrayList<>();
         Connection cnn = null;
 
         try {

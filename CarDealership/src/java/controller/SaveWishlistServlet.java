@@ -49,7 +49,6 @@ public class SaveWishlistServlet extends HttpServlet {
                 request.getRequestDispatcher("CustomerDashBoard.jsp").forward(request, response);
             } else {
                 request.getRequestDispatcher("ViewWishlist.jsp").forward(request, response);
-                //hien thi warning
             }
         }
     }

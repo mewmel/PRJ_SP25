@@ -20,95 +20,110 @@
         <link href="mystyle.css" style="css" rel="stylesheet"/>     
     </head>
     <body>
-<%
+        <%
             if (session.getAttribute("customer") != null) {
         %>
-        <nav class="text">
-            
-                Welcome <a href="ChangeProfile.jsp"><%= ((Customer) session.getAttribute("customer")).getCusName()%></a>
-                <li><a href="LogoutCustServlet">logout</a></li>
-                <a style="float:right;width: 30%; margin-right: 2%">
-                    <form action="FindCarServlet">
-                        <input type="text" name="txtmodel" value="<%= (request.getParameter("txtmodel") != null) ? request.getParameter("txtmodel") : ""%>"/>
-                        <input type="submit" value="go"/>
-                    </form></a>
+<nav style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background-color: #f8f9fa; border-bottom: 2px solid #ddd;">
+    <div>
+        Welcome <a href="ChangeProfile.jsp" style="font-weight: bold; color: #007bff; text-decoration: none;">
+            <%= ((Customer) session.getAttribute("customer")).getCusName()%>
+        </a>
+    </div>
+    <ul style="list-style: none; display: flex; gap: 15px; margin: 0; padding: 0;">
+        <li><a href="LogoutCustServlet" style="color: red; text-decoration: none;">Logout</a></li>
+    </ul>
+    <div style="width: 30%;">
+        <form action="FindCarServlet">
+            <input type="text" name="txtmodel" placeholder="Search car..." value="<%= (request.getParameter("txtmodel") != null) ? request.getParameter("txtmodel") : ""%>"
+                   style="flex: 1; padding: 5px; border: 1px solid #ccc; border-radius: 5px;">
+            <input type="submit" value="go">
+        </form>
+    </div>
+</nav>
 
-        </nav>  
-        <div style="width: 100%">
-            <%--menu--%>
-            <div style="width: 30%; float: left;">        
-                <h1>DASHBOARD</h1>
-                <p><a href="InvoiceServlet">invoices</a></p>
-                <p><a href="ViewWishlist.jsp">view wishlist</a></p>
-                <p><a href="ServiceCustTicketServlet">service ticket</a></p>
-            </div>      
-            <section style="width: 50%; float: left" >
-                <%
-                    ArrayList<Invoice> kq = (ArrayList) request.getAttribute("INVOICE_RESULT"); //request.getAttribute("RESULT");
-                    if (kq != null && !kq.isEmpty()) {
-                        for (Invoice v : kq) {
-                %>
-                <table>
-                    <tr>
-                        <th>Inv id</th>
-                        <th>date</th>
-                        <th>car id</th>
+<div style="display: flex; gap: 20px; padding: 20px;">
+    <!-- Menu -->
+    <div style="width: 25%; background-color: #f8f9fa; padding: 15px; border-radius: 8px;">
+        <h2>DASHBOARD</h2>
+        <p><a href="InvoiceServlet">Invoice</a></p>
+        <p><a href="ViewWishlist.jsp">View Wishlist</a></p>
+        <p><a href="TicketCusServlet">Your Tickets</a></p>
+    </div>
 
-                    </tr>
-                    <form action="DetailCarServlet">
-                        <input type="hidden" name="txtcarid" value="<%=v.getCarId()%>">
-                        <tr>
-                            <td><%=  v.getInvoiceId()%></td>
-                            <td><%=  v.getInvoiceDate()%></td>
-                            <td><%=  v.getCarId()%></td>
-                            <td><input type="submit" value="detail"></td>
-                        </tr>
-                    </form>
-                </table>      
-                <%}
-                    }
-                %>                
-            <!-- cho nay de xuat thong tin xe tim thay sau khi nhan "go"-->    
-           <%
-            ArrayList<Car> listCar =(ArrayList)request.getAttribute("CAR_RESULT");
-            if(listCar != null && !listCar.isEmpty()){
-                for(Car c:listCar){
-           %>
-            <p>
-                    Id: <%=c.getCarId()       %><br/>
-                    Model: <%= c.getModel()   %><br/>                  
-                    Year: <%= c.getYear()     %><br/>
-                    <a href="AddToWishlistServlet?carId=<%=c.getCarId()%>">Add to wishlist</a>
-            </p>  
-            <% 
-                    }
-                } 
+    <!-- Invoice List -->
+    <div style="width: 50%;">
+        <h2>Your Invoices</h2>
+        <%
+            ArrayList<Invoice> kq = (ArrayList) request.getAttribute("INVOICE_RESULT");
+            if (kq != null && !kq.isEmpty()) {
+        %>
+        <table style="width: 100%; border-collapse: collapse;">
+            <tr style="background-color: #007bff; color: white;">
+                <th>Inv ID</th>
+                <th>Date</th>
+                <th>Car ID</th>
+                <th>Action</th>
+            </tr>
+            <%
+                for (Invoice v : kq) {
             %>
-            
-            <!-- ticket detail-->
-            
-        </section>
-            <!-- hien thi detail car sau khi click nut detail -->
-            <div style="width: 20%; float:left">   
-                <%
-                    Car car = (Car) request.getAttribute("FOUND_CAR");
-                    if (car != null) {
-                %>
-                <p>
-                    Car id: <%= car.getCarId()%><br/>
-                    Car model: <%= car.getModel()%><br/>
-                    Car color: <%= car.getColour()%><br/>
-                    Year: <%= car.getYear()%>
-                </p>
-                <%
-                    }
-                %>
-            </div>
-            <!--detail ticket -->
-            
+            <tr>
+                <td><%= v.getInvoiceId()%></td>
+                <td><%= v.getInvoiceDate()%></td>
+                <td><%= v.getCarId()%></td>
+                <td>
+                    <form action="DetailCarServlet">
+                        <input type="hidden" name="txtcarid" value="<%= v.getCarId()%>">
+                        <input type="submit" value="detail">
+                    </form>
+                </td>
+            </tr>
+            <% } %>
+        </table>
+        <% } else { %>
+        <p>Click "Invoice" to load your Invoice list</p>
+        <% } %>
+    </div>
+
+    <!-- Car Details -->
+    <div style="width: 25%; background-color: #f8f9fa; padding: 15px; border-radius: 8px;">
+        <h3>Car Details</h3>
+        <%
+            Car car = (Car) request.getAttribute("FOUND_CAR");
+            if (car != null) {
+        %>
+        <p><strong>ID:</strong> <%= car.getCarId()%></p>
+        <p><strong>Model:</strong> <%= car.getModel()%></p>
+        <p><strong>Color:</strong> <%= car.getColour()%></p>
+        <p><strong>Year:</strong> <%= car.getYear()%></p>
+        <p><strong>Status:</strong> <%= car.getStatusName()%></p>
+        <%
+            }
+        %>
+
+        <!--List Cars-->
+        <%
+            ArrayList<Car> listCar = (ArrayList) request.getAttribute("CAR_RESULT");
+            if (listCar != null && !listCar.isEmpty()) {
+                for (Car c : listCar) {
+        %>
+        <p>
+            <strong>ID:</strong> <%= c.getCarId()%><br/>
+            <strong>Model:</strong> <%= c.getModel()%><br/>                  
+            <strong>Year:</strong> <%= c.getYear()%><br/>
+            <strong>Status:</strong> <%= c.getStatusName()%><br/>
+            <a href="AddToWishlistServlet?carId=<%=c.getCarId()%>">Add to wishlist</a>
+        </p>  
+        <%
+                }
+            }
+        %>
+    </div>
+</div>
+
             <%
                 } else {
-                    request.getRequestDispatcher("LoginCustPage.jsp").forward(request, response);     
+                    request.getRequestDispatcher("LoginCustPage.jsp").forward(request, response);
                 }
             %>            
         </div>

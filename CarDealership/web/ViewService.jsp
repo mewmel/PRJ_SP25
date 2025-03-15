@@ -13,13 +13,13 @@
         <title>Service</title>
     </head>
     <body> 
-        <c:if test="${not empty sessionScope.sale}">
-        <p><a href="SaleDashBoard.jsp">back</a></p>
+        <c:if test="${not empty sessionScope.mechanic}">
+        <p><a href="MechanicDashBoard.jsp">back</a></p>
             <h1>SERVICE LIST</h1>
             <form action="ServiceSaleServlet">
                 <input type="text" name="txtname" placeholder="Enter service's name..." value="${SEARCH_NAME}">
                 <input type="submit" value="Search">
-                <input type="submit" value="Add">
+                
             </form>
                 <div style="display: flex;">
             <!-- form add -->
@@ -36,7 +36,6 @@
                     <input type="submit" value="ADD">
                 </form>
             </div>                
-
             <c:choose>
                 <c:when test="${not empty requestScope.SERVICE_MECHA_RESULT}">
                     
@@ -50,11 +49,11 @@
                             <c:forEach var="s" items="${requestScope.SERVICE_MECHA_RESULT}">
                                 <tr>
                                     <td>${s.serviceId}</td>
-                                    <td>${c.serviceName}</td>
-                                    <td>${c.hourlyRate}</td>
+                                    <td>${s.serviceName}</td>
+                                    <td>${s.hourlyRate}</td>
                                     <td>
                                         <form action="ServiceSaleServlet" method="POST" style="display:inline;">
-                                            <input type="hidden" name="seId" value="${c.serviceId}">
+                                            <input type="hidden" name="seId" value="${s.serviceId}">
                                             <input type="submit" value="more" name="action">
                                         </form>
                                     </td>
@@ -65,13 +64,13 @@
                         <c:if test="${not empty SELECTED_SERVICE}">
                             <div style="width: 35%; margin-left: 20px; padding: 10px;">
                                 <form action="ServiceSaleServlet" method="POST">
-                                    <h3> ID ${SELECTED_SERVICE.serviceId}</h3>
-                                    <input type="hidden" name="action" value="update">
+                                    <h3>SERVICE'S ID ${SELECTED_SERVICE.serviceId}</h3>
                                     <input type="hidden" name="seId" value="${SELECTED_SERVICE.serviceId}">
-                                    <label>NAME</label>
-                                    <input type="text" name="seName" value="${SELECTED_SERVICE.serviceName}">
-                                    <label>HOURLY RATE</label>
-                                    <input type="text" name="seRate" value="${SELECTED_SERVICE.hourlyRate}">
+                                    <label>NAME</label><br/>
+                                    <input type="text" name="seName" value="${SELECTED_SERVICE.serviceName}"><br/>
+                                    <label>HOURLY RATE</label><br/>
+                                    <input type="text" name="seRate" value="${SELECTED_SERVICE.hourlyRate}"><br/>
+                                    <input type="hidden" name="action" value="update">
                                     <input type="submit" value="UPDATE"><br/>
                                 </form>
                         <!--delete-->
@@ -89,7 +88,7 @@
                 </c:otherwise>
             </c:choose>
         </c:if>
-        <c:if test="${empty sessionScope.sale}">
+        <c:if test="${empty sessionScope.mechanic}">
             <c:redirect url="LoginStaffPage.jsp"/>
         </c:if>
     </body>

@@ -14,7 +14,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import model.Customer;
 
 /**
@@ -87,12 +86,14 @@ public class CusSaleServlet extends HttpServlet {
         ArrayList<Customer> list = new ArrayList<>();
         list = cusDAO.getAllCustomers();
         String action = request.getParameter("action");
+        
+        if (action != null) {
 
         if (action.equals("more")) {
             String cusId = request.getParameter("cusId"); 
             Customer selectedCustomer = cusDAO.getCus1(cusId);
             if (selectedCustomer != null) {
-                    request.getSession().setAttribute("SELECTED_CUS", selectedCustomer); // Đưa vào session
+                    request.getSession().setAttribute("SELECTED_CUS", selectedCustomer); 
                 }  
             request.setAttribute("CUS_SALE_RESULT", list);
             request.getRequestDispatcher("ViewCustomer.jsp").forward(request, response);
@@ -134,13 +135,11 @@ public class CusSaleServlet extends HttpServlet {
             Customer newCusAdd = new Customer(cusId, name, phone, sex, ad);
             cusDAO.addCustomer(newCusAdd);
 
-            // Cập nhật lại danh sách xe ngay tại đây
+            //load lại ds xe
             request.setAttribute("CUS_SALE_RESULT", list);
-
-            // Chuyển hướng tới trang ViewCar.jsp kèm danh sách mới
             request.getRequestDispatcher("ViewCustomer.jsp").forward(request, response);
             return;
-
+        }
         } else {
             // Mặc định: Load danh sách xe nếu không có action cụ thể
             request.setAttribute("CUS_SALE_RESULT", list);

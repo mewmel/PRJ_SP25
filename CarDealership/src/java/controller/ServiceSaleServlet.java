@@ -5,12 +5,15 @@
  */
 package controller;
 
+import dao.ServiceDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Service;
 
 /**
  *
@@ -32,15 +35,20 @@ public class ServiceSaleServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ServiceSaleServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ServiceSaleServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            request.setCharacterEncoding("utf-8");
+            ServiceDAO seDAO = new ServiceDAO();
+            ArrayList<Service> list = seDAO.getAllService();
+
+            String seId = request.getParameter("txtname");
+            if (seId != null && !seId.trim().isEmpty()) {
+                ArrayList<Service> searchSe = seDAO.getServiceBy(seId);
+                if (!searchSe.isEmpty()) {
+                    list = searchSe;
+                }
+                request.setAttribute("SEARCH_NAME", seId);
+            }
+            request.setAttribute("SERVICE_MECHA_RESULT", list);
+            request.getRequestDispatcher("ViewService.jsp").forward(request, response);
         }
     }
 
@@ -70,7 +78,67 @@ public class ServiceSaleServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
+        ServiceDAO seDAO = new ServiceDAO();
+        ArrayList<Service> list = new ArrayList<>();
+        list = seDAO.getAllService();       
+        String action = request.getParameter("action");
+        
+        if (action != null) {
+
+            if (action.equals("more")) {
+                String seId = request.getParameter("seId");
+                Service selectedSe = seDAO.getService(seId);
+                if (selectedSe != null) {
+                    request.getSession().setAttribute("SELECTED_SERVICE", selectedSe);
+                }
+                request.setAttribute("SERVICE_MECHA_RESULT", list);
+                request.getRequestDispatcher("ViewService.jsp").forward(request, response);
+                return;
+            }
+            if (action.equals("update")) {
+                String seId = request.getParameter("txtseId");
+                String name = request.getParameter("txtseName");
+                String hourlyRate = request.getParameter("txtseRate");
+
+                if (seId != null) {
+                    seDAO.updateService(seId, name, hourlyRate);
+                                    request.setAttribute("SERVICE_MECHA_RESULT", list);
+                request.getRequestDispatcher("ViewService.jsp").forward(request, response);
+                    return;
+                }
+            }
+
+            if (action.equals("delete")) {
+                String seId = request.getParameter("seId");
+
+                if (seId != null) {
+                    seDAO.deleteService(seId);
+                    response.sendRedirect("ServiceSaleServlet");
+                    return;
+                }
+            }
+
+            if (action.equals("Add")) {
+                String seId = request.getParameter("txtseId");
+                String name = request.getParameter("txtseName");
+                String hourlyRate = request.getParameter("txtseRate");
+
+                Service newSeAdd = new Service(seId, name, hourlyRate);
+                seDAO.addService(newSeAdd);
+
+                //load lại ds service
+                request.setAttribute("SERVICE_MECHA_RESULT", list);
+                request.getRequestDispatcher("ViewService.jsp").forward(request, response);
+
+            }
+        } else {
+            // Mặc định: Load danh sách xe nếu không có action cụ thể
+            request.setAttribute("SERVICE_MECHA_RESULT", list);
+            request.getRequestDispatcher("ViewService.jsp").forward(request, response);
+        }
+
     }
 
     /**

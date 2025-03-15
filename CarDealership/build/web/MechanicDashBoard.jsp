@@ -28,7 +28,7 @@
             <div style="width: 100%">
                 <div style="width: 30%; float: left;">
                     <h1>MECHANIC DASHBOARD</h1>
-                    <p><a href="ServiceView">Service</a></p>
+                    <p><a href="ViewService.jsp">Service</a></p>
                     <p><a href="ServiceTicketServlet">Your Service Ticket</a></p>
                 </div>
                 <div style="width: 100%">    

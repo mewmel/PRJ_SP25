@@ -11,11 +11,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Wishlist</title>
     </head>
     <body>
-        <h1>danh sach xe yeu thich</h1>
-        <h2>#booking de lai thu  #showroom</h2>
+        <h1>wishlist list <3</h1>
+        <h2>#Click "Booking" to register for a test drive</h2>
         
         <%
             ArrayList<Car> wl = (ArrayList)session.getAttribute("WISHLIST");
@@ -26,14 +26,13 @@
                                 <tr><td><%=car.getCarId() %></td></tr>
                                 <tr><td><%=car.getModel() %></td></tr>
                                 <tr><td><a href="#">remove</a></td></tr>
-                            </table>
-                            
+                            </table>   
                             <%
                         }
                 }
             %>
             <form action="SaveWishlistServlet">
-                <input type="submit" value="Dang ki lai thu">         
+                <input type="submit" value="Booking">         
             </form>
         
     </body>

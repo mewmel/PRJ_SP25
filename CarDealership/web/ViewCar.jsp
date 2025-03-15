@@ -21,7 +21,6 @@
             <form action="CarSaleServlet">
                 <input type="text" name="txtmodel" placeholder="Enter model..." value="${SEARCH_MODEL}">
                 <input type="submit" value="Search">
-                <input type="submit" value="Add">
             </form>
                 <div style="display: flex;">
             <!-- form add -->
