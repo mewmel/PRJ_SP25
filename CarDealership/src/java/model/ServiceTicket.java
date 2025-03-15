@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @author ThinkPad
  */
 public class ServiceTicket implements Serializable{
-     private String id;
+    private String id;
     private String dateReceived;
     private String dateReturn;
     private String cusID;

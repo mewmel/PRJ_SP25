@@ -28,7 +28,7 @@
         <p><a href="ViewCar.jsp">Car</a></p>
         <p><a href="ViewCustomer.jsp">Customer</a></p>
         <p><a href="CreateInvoiceServlet">Create Invoice</a></p>
-        <p><a href="ReportServlet">Report</a></p>
+        <p><a href="Report.jsp">Report</a></p>
     </div>
 
     <!-- Customer List -->

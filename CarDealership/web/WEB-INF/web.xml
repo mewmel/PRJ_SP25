@@ -108,6 +108,14 @@
         <servlet-name>TicketCusServlet</servlet-name>
         <servlet-class>controller.TicketCusServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewServiceTicketServlet</servlet-name>
+        <servlet-class>controller.ViewServiceTicketServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Top3MechanicsServlet</servlet-name>
+        <servlet-class>controller.Top3MechanicsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DetailInvoiceServlet</servlet-name>
         <url-pattern>/DetailInvoiceServlet</url-pattern>
@@ -215,6 +223,14 @@
     <servlet-mapping>
         <servlet-name>TicketCusServlet</servlet-name>
         <url-pattern>/TicketCusServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewServiceTicketServlet</servlet-name>
+        <url-pattern>/ViewServiceTicketServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Top3MechanicsServlet</servlet-name>
+        <url-pattern>/Top3MechanicsServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

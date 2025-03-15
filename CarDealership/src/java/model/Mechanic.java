@@ -12,16 +12,21 @@ package model;
 public class Mechanic {
     private String mechanicId;
     private String mechanicName;
+    private int total_Services;
+
+    public Mechanic(String mechanicId, String mechanicName, int total_Services) {
+        this.mechanicId = mechanicId;
+        this.mechanicName = mechanicName;
+        this.total_Services = total_Services;
+    }
 
     public Mechanic() {
         mechanicId = "";
         mechanicName = "";
+        total_Services =0;
     }
 
-    public Mechanic(String mechanicId, String mechanicName) {
-        this.mechanicId = mechanicId;
-        this.mechanicName = mechanicName;
-    }
+    
 
     public String getMechanicId() {
         return mechanicId;
@@ -38,4 +43,15 @@ public class Mechanic {
     public void setMechanicName(String mechanicName) {
         this.mechanicName = mechanicName;
     }
+
+    public int getTotal_Services() {
+        return total_Services;
+        
+    }
+
+    public void setTotal_Services(int total_Services) {
+        this.total_Services = total_Services;
+    }
+    
+    
 }
