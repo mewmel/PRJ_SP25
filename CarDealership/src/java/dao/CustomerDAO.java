@@ -180,7 +180,7 @@ public class CustomerDAO {
         try {
             cnn = DBUtils.getConnection();
             if (cnn != null) {
-                String sql = "SELECT    [custID]"
+                String sql = "SELECT [custID]"
                         + "      ,[custName]\n"
                         + "      ,[phone]\n"
                         + "      ,[sex]\n"

@@ -32,37 +32,39 @@
                     <p><a href="ServiceTicketServlet">Your Service Ticket</a></p>
                 </div>
                 <div style="width: 100%">    
-                <div style="width: 50%; float: right">
-                    <c:if test="${not empty SERVICE_MECHANIC_RESULT}">
-                        <table>
-                            <tr>
-                                <th>Service Ticket ID</th>
-                                <th>Service ID</th>
-                                <th>Hours</th>
-                                <th>Rate</th>
-                                <th>Action</th>
-                            </tr>
-                            <c:forEach var="serviceMechanic" items="${SERVICE_MECHANIC_RESULT}">
+                    <div style="width: 50%; float: right">
+                        <c:if test="${not empty SERVICE_MECHANIC_RESULT}">
+                            <table>
                                 <tr>
-                                    <td>${serviceMechanic.serviceTicketID}</td>
-                                    <td>${serviceMechanic.serviceID}</td>
-                                    <td>${serviceMechanic.hours}</td>
-                                    <td>${serviceMechanic.rate}</td>
-                                    <td>
-                                        <form action="DetailServiceTicket.jsp" method="POST">
-                                            <input type="hidden" name="txtServiceTicketId" value="${serviceMechanic.serviceTicketID}"/>
-                                            <input type="hidden" name="txtServiceId" value="${serviceMechanic.serviceID}"/>
-                                            <input type="hidden" name="txtHours" value="${serviceMechanic.hours}"/>
-                                            <input type="hidden" name="txtComment" value="${serviceMechanic.comment}"/>
-                                            <input type="hidden" name="txtRate" value="${serviceMechanic.rate}"/>
-                                            <input type="submit" value="Detail"/>
-                                        </form>
-                                    </td>
+                                    <th>Service Ticket ID</th>
+                                    <th>Service ID</th>
+                                    <th>Hours</th>
+                                    <th>Comment</th>
+                                    <th>Rate</th>
+                                    <th>Action</th>
                                 </tr>
-                            </c:forEach>
-                        </table>
-                    </c:if>
-                </div> 
+                                <c:forEach var="serviceMechanic" items="${SERVICE_MECHANIC_RESULT}">
+                                    <tr>
+                                        <td>${serviceMechanic.serviceTicketID}</td>
+                                        <td>${serviceMechanic.serviceID}</td>
+                                        <td>${serviceMechanic.hours}</td>
+                                        <td>${serviceMechanic.comment}</td>
+                                        <td>${serviceMechanic.rate}</td>
+                                        <td>
+                                            <form action="DetailServiceTicket.jsp" method="POST">
+                                                <input type="hidden" name="txtServiceTicketId" value="${serviceMechanic.serviceTicketID}"/>
+                                                <input type="hidden" name="txtServiceId" value="${serviceMechanic.serviceID}"/>
+                                                <input type="hidden" name="txtHours" value="${serviceMechanic.hours}"/>
+                                                <input type="hidden" name="txtComment" value="${serviceMechanic.comment}"/>
+                                                <input type="hidden" name="txtRate" value="${serviceMechanic.rate}"/>
+                                                <input type="submit" value="Detail"/>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+                        </c:if>
+                    </div> 
                     <section style="width: 50%; float: right">
                         <c:if test="${not empty requestScope.SERVICE_RESULT}">
                             <table>
@@ -94,23 +96,25 @@
                     </section>
                     <div style="width: 50%; float: left">
                         <c:if test="${not empty TICKET_RESULT}">
-                                <c:forEach var="t" items="${TICKET_RESULT}">
-                                    <tr>
-                                        <th>Service Ticket ID:</th><td>${t.id}</td><br/>
-                                        <th>Date Received: </th><td>${t.dateReceived}</td><br/>
-                                        <th>Date Return: </th><td>${t.dateReturn}</td><br/>
-                                        <th>Customer ID: </th><td>${t.cusID}</td><br/>
-                                        <th>Car ID: </th><td>${t.carID}</td><br/>
-                                        <br/>
+                            <c:forEach var="t" items="${TICKET_RESULT}">
+                                <tr>
+                                    <th>Service Ticket ID:</th><td>${t.id}</td><br/>
+                                <th>Date Received: </th><td>${t.dateReceived}</td><br/>
+                                <th>Date Return: </th><td>${t.dateReturn}</td><br/>
+                                <th>Customer ID: </th><td>${t.cusID}</td><br/>
+                                <th>Car ID: </th><td>${t.carID}</td><br/>
+                                <br/><div style="width: 50%; float: left">
+
+
                                     </tr>
                                 </c:forEach>
-                        </c:if>
+                            </c:if>
+                        </div>
                     </div>
-            </div>
-        </c:if>
+                </c:if>
 
-        <c:if test="${empty sessionScope.mechanic}">
-            <c:redirect url="LoginStaffPage.jsp"/>
-        </c:if>
-    </body>
-</html>
+                <c:if test="${empty sessionScope.mechanic}">
+                    <c:redirect url="LoginStaffPage.jsp"/>
+                </c:if>
+                </body>
+                </html>
