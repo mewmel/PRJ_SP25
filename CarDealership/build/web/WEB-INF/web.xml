@@ -104,6 +104,10 @@
         <servlet-name>ReportServlet</servlet-name>
         <servlet-class>controller.ReportServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TicketCusServlet</servlet-name>
+        <servlet-class>controller.TicketCusServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DetailInvoiceServlet</servlet-name>
         <url-pattern>/DetailInvoiceServlet</url-pattern>
@@ -207,6 +211,10 @@
     <servlet-mapping>
         <servlet-name>ReportServlet</servlet-name>
         <url-pattern>/ReportServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TicketCusServlet</servlet-name>
+        <url-pattern>/TicketCusServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -24,7 +24,6 @@
                     </li>
                 </ul>
             </nav>
-
             <div style="width: 100%">
                 <div style="width: 30%; float: left;">
                     <h1>MECHANIC DASHBOARD</h1>
@@ -104,8 +103,6 @@
                                 <th>Customer ID: </th><td>${t.cusID}</td><br/>
                                 <th>Car ID: </th><td>${t.carID}</td><br/>
                                 <br/><div style="width: 50%; float: left">
-
-
                                     </tr>
                                 </c:forEach>
                             </c:if>
