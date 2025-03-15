@@ -15,7 +15,7 @@
     </head>
     <body>
         <h1>wishlist list <3</h1>
-        <h2>#Click "Booking" to register for a test drive</h2>
+        <h3>#Click "Booking" to register for a test drive</h3>
         
         <%
             ArrayList<Car> wl = (ArrayList)session.getAttribute("WISHLIST");
