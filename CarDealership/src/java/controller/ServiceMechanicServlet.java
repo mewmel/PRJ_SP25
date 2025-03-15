@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Customer;
 import model.Mechanic;
 import model.ServiceMechanic;
 import model.ServiceTicket;
@@ -47,15 +46,15 @@ public class ServiceMechanicServlet extends HttpServlet {
            if(mechan == null){
                request.setAttribute("ERROR", "ban can login de thuc hien cac tinh nang");
                request.getRequestDispatcher("LoginStaffPage.jsp").forward(request, response);
-           }
-           else{
+            }
+           else {
                ServiceMechanicDAO d = new ServiceMechanicDAO();
                String serviceTicketId = request.getParameter("txtServiceTicketId");
                
                ArrayList<ServiceMechanic> list = d.getServiceMechanic(mechan.getMechanicId()+"", serviceTicketId);
                request.setAttribute("SERVICE_MECHANIC_RESULT", list);
                request.getRequestDispatcher("MechanicDashBoard.jsp").forward(request, response);
-           }
+            }
         }
 //            HttpSession s = request.getSession();
 //           Mechanic mecha = (Mechanic) s.getAttribute("mechanic");

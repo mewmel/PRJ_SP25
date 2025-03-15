@@ -16,34 +16,41 @@ public class WishlistDAO {
 
     public int createWishlist(String cusId, ArrayList<Car> wishlist) {
         int rs = 0;
-        Connection cnn = null;
-        try {
-            cnn = DBUtils.getConnection();
-            if (cnn != null) {
-                cnn.setAutoCommit(false);
-                // Bước 1: Thêm một hàng mới vào bảng wishlist
-                String sql = "INSERT INTO Wishlist VALUES (?)";
-                PreparedStatement st = cnn.prepareStatement(sql);
-                st.setString(1, cusId);
-                rs = st.executeUpdate();
-                if (rs > 0) {
-                    // Bước 2: Lấy id trong bảng wishlist mới chèn
-                    sql = "SELECT TOP 1 wishlistId FROM Wishlist ORDER BY id DESC";
-                    st = cnn.prepareStatement(sql);
-                    ResultSet table = st.executeQuery();
-                    if (table != null && table.next()) {
-                        int wishlistId = table.getInt("wishlistId");
-                        // Bước 3: Duyệt array wishlist
-                        for (Car c : wishlist) {
-                            String carId = c.getCarId();
-                            sql = "INSERT INTO DetailWishlist VALUES (?, ?)";
-                            st = cnn.prepareStatement(sql);
-                            st.setString(1, carId);
-                            st.setInt(2, wishlistId);
-                            rs = st.executeUpdate();
-                        }
-                    }
+    Connection cnn = null;
+    PreparedStatement st = null;
+    ResultSet table = null;
+
+    try {
+        cnn = DBUtils.getConnection();
+        if (cnn != null) {
+            cnn.setAutoCommit(false);
+
+            // Bước 1: Thêm một hàng mới vào bảng Wishlist (Cần chỉ định cột cụ thể)
+            String sql = "INSERT INTO Wishlist (custID) VALUES (?)";
+            st = cnn.prepareStatement(sql);
+            st.setString(1, cusId);
+            st.executeUpdate();
+
+            // Bước 2: Lấy wishlistID mới được tạo
+            table = st.getGeneratedKeys();
+            int wishlistId = -1;
+            if (table != null && table.next()) {
+                wishlistId = table.getInt(1);
+            }
+
+            if (wishlistId != -1) {
+                // Bước 3: Duyệt danh sách wishlist và thêm vào DetailWishlist
+                sql = "INSERT INTO DetailWishlist VALUES (?, ?)";
+                st = cnn.prepareStatement(sql);
+                for (Car c : wishlist) {
+                    String carId = c.getCarId();
+                    st.setString(1, carId);
+                    st.setInt(2, wishlistId);
+                    
+                    rs += st.executeUpdate();
                 }
+            }
+
                 cnn.commit();
                 cnn.setAutoCommit(true);
             }
@@ -52,43 +59,52 @@ public class WishlistDAO {
         }
         return rs;
     }
-    //sua code remove
-    public int removeWishlist(String cusId, ArrayList<Car> wishlist) {
-        int rs = 0;
-        Connection cnn = null;
-        try {
-            cnn = DBUtils.getConnection();
-            if (cnn != null) {
-                cnn.setAutoCommit(false);
-                // Bước 1: Thêm một hàng mới vào bảng wishlist
-                String sql = "INSERT INTO Wishlist VALUES (?)";
-                PreparedStatement st = cnn.prepareStatement(sql);
-                st.setString(1, cusId);
-                rs = st.executeUpdate();
-                if (rs > 0) {
-                    // Bước 2: Lấy id trong bảng wishlist mới chèn
-                    sql = "SELECT TOP 1 wishlistId FROM Wishlist ORDER BY id DESC";
+    //sua code remove: hen xui:
+public int removeWishlist(String cusId, ArrayList<Car> wishlist) {
+    int rs = 0;
+    Connection cnn = null;
+    try {
+        cnn = DBUtils.getConnection();
+        if (cnn != null) {
+            cnn.setAutoCommit(false);
+
+            // Bước 1: Lấy wishlistID của khách hàng từ Wishlist
+            String sql = "SELECT wishlistID FROM Wishlist WHERE custID = ?";
+            PreparedStatement st = cnn.prepareStatement(sql);
+            st.setString(1, cusId);
+            ResultSet table = st.executeQuery();
+
+            if (table != null && table.next()) {
+                int wishlistId = table.getInt("wishlistID");
+
+                // Bước 2: Xóa từng xe trong danh sách wishlist khỏi DetailWishlist
+                for (Car c : wishlist) {
+                    String carId = c.getCarId();
+                    sql = "DELETE FROM DetailWishlist WHERE carID = ? AND wishlistID = ?";
                     st = cnn.prepareStatement(sql);
-                    ResultSet table = st.executeQuery();
-                    if (table != null && table.next()) {
-                        int wishlistId = table.getInt("wishlistId");
-                        // Bước 3: Duyệt array wishlist
-                        for (Car c : wishlist) {
-                            String carId = c.getCarId();
-                            sql = "INSERT INTO DetailWishlist VALUES (?, ?)";
-                            st = cnn.prepareStatement(sql);
-                            st.setString(1, carId);
-                            st.setInt(2, wishlistId);
-                            rs = st.executeUpdate();
-                        }
-                    }
+                    st.setString(1, carId);
+                    st.setInt(2, wishlistId);
+                    rs += st.executeUpdate();
                 }
-                cnn.commit();
-                cnn.setAutoCommit(true);
+
+                // Bước 3: Nếu không còn xe nào, xóa cả Wishlist
+                sql = "SELECT COUNT(*) AS total FROM DetailWishlist WHERE wishlistID = ?";
+                st = cnn.prepareStatement(sql);
+                st.setInt(1, wishlistId);
+                table = st.executeQuery();
+                if (table.next() && table.getInt("total") == 0) {
+                    sql = "DELETE FROM Wishlist WHERE wishlistID = ?";
+                    st = cnn.prepareStatement(sql);
+                    st.setInt(1, wishlistId);
+                    st.executeUpdate();
+                }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            cnn.commit();
+            cnn.setAutoCommit(true);
         }
-        return rs;
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+    return rs;
+}
 }

@@ -14,26 +14,48 @@
         <title>Wishlist</title>
     </head>
     <body>
-        <h1>wishlist list <3</h1>
-        <h3>#Click "Booking" to register for a test drive</h3>
-        
+        <h3># Click "Booking" to register for a test drive</h3>
+        <p><a href="CustomerDashBoard.jsp">back</a></p>
         <%
-            ArrayList<Car> wl = (ArrayList)session.getAttribute("WISHLIST");
-            if (wl != null && !wl.isEmpty()) {
-                    for (Car car : wl) {
-                            %>
-                            <table>
-                                <tr><td><%=car.getCarId() %></td></tr>
-                                <tr><td><%=car.getModel() %></td></tr>
-                                <tr><td><a href="#">remove</a></td></tr>
-                            </table>   
-                            <%
-                        }
+            ArrayList<Car> wishlist = (ArrayList<Car>) session.getAttribute("WISHLIST");
+            if (wishlist != null && !wishlist.isEmpty()) {
+        %>
+        <table>
+            <tr>
+                <th>Car ID</th>
+                <th>Model</th>
+                <th>Action</th>
+            </tr>
+            <%
+                for (Car car : wishlist) {
+            %>
+            <tr>
+                <td><%= car.getCarId() %></td>
+                <td><%= car.getModel() %></td>
+                <td>
+                    <!-- Remove -->
+                    <form action="RemoveFromWishlistServlet" method="post">
+                        <input type="hidden" name="carId" value="<%= car.getCarId() %>">
+                        <input type="submit" value="remove">
+                    </form>
+                </td>
+            </tr>
+            <%
                 }
             %>
-            <form action="SaveWishlistServlet">
-                <input type="submit" value="Booking">         
-            </form>
-        
+        </table>
+
+        <br>
+        <form action="SaveWishlistServlet">
+            <input type="submit" value="Booking">
+        </form>
+
+        <%
+            } else {
+        %>
+        <p>Your wishlist is empty.</p>
+        <%
+            }
+        %>
     </body>
 </html>

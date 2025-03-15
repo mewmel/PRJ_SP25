@@ -22,7 +22,7 @@ public class InvoiceDAO {
         ArrayList<Invoice> rs = new ArrayList<>();
         Connection cnn = null;
         
-        try{
+        try {
             cnn = DBUtils.getConnection();
             if(cnn != null){
                 String sql = "select invoiceID,invoiceDate,salesID,custID,carID\n"
@@ -46,11 +46,11 @@ public class InvoiceDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }finally{
-//            try {
-//                if(cnn != null) cnn.close();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }            
+            try {
+                if(cnn != null) cnn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }            
         }      
         return rs;
     }
@@ -97,7 +97,6 @@ public class InvoiceDAO {
     
 }
 
-//public class InvoiceDAO {
 //   public  ArrayList<Invoice> getInvoices(String custID, String date){
 //        ArrayList<Invoice> rs=new ArrayList<>();
 //        Connection cn=null;

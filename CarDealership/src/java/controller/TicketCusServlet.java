@@ -5,12 +5,17 @@
  */
 package controller;
 
+import dao.ServiceTicketDetailDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Customer;
+import model.ServiceTicketDetail;
 
 /**
  *
@@ -32,7 +37,18 @@ public class TicketCusServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
+            HttpSession session = request.getSession();
+            Customer custPerson = (Customer) session.getAttribute("customer");
+            if(custPerson == null){
+                request.setAttribute("ERROR", "You need to login to do this.");
+                request.getRequestDispatcher("LoginCustPage.jsp").forward(request, response);
+            } else {
+                ServiceTicketDetailDAO d = new ServiceTicketDetailDAO();
+
+                ArrayList<ServiceTicketDetail> list = d.getTicketsByCustomer(custPerson.getCusId());
+                request.setAttribute("TICKET_LIST", list);
+                request.getRequestDispatcher("CustomerDashBoard.jsp").forward(request, response);
+            }
         }
     }
 

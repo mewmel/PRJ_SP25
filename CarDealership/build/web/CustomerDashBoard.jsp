@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="model.ServiceTicketDetail"%>
 <%@page import="model.Car"%>
 <%@page import="model.Invoice"%>
 <%@page import="java.util.ArrayList"%>
@@ -82,6 +83,41 @@
         </table>
         <% } else { %>
         <p>Click "Invoice" to load your Invoice list</p>
+        <% } %>
+
+        <%
+            ArrayList<ServiceTicketDetail> ticketList = (ArrayList<ServiceTicketDetail>) request.getAttribute("TICKET_LIST");
+        %>
+
+        <h2>Your Service Tickets</h2>
+
+        <% if (ticketList != null && !ticketList.isEmpty()) { %>
+        <table border="1" style="width: 100%; border-collapse: collapse;">
+            <tr style="background-color: yellowgreen; color: white;"> 
+                <th>Service ID</th>
+                <th>Service Name</th>
+                <th>Car Name</th>
+                <th>Date Receive</th>
+                <th>Date Return</th>
+                <th>Hours</th>
+                <th>Comment</th>
+                <th>Rate</th>
+            </tr>
+            <% for (ServiceTicketDetail ticket : ticketList) {%>
+            <tr>
+                <td><%= ticket.getSeDetailId()%></td>
+                <td><%= ticket.getServiceName()%></td>
+                <td><%= ticket.getCarName()%></td>
+                <td><%= ticket.getDateReceive()%></td>
+                <td><%= ticket.getDateReturn()%></td>
+                <td><%= ticket.getHours()%></td>
+                <td><%= ticket.getComment()%></td>
+                <td><%= ticket.getRate()%></td>
+            </tr>
+            <% } %>
+        </table>
+        <% } else { %>
+        <p>Click "Your Tickets" to load all your ticket service</p>
         <% } %>
     </div>
 

@@ -37,19 +37,19 @@ public class InvoiceServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-           HttpSession s = request.getSession();
-           Customer custPerson =(Customer) s.getAttribute("customer");
-           if(custPerson == null){
+            HttpSession s = request.getSession();
+            Customer custPerson =(Customer) s.getAttribute("customer");
+           
+            if(custPerson == null){
                request.setAttribute("ERROR", "ban can login de thuc hien cac tinh nang");
                request.getRequestDispatcher("LoginCustPage.jsp").forward(request, response);
-           }
-           else{
+            } else {
                InvoiceDAO d = new InvoiceDAO();
                String date="";
                ArrayList<Invoice> list = d.getInvoices(custPerson.getCusId()+"", date);
                request.setAttribute("INVOICE_RESULT", list);
                request.getRequestDispatcher("CustomerDashBoard.jsp").forward(request, response);
-           }
+            }
         }
     }
 
