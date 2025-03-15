@@ -33,7 +33,10 @@ public class Car {
         this.colour = colour;
         this.year = year;
         this.statusName = statusName;
+
     }
+
+   
 
     public String getCarId() {
         return carId;
@@ -83,5 +86,7 @@ public class Car {
         this.statusName = statusName;
     }
 
-         
 }
+    
+
+       
