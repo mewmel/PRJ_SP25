@@ -32,8 +32,7 @@
                         <input type="submit" value="Search"/>
                     </form>
                 </div>
-
-                <!-- Main Content -->
+                        <!-- Main Content -->
                 <div style="width: 65%;">
                     <h2>Service Ticket List</h2>
                     <c:if test="${not empty requestScope.SERVICE_DETAIL}">
@@ -66,8 +65,7 @@
                     <c:if test="${empty requestScope.SERVICE_DETAIL}">
                         <p>No service tickets available.</p>
                     </c:if>
-
-                    <!-- Service Result -->
+                        <!-- Service Result -->
                     <h2>Service Results</h2>
                     <c:if test="${not empty requestScope.SERVICE_RESULT}">
                         <table style="width: 100%; border-collapse: collapse;">
@@ -99,8 +97,7 @@
                     <c:if test="${empty requestScope.SERVICE_RESULT}">
                         <p>No service results found.</p>
                     </c:if>
-
-                    <!-- Ticket Details -->
+                        <!-- Ticket Details -->
                     <h2>Ticket Details</h2>
                     <c:if test="${not empty requestScope.TICKET_RESULT}">
                         <table style="width: 100%; border-collapse: collapse;">
@@ -140,4 +137,3 @@
         </c:if>
     </body>
 </html>
-
