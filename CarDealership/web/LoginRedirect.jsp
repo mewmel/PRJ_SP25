@@ -9,20 +9,20 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Man hinh cho</title>
+        <title>Standby Page</title>
     </head>
     <body>
         <%
-    String userType = request.getParameter("userType");
+            String userType = request.getParameter("userType");
 
-    if ("staff".equals(userType)) {
-        response.sendRedirect("LoginStaffPage.jsp");
-    } else if ("customer".equals(userType)) {
-        response.sendRedirect("LoginCustPage.jsp");
-    } else {
-        out.print(request.getAttribute("ERROR"));
-    }
-%>
+            if ("staff".equals(userType)) {
+                response.sendRedirect("LoginStaffPage.jsp");
+            } else if ("customer".equals(userType)) {
+                response.sendRedirect("LoginCustPage.jsp");
+            } else {
+                out.print(request.getAttribute("ERROR"));
+            }
+        %>
 
     </body>
 </html>

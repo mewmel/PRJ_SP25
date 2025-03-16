@@ -14,9 +14,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Car Information</title>
     </head>
-    <body> 
+    <body style="background-color: lightcyan"> 
         <c:if test="${not empty sessionScope.sale}">
-        <p><a href="SaleDashBoard.jsp">back</a></p>
+        <p><a href="SaleDashBoard.jsp" style="padding: 5px 10px; border: none; background-color: #009999; color: white; border-radius: 5px; cursor: pointer;">back</a></p>
             <h1>CAR LIST</h1>
             <form action="CarSaleServlet">
                 <input type="text" name="txtmodel" placeholder="Enter model..." value="${SEARCH_MODEL}">

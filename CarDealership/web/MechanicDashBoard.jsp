@@ -8,28 +8,31 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Mechanic DashBoard</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Mechanic Dashboard</title>
     </head>
     <body>
         <c:if test="${not empty sessionScope.mechanic}">
-            <nav class="text">
-                <ul class="menu" style="width: 100%; display: inline-block; list-style-type: none; background: #ccccff">
-                    <li>Welcome ${sessionScope.mechanic.mechanicName}</li>
-                    <li><a href="LogoutMechaServlet">Logout</a></li>
-                    <li style="float:right;width: 30%; margin-right: 2%">
-                        <form action="FindServiceTicketServlet">
-                            <input type="text" name="txt_ticket" value="${param.txt_ticket}"/>
-                            <input type="submit" value="Search"/>
-                        </form>
-                    </li>
+            <!-- Navigation -->
+            <nav style="background: #009999; padding: 10px;">
+                <ul class="menu" style="display: flex; justify-content: space-between; align-items: center; list-style-type: none; margin: 0; padding: 0;">
+                    <li style="font-weight: bold;">Welcome ${sessionScope.mechanic.mechanicName}</li>
+                    <li><a href="LogoutMechaServlet" style="color: #003333; text-decoration: none; font-weight: bold;">Logout</a></li>
                 </ul>
             </nav>
-            <div style="width: 100%">
-                <div style="width: 30%; float: left;">
-                    <h1>MECHANIC DASHBOARD</h1>
+
+            <div style="display: flex; gap: 20px; padding: 20px;">
+                <!-- Sidebar Menu -->
+                <div style="width: 30%; background-color: #f8f9fa; padding: 15px; border-radius: 8px;">
+                    <h2>MECHANIC DASHBOARD</h2>
                     <p><a href="ViewService.jsp">Service</a></p>
                     <p><a href="ServiceTicketServlet">Your Service Ticket</a></p>
+                    <form action="FindServiceTicketServlet">
+                        <input type="text" name="txt_ticket" value="${param.txt_ticket}" />
+                        <input type="submit" value="Search"/>
+                    </form>
                 </div>
+                        
                 <div style="width: 100%">    
                     <div style="width: 50%; float: right">
                         <c:if test="${not empty requestScope.SERVICE_RESULT}">
@@ -63,33 +66,39 @@
                     <section style="width: 50%; float: right">
                         <c:if test="${not empty SERVICE_DETAIL}">
                             <table>
+
+
+                <!-- Main Content -->
+                <div style="width: 65%;">
+                    <h2>Service Ticket List</h2>
+                    <c:if test="${not empty requestScope.SERVICE_DETAIL}">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <tr style="background-color: #ccccff; color: black;">
+                                <th>Service Ticket ID</th>
+                                <th>Service ID</th>
+                                <th>Hours</th>
+                                <th>Comment</th>
+                                <th>Rate</th>
+                                <th>Action</th>
+                            </tr>
+                            <c:forEach var="ticket" items="${requestScope.SERVICE_DETAIL}">
+
                                 <tr>
-                                    <th>Service Ticket ID</th>
-                                    <th>Service ID</th>
-                                    <th>Hours</th>
-                                    <th>Comment</th>
-                                    <th>Rate</th>
-                                    <th>Action</th>
+                                    <td>${ticket.serviceTicketID}</td>
+                                    <td>${ticket.serviceID}</td>
+                                    <td>${ticket.hours}</td>
+                                    <td>${ticket.comment}</td>
+                                    <td>${ticket.rate}</td>
+                                    <td>
+                                        <form action="DetailServiceTicket.jsp" method="POST">
+                                            <input type="hidden" name="txtServiceTicketId" value="${ticket.serviceTicketID}"/>
+                                            <input type="submit" value="Detail"/>
+                                        </form>
+                                    </td>
                                 </tr>
-                                <c:forEach var="serviceTicket" items="${SERVICE_DETAIL}">
-                                    <tr>
-                                        <td>${serviceTicket.serviceTicketID}</td>
-                                        <td>${serviceTicket.serviceID}</td>
-                                        <td>${serviceTicket.hours}</td>
-                                        <td>${serviceTicket.comment}</td>
-                                        <td>${serviceTicket.rate}</td>
-                                        <td>
-                                            <form action="DetailServiceTicket.jsp" method="POST">
-                                                <input type="hidden" name="txtServiceTicketId" value="${serviceTicket.serviceTicketID}"/>
-                                                <input type="hidden" name="txtServiceId" value="${serviceTicket.serviceID}"/>
-                                                <input type="hidden" name="txtHours" value="${serviceTicket.hours}"/>
-                                                <input type="hidden" name="txtComment" value="${serviceTicket.comment}"/>
-                                                <input type="hidden" name="txtRate" value="${serviceTicket.rate}"/>
-                                                <input type="submit" value="Detail"/>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
+                               
+                            </c:forEach>
+                                
                             </table>
                         </c:if>
 
@@ -97,22 +106,86 @@
                     <div style="width: 50%; float: left">
                         <c:if test="${not empty TICKET_RESULT}">
                             <c:forEach var="t" items="${TICKET_RESULT}">
+
+                            </c:forEach>
+                        </table>
+                    </c:if>
+                    <c:if test="${empty requestScope.SERVICE_DETAIL}">
+                        <p>No service tickets available.</p>
+                    </c:if>
+
+                    <!-- Service Result -->
+                    <h2>Service Results</h2>
+                    <c:if test="${not empty requestScope.SERVICE_RESULT}">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <tr style="background-color: #ccccff; color: black;">
+                                <th>Service Ticket ID</th>
+                                <th>Date Received</th>
+                                <th>Date Return</th>
+                                <th>Customer ID</th>
+                                <th>Car ID</th>
+                                <th>Action</th>
+                            </tr>
+                            <c:forEach var="result" items="${requestScope.SERVICE_RESULT}">
                                 <tr>
-                                    <th>Service Ticket ID:</th><td>${t.id}</td><br/>
-                                <th>Date Received: </th><td>${t.dateReceived}</td><br/>
-                                <th>Date Return: </th><td>${t.dateReturn}</td><br/>
-                                <th>Customer ID: </th><td>${t.cusID}</td><br/>
-                                <th>Car ID: </th><td>${t.carID}</td><br/>
-                                <br/><div style="width: 50%; float: left">
-                                    </tr>
-                                </c:forEach>
-                            </c:if>
-                        </div>
-                    </div>
-                </c:if>
+                                    <td>${result.id}</td>
+                                    <td>${result.dateReceived}</td>
+                                    <td>${result.dateReturn}</td>
+                                    <td>${result.cusID}</td>
+                                    <td>${result.carID}</td>
+                                    <td>
+                                        <form action="ServiceTicketServlet" method="POST">
+                                            <input type="hidden" name="txtServiceTicketId" value="${result.id}"/>
+                                            <input type="submit" value="Show"/>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </table>
+                    </c:if>
+                    <c:if test="${empty requestScope.SERVICE_RESULT}">
+                        <p>No service results found.</p>
+                    </c:if>
+
+                    <!-- Ticket Details -->
+                    <h2>Ticket Details</h2>
+                    <c:if test="${not empty requestScope.TICKET_RESULT}">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <tr style="background-color: #ccccff; color: black;">
+                                <th>Service Ticket ID</th>
+                                <th>Date Received</th>
+                                <th>Date Return</th>
+                                <th>Customer ID</th>
+                                <th>Car ID</th>
+                            </tr>
+                            <c:forEach var="t" items="${requestScope.TICKET_RESULT}">
+
+                                <tr>
+                                    <td>${t.id}</td>
+                                    <td>${t.dateReceived}</td>
+                                    <td>${t.dateReturn}</td>
+                                    <td>${t.cusID}</td>
+                                    <td>${t.carID}</td>
+                                </tr>
+                            </c:forEach>
+                        </table>
+                    </c:if>
+                    <c:if test="${empty requestScope.TICKET_RESULT}">
+                        <p>No ticket details found.</p>
+                    </c:if>
+
+
                 </div>
-                <c:if test="${empty sessionScope.mechanic}">
-                    <c:redirect url="LoginStaffPage.jsp"/>
-                </c:if>
-                </body>
-                </html>
+            </div>
+        </c:if>
+        <!-- Error Message -->
+        <p style="color: red; font-weight: bold;">
+            ${requestScope.ERROR}
+        </p>
+
+        <c:if test="${empty sessionScope.mechanic}">
+            <c:redirect url="LoginStaffPage.jsp"/>
+        </c:if>
+    </body>
+</html>
+

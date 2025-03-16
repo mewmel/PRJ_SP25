@@ -14,10 +14,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Customer Information</title>
     </head>
-    <body>
+    <body body style="background-color: lightcyan">
         
         <c:if test="${not empty sessionScope.sale}">
-        <p><a href="SaleDashBoard.jsp">back</a></p>
+        <p><a href="SaleDashBoard.jsp" style="padding: 5px 10px; border: none; background-color: #009999; color: white; border-radius: 5px; cursor: pointer;">back</a></p>
         
             <h1>CUSTOMER LIST</h1>
             <form action="CusSaleServlet">
@@ -65,11 +65,10 @@
                                             <input type="hidden" name="cusId" value="${c.cusId}">
                                             <button type="submit" value="more" name="action">more</button>
                                         </form>
-
-                                        <form action="ViewServiceTicketServlet" method="post">
+                                        <!--<form action="ViewServiceTicketServlet" method="post">
                                             <input type="hidden" name="cusId" value="${c.cusId}">
                                             <button type="submit" name="action">view</button>
-                                        </form>
+                                        </form>-->
 
 
                                     </td>

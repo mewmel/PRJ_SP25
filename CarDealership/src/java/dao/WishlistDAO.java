@@ -8,58 +8,75 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import model.Car;
 import mylib.DBUtils;
 
-//hết biết, hết cứu T.T
+// hết cứu T.T
 public class WishlistDAO {
 
     public int createWishlist(String cusId, ArrayList<Car> wishlist) {
-        int rs = 0;
+    int rs = 0;
     Connection cnn = null;
-    PreparedStatement st = null;
-    ResultSet table = null;
+    PreparedStatement insertWishlistStmt = null;
+    PreparedStatement insertDetailStmt = null;
+    ResultSet generatedKeys = null;
 
     try {
         cnn = DBUtils.getConnection();
         if (cnn != null) {
-            cnn.setAutoCommit(false);
+            cnn.setAutoCommit(false); // Tắt auto-commit để có thể rollback nếu lỗi
 
-            // Bước 1: Thêm một hàng mới vào bảng Wishlist (Cần chỉ định cột cụ thể)
-            String sql = "INSERT INTO Wishlist (custID) VALUES (?)";
-            st = cnn.prepareStatement(sql);
-            st.setString(1, cusId);
-            st.executeUpdate();
+            // Bước 1: Chèn vào bảng Wishlist
+            String insertWishlistSQL = "INSERT INTO Wishlist (custID) VALUES (?)";
+            insertWishlistStmt = cnn.prepareStatement(insertWishlistSQL, Statement.RETURN_GENERATED_KEYS);
+            insertWishlistStmt.setString(1, cusId);
+            insertWishlistStmt.executeUpdate();
 
-            // Bước 2: Lấy wishlistID mới được tạo
-            table = st.getGeneratedKeys();
+            // Bước 2: Lấy ID mới tạo từ Wishlist
+            generatedKeys = insertWishlistStmt.getGeneratedKeys();
             int wishlistId = -1;
-            if (table != null && table.next()) {
-                wishlistId = table.getInt(1);
+            if (generatedKeys.next()) {
+                wishlistId = generatedKeys.getInt(1);
+            } else {
+                throw new SQLException("Creating wishlist failed, no ID obtained.");
             }
 
-            if (wishlistId != -1) {
-                // Bước 3: Duyệt danh sách wishlist và thêm vào DetailWishlist
-                sql = "INSERT INTO DetailWishlist VALUES (?, ?)";
-                st = cnn.prepareStatement(sql);
-                for (Car c : wishlist) {
-                    String carId = c.getCarId();
-                    st.setString(1, carId);
-                    st.setInt(2, wishlistId);
-                    
-                    rs += st.executeUpdate();
-                }
+            // Bước 3: Thêm vào DetailWishlist nếu có wishlistId hợp lệ
+            String insertDetailSQL = "INSERT INTO DetailWishlist (carId, wishlistId) VALUES (?, ?)";
+            insertDetailStmt = cnn.prepareStatement(insertDetailSQL);
+            for (Car c : wishlist) {
+                insertDetailStmt.setString(1, c.getCarId());
+                insertDetailStmt.setInt(2, wishlistId);
+                rs += insertDetailStmt.executeUpdate();
             }
 
-                cnn.commit();
-                cnn.setAutoCommit(true);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            cnn.commit(); // Nếu không có lỗi, commit transaction
         }
-        return rs;
+    } catch (Exception e) {
+        if (cnn != null) {
+            try {
+                cnn.rollback(); // Rollback nếu có lỗi
+            } catch (SQLException rollbackEx) {
+                rollbackEx.printStackTrace();
+            }
+        }
+        e.printStackTrace();
+    } finally {
+        // Đóng tài nguyên để tránh rò rỉ bộ nhớ
+        try {
+            if (generatedKeys != null) generatedKeys.close();
+            if (insertWishlistStmt != null) insertWishlistStmt.close();
+            if (insertDetailStmt != null) insertDetailStmt.close();
+            if (cnn != null) cnn.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
+    return rs;
+}
     //sua code remove: hết cứu
 public int removeWishlist(String cusId, ArrayList<Car> wishlist) {
     int rs = 0;

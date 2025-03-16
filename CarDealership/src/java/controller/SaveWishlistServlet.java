@@ -39,18 +39,34 @@ public class SaveWishlistServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession s = request.getSession();
             Customer customer = (Customer) s.getAttribute("customer");
-            String cusId = ""+ customer.getCusId();
-            ArrayList<Car> wl = (ArrayList)s.getAttribute("WISHLIST");
+
+            if (customer == null) {
+                request.setAttribute("ERROR", "You need to login first.");
+                request.getRequestDispatcher("LoginPage.jsp").forward(request, response);
+                return;
+            }
+
+            String cusId = String.valueOf(customer.getCusId());
+            ArrayList<Car> wl = (ArrayList<Car>) s.getAttribute("WISHLIST");
+
+            if (wl == null || wl.isEmpty()) {
+                request.setAttribute("ERROR", "Your wishlist is empty.");
+                request.getRequestDispatcher("ViewWishlist.jsp").forward(request, response);
+                return;
+            }
+
             WishlistDAO d = new WishlistDAO();
             int rs = d.createWishlist(cusId, wl);
+
             if (rs > 0) {
-                //xoa wishlist trong session
                 s.removeAttribute("WISHLIST");
+                request.setAttribute("SUCCESS", "Wishlist saved successfully!");
                 request.getRequestDispatcher("CustomerDashBoard.jsp").forward(request, response);
             } else {
+                request.setAttribute("ERROR", "Failed to save wishlist. Please try again.");
                 request.getRequestDispatcher("ViewWishlist.jsp").forward(request, response);
-            }
         }
+    }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -14,7 +14,7 @@
             if (session.getAttribute("sale") != null) {
                 SalePerson salePerson = (SalePerson) session.getAttribute("sale");
         %>
-       <nav style="background: yellowgreen; padding: 10px;">
+       <nav style="background: #009999; padding: 10px;">
     <ul class="menu" style="display: flex; justify-content: space-between; align-items: center; list-style-type: none; margin: 0; padding: 0;">
         <li style="font-weight: bold;">Welcome <%= salePerson.getSaleName()%></li>
         <li><a href="LogoutSaleServlet" style="color: #003333; text-decoration: none; font-weight: bold;">Logout</a></li>
@@ -114,17 +114,17 @@
         <!-- Error Message -->
         <p style="color: red; font-weight: bold;">
             <%
-                if (request.getAttribute("ERROR") != null) {
-                    out.print(request.getAttribute("ERROR"));
+                if (session.getAttribute("ERROR") != null) {
+                    out.print(session.getAttribute("ERROR"));
+                    session.removeAttribute("ERROR"); // Xóa sau khi hiển thị
                 }
             %>
         </p>
     </div>
 </div>
 
-        <% } else {
-                // Redirect to login page if session is not valid
-                request.getRequestDispatcher("LoginStaffPage.jsp").forward(request, response);
-            }%>
+<% } else {
+        request.getRequestDispatcher("LoginStaffPage.jsp").forward(request, response);
+    }%>
     </body>
 </html>

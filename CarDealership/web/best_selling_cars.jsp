@@ -9,11 +9,12 @@
     <title>Best Selling Cars</title>
 </head>
 <body>
-    <h2>Danh sách xe bán chạy</h2>
+    <h2>List of best selling cars</h2>
+    <p><a href="SaleDashBoard.jsp" style="padding: 5px 10px; border: none; background-color: #009999; color: white; border-radius: 5px; cursor: pointer;">back</a></p>
     <table border="1">
         <tr>
             <th>Model</th>
-            <th>Số lượng bán</th>
+            <th>Quantity</th>
         </tr>
         <%
             ArrayList<CarCounting> bestSellingCars = (ArrayList<CarCounting>) request.getAttribute("bestSellingCars");
@@ -29,7 +30,7 @@
             } else {
         %>
         <tr>
-            <td colspan="2">Không có dữ liệu</td>
+            <td colspan="2">No Data</td>
         </tr>
         <%
             }
