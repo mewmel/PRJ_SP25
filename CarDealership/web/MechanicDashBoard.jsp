@@ -32,43 +32,7 @@
                         <input type="submit" value="Search"/>
                     </form>
                 </div>
-                        
-                <div style="width: 100%">    
-                    <div style="width: 50%; float: right">
-                        <c:if test="${not empty requestScope.SERVICE_RESULT}">
-                            <table>
-                                <tr>
-                                    <th>Service Ticket ID</th>
-                                    <th>Date Received</th>
-                                    <th>Date Return</th>
-                                    <th>Customer ID</th>
-                                    <th>Car ID</th>
-                                    <th>Action</th>
-                                </tr>
-                                <c:forEach var="serviceTicket" items="${requestScope.SERVICE_RESULT}">
-                                    <tr>
-                                        <td>${serviceTicket.id}</td>
-                                        <td>${serviceTicket.dateReceived}</td>
-                                        <td>${serviceTicket.dateReturn}</td>
-                                        <td>${serviceTicket.cusID}</td>
-                                        <td>${serviceTicket.carID}</td>
-                                        <td>
-                                            <form action="ServiceTicketServlet" method="POST">
-                                                <input type="hidden" name="txtServiceTicketId" value="${serviceTicket.id}"/>
-                                                <input type="submit" value="show"/>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                            </table>
-                        </c:if>
-                    </div> 
-                    <section style="width: 50%; float: right">
-                        <c:if test="${not empty SERVICE_DETAIL}">
-                            <table>
-
-
-                <!-- Main Content -->
+                        <!-- Main Content -->
                 <div style="width: 65%;">
                     <h2>Service Ticket List</h2>
                     <c:if test="${not empty requestScope.SERVICE_DETAIL}">
@@ -82,7 +46,6 @@
                                 <th>Action</th>
                             </tr>
                             <c:forEach var="ticket" items="${requestScope.SERVICE_DETAIL}">
-
                                 <tr>
                                     <td>${ticket.serviceTicketID}</td>
                                     <td>${ticket.serviceID}</td>
@@ -96,25 +59,13 @@
                                         </form>
                                     </td>
                                 </tr>
-                               
-                            </c:forEach>
-                                
-                            </table>
-                        </c:if>
-
-                    </section>
-                    <div style="width: 50%; float: left">
-                        <c:if test="${not empty TICKET_RESULT}">
-                            <c:forEach var="t" items="${TICKET_RESULT}">
-
                             </c:forEach>
                         </table>
                     </c:if>
                     <c:if test="${empty requestScope.SERVICE_DETAIL}">
                         <p>No service tickets available.</p>
                     </c:if>
-
-                    <!-- Service Result -->
+                        <!-- Service Result -->
                     <h2>Service Results</h2>
                     <c:if test="${not empty requestScope.SERVICE_RESULT}">
                         <table style="width: 100%; border-collapse: collapse;">
@@ -146,8 +97,7 @@
                     <c:if test="${empty requestScope.SERVICE_RESULT}">
                         <p>No service results found.</p>
                     </c:if>
-
-                    <!-- Ticket Details -->
+                        <!-- Ticket Details -->
                     <h2>Ticket Details</h2>
                     <c:if test="${not empty requestScope.TICKET_RESULT}">
                         <table style="width: 100%; border-collapse: collapse;">
@@ -159,7 +109,6 @@
                                 <th>Car ID</th>
                             </tr>
                             <c:forEach var="t" items="${requestScope.TICKET_RESULT}">
-
                                 <tr>
                                     <td>${t.id}</td>
                                     <td>${t.dateReceived}</td>
@@ -188,4 +137,3 @@
         </c:if>
     </body>
 </html>
-
