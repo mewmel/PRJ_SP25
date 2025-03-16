@@ -51,10 +51,14 @@
                                     <td>${ticket.serviceID}</td>
                                     <td>${ticket.hours}</td>
                                     <td>${ticket.comment}</td>
-                                    <td>${ticket.rate}</td>
+                                    <td>${ticket.rate}</trated>
                                     <td>
                                         <form action="DetailServiceTicket.jsp" method="POST">
                                             <input type="hidden" name="txtServiceTicketId" value="${ticket.serviceTicketID}"/>
+                                            <input type="hidden" name="txtServiceId" value="${ticket.serviceID}"/>
+                                            <input type="hidden" name="txtHours" value="${ticket.hours}"/>
+                                            <input type="hidden" name="txtComment" value="${ticket.comment}"/>
+                                            <input type="hidden" name="txtRate" value="${ticket.rate}"/>
                                             <input type="submit" value="Detail"/>
                                         </form>
                                     </td>
@@ -122,7 +126,6 @@
                     <c:if test="${empty requestScope.TICKET_RESULT}">
                         <p>No ticket details found.</p>
                     </c:if>
-
 
                 </div>
             </div>

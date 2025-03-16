@@ -7,10 +7,8 @@
 
 </head>
 <body class="login-staff-page">
-       
     <div class="login-container">
         <h2>Staff Login</h2>
-
         <form action="LoginStaffServlet" method="POST" accept-charset="utf-8">
             <input type="text" name="txtname" placeholder="Enter your name" required="">
             <button type="submit" class="btn">Login</button>

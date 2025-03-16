@@ -37,17 +37,6 @@ public class ViewPartsServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-//            String searchName = request.getParameter("searchName"); // Lấy tên từ request
-//    PartsDAO dao = new PartsDAO();
-//    ArrayList<Parts> list = dao.searchPartsByName(searchName);
-//
-//    request.setAttribute("PARTS_LIST", list);
-//    request.setAttribute("SEARCH_NAME", searchName); // Lưu lại giá trị tìm kiếm để hiển thị
-//    request.getRequestDispatcher("parts.jsp").forward(request, response);
-//    }
-//    }
-    
-    
           PartsDAO partsDAO = new PartsDAO();
             ArrayList<Parts> list = new ArrayList<>();
             list = partsDAO.getAllParts();
@@ -60,7 +49,7 @@ public class ViewPartsServlet extends HttpServlet {
             }
 
             request.setAttribute("PARTS_RESULT", list);
-            request.getRequestDispatcher("parts.jsp").forward(request, response);
+            request.getRequestDispatcher("ViewPart.jsp").forward(request, response);
         }
     }
 

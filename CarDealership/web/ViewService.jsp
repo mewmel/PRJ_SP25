@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Service</title>
     </head>
-    <body> 
+    <body style="background-color: lightcyan"> 
         <c:if test="${not empty sessionScope.mechanic}">
         <p><a href="MechanicDashBoard.jsp" style="padding: 5px 10px; border: none; background-color: #009999; color: white; border-radius: 5px; cursor: pointer;">back</a></p>
             <h1>SERVICE LIST</h1>

@@ -14,7 +14,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Customer Information</title>
     </head>
-    <body body style="background-color: lightcyan">
+    <body style="background-color: lightcyan">
         
         <c:if test="${not empty sessionScope.sale}">
         <p><a href="SaleDashBoard.jsp" style="padding: 5px 10px; border: none; background-color: #009999; color: white; border-radius: 5px; cursor: pointer;">back</a></p>

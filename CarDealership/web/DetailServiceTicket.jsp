@@ -9,10 +9,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Service Ticket Detail</title>
     </head>
     <body>
-        <nav style="width: 100%; display: inline-block; list-style-type: none; background: yellowgreen">
+        <nav style="width: 100%; display: inline-block; list-style-type: none; background: lightcyan">
             <h1>Service Ticket Detail</h1>   
         </nav> 
         <form action="UpdateServiceTicket.jsp" method="POST">

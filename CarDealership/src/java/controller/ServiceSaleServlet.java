@@ -98,14 +98,14 @@ public class ServiceSaleServlet extends HttpServlet {
                 return;
             }
             if (action.equals("update")) {
-                String seId = request.getParameter("txtseId");
-                String name = request.getParameter("txtseName");
-                String hourlyRate = request.getParameter("txtseRate");
+                String seId = request.getParameter("seId");
+                String name = request.getParameter("seName");
+                String hourlyRate = request.getParameter("seRate");
 
                 if (seId != null) {
                     seDAO.updateService(seId, name, hourlyRate);
-                                    request.setAttribute("SERVICE_MECHA_RESULT", list);
-                request.getRequestDispatcher("ViewService.jsp").forward(request, response);
+                    request.setAttribute("SERVICE_MECHA_RESULT", list);
+                    response.sendRedirect("ServiceSaleServlet");
                     return;
                 }
             }
@@ -130,11 +130,11 @@ public class ServiceSaleServlet extends HttpServlet {
 
                 //load lại ds service
                 request.setAttribute("SERVICE_MECHA_RESULT", list);
-                request.getRequestDispatcher("ViewService.jsp").forward(request, response);
+                response.sendRedirect("ServiceSaleServlet");
 
             }
         } else {
-            // Mặc định: Load danh sách xe nếu không có action cụ thể
+
             request.setAttribute("SERVICE_MECHA_RESULT", list);
             request.getRequestDispatcher("ViewService.jsp").forward(request, response);
         }

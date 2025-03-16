@@ -9,11 +9,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Part</title>
     </head>
-    <body>
+    <body style="background-color: lightcyan">
         <c:if test="${not empty sessionScope.sale}">
-            <p><a href="SaleDashBoard.jsp">back</a></p>
+            <p><a href="SaleDashBoard.jsp" style="padding: 5px 10px; border: none; background-color: #009999; color: white; border-radius: 5px; cursor: pointer;">back</a></p>
             <h1>PARTS LIST</h1>
             <form action="ViewPartsServlet">
                 <input type="text" name="txtsearchname" placeholder="Enter name..." value="${SEARCH_NAME}">

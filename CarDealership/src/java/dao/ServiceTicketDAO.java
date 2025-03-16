@@ -36,10 +36,11 @@ public class ServiceTicketDAO {
                                     "      ,[custID]\n" +
                                     "      ,[carID]\n" +
                                     "  FROM [Car_Dealership].[dbo].[ServiceTicket]\n" +
-                                    "  WHERE [custID] = ? or [carID] = ?";
+                                    "  WHERE [custID] = ? or [carID] = ? ";
                     PreparedStatement st = cnn.prepareStatement(sql);
                     st.setString(1, input);
                     st.setString(2, input);
+                    st.setString(3, input);
                     
                     ResultSet table = st.executeQuery();
                     if (table != null) {
@@ -109,7 +110,7 @@ public class ServiceTicketDAO {
         return rs;
     
     }  
-         //dung cho: ?- Linh
+         // Linh
     public ArrayList<ServiceTicket> getServiceTicket(String cusId, String date) {
         ArrayList<ServiceTicket> rs = new ArrayList<>();
         Connection cnn = null;

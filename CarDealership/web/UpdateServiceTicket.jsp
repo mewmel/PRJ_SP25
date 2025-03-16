@@ -11,12 +11,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Update Page</title>
     </head>
-    <body>
-        <p><a href="MechanicDashBoard.jsp">back</a></p>
+    <body style="background-color: lightcyan">
+        <p><a href="MechanicDashBoard.jsp" style="padding: 5px 10px; border: none; background-color: #009999; color: white; border-radius: 5px; cursor: pointer;">back</a></p>
         <% if (session.getAttribute("mechanic") != null) {
         %>
 
-        <nav style="width: 100%; display: inline-block; list-style-type: none; background: yellowgreen">
+        <nav style="width: 100%; display: inline-block; list-style-type: none; background: lightcyan">
             <h1>Service Ticket Update</h1>   
         </nav> 
         <form action="UpdateServiceTicketServlet" method="POST">
