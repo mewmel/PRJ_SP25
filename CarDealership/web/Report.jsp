@@ -9,10 +9,22 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <link rel="stylesheet" href="mystyle.css" type="text/css"/>
+        <title>Report</title>
+        <style>
+            
+        </style>
     </head>
-    <body>       
-        <p><a href="ReportServlet">Statistics of best-selling car models</a></p>
-        <p><a href="Top3MechanicsServlet">Top 3 Mechanics</a></p>
+    <body class="report">
+        <div class="container">
+            <div class="options">
+                <div class="option"><a href="ReportServlet">Best-selling Car Models</a></div>
+                <div class="option"><a href="Top3MechanicsServlet">Top 3 mechanics assigned to the most repairs</a></div>
+                <div class="option coming-soon">Cars Sold by Year (Coming Soon)</div>
+                <div class="option coming-soon">Best Used Parts (Coming Soon)</div>
+                <div class="option coming-soon">Top 3 Mechanics by Repairs (Coming Soon)</div>
+            </div>
+        </div>
     </body>
 </html>
+

@@ -35,8 +35,8 @@ public class LogoutSaleServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession s = request.getSession(false);
             s.removeAttribute("sale");
-            request.setAttribute("ERROR", "Logout successfull!");
-            request.getRequestDispatcher("SaleDashBoard.jsp").forward(request, response);
+            s.setAttribute("ERROR", "Logout successfully!");
+            response.sendRedirect("LoginStaffPage.jsp");
         }
     }
 

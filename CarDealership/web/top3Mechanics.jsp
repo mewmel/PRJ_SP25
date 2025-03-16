@@ -11,9 +11,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Special mechanic</title>
     </head>
-    <body>
+    <body>       
+        <p><a href="SaleDashBoard.jsp" style="padding: 5px 10px; border: none; background-color: #009999; color: white; border-radius: 5px; cursor: pointer;">back</a></p>
         <h2>Top 3 mechanics assigned to the most repairs</h2>
     <table border="1">
         <tr>

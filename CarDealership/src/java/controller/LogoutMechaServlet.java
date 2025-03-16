@@ -33,10 +33,11 @@ public class LogoutMechaServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            HttpSession s=request.getSession(false);
-            s.removeAttribute("mechanic");           
-            request.setAttribute("ERROR", "Logout successfull!");
-            request.getRequestDispatcher("MechanicDashBoard.jsp").forward(request, response);
+            HttpSession s = request.getSession(false);
+            s.removeAttribute("mechanic");  
+
+            s.setAttribute("ERROR", "Logout successfully!");
+            response.sendRedirect("LoginStaffPage.jsp");
         }
     }
 
