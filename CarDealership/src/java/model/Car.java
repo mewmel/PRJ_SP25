@@ -5,11 +5,13 @@
  */
 package model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author trant
  */
-public class Car {
+public class Car implements Serializable{
     private String  carId;
     private String model;
     private String serialNumber;

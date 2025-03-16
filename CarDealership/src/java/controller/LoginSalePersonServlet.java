@@ -47,7 +47,7 @@ public class LoginSalePersonServlet extends HttpServlet {
                     MechanicDAO md = new MechanicDAO();
                     Mechanic mecha = md.checkLogin(saleName);
                     if (mecha == null) {
-                        //response.sendRedirect("error2.html");
+                        request.setAttribute("ERROR", "You need to login to do this.");
                         request.getRequestDispatcher("LoginCustPage.jsp").forward(request, response);
                     } else {
                         HttpSession s = request.getSession(true);

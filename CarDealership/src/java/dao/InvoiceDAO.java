@@ -27,7 +27,7 @@ public class InvoiceDAO {
             if(cnn != null){
                 String sql = "select invoiceID,invoiceDate,salesID,custID,carID\n"
                             + "from dbo.SalesInvoice\n"
-                            + "where custID=? and invoiceDate like ?";
+                            + "where custID = ? and invoiceDate like ?";
                 PreparedStatement st = cnn.prepareStatement(sql);
                 st.setString(1, cusID);
                 st.setString(2, "%"+date+"%");
@@ -54,7 +54,7 @@ public class InvoiceDAO {
         }      
         return rs;
     }
-    
+    //linh
     public int getMaxInvoiceID() throws ClassNotFoundException {
     int newInvoiceID = 1; // Mặc định nếu bảng trống
     String query = "SELECT MAX(invoiceID) FROM [dbo].[SalesInvoice]";
@@ -73,8 +73,8 @@ public class InvoiceDAO {
     return newInvoiceID;
 }
 
-    
-     // Phương thức lưu hóa đơn vào database
+    //linh
+    // Phương thức lưu hóa đơn vào database
     public boolean saveInvoice( String invoiceID, String saleID, String carID, String custID) throws ClassNotFoundException {
         String query = "INSERT INTO SalesInvoice (invoiceID, invoiceDate, salesID, carID ,custID) VALUES (?, GETDATE(), ?, ?, ?)";
 
@@ -93,8 +93,7 @@ public class InvoiceDAO {
             e.printStackTrace();
             return false;
         }
-    }
-    
+    }   
 }
 
 //   public  ArrayList<Invoice> getInvoices(String custID, String date){

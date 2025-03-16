@@ -35,7 +35,7 @@ public class LogoutMechaServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession s=request.getSession(false);
             s.removeAttribute("mechanic");           
-            request.setAttribute("ERROR", "Logout success!");
+            request.setAttribute("ERROR", "Logout successfull!");
             request.getRequestDispatcher("MechanicDashBoard.jsp").forward(request, response);
         }
     }

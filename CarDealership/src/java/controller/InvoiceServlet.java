@@ -41,7 +41,7 @@ public class InvoiceServlet extends HttpServlet {
             Customer custPerson =(Customer) s.getAttribute("customer");
            
             if(custPerson == null){
-               request.setAttribute("ERROR", "ban can login de thuc hien cac tinh nang");
+               request.setAttribute("ERROR", "You need to login to do this.");
                request.getRequestDispatcher("LoginCustPage.jsp").forward(request, response);
             } else {
                InvoiceDAO d = new InvoiceDAO();

@@ -5,6 +5,7 @@
  */
 package controller;
 
+import dao.ServiceMechanicDAO;
 import dao.ServiceTicketDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Customer;
 import model.Mechanic;
+import model.ServiceMechanic;
 import model.ServiceTicket;
 
 /**
@@ -42,31 +44,39 @@ public class ServiceTicketServlet extends HttpServlet {
             HttpSession s = request.getSession(false);
             Mechanic mechanic = null;
 
-            // Kiểm tra session trước khi lấy dữ liệu
+            //Kiểm tra session trước khi lấy dữ liệu
             if (s != null) {
                 mechanic = (Mechanic) s.getAttribute("mechanic");
             }
 
-            ServiceTicketDAO d = new ServiceTicketDAO();
-
             if (mechanic == null) {
+                request.setAttribute("ERROR", "You need to login to do this.");
                 request.getRequestDispatcher("LoginStaffPage.jsp").forward(request, response);
-                return; 
+                return;
             }
 
-            // Nếu là thợ máy -> lấy danh sách vé dịch vụ
-            ArrayList<ServiceTicket> list = d.getAllServiceTicket(mechanic.getMechanicId());
+            ServiceTicketDAO ticketDAO = new ServiceTicketDAO();
+            ServiceMechanicDAO mechanicDAO = new ServiceMechanicDAO();
 
+            // Lấy danh sách tất cả Service Ticket
+            ArrayList<ServiceTicket> list = ticketDAO.getAllServiceTicket(mechanic.getMechanicId());
             if (list.isEmpty()) {
-                request.setAttribute("ERROR_MESSAGE", "Không có vé dịch vụ nào.");
+                request.setAttribute("ERROR", "Không có vé dịch vụ nào.");
             } else {
                 request.setAttribute("SERVICE_RESULT", list);
             }
 
+            // Kiểm tra nếu người dùng bấm "Show" để lấy chi tiết
+            String serviceTicketId = request.getParameter("txtServiceTicketId");
+            if (serviceTicketId != null && !serviceTicketId.isEmpty()) {
+                ArrayList<ServiceMechanic> details = mechanicDAO.getServiceMechanic(mechanic.getMechanicId() + "", serviceTicketId);
+                request.setAttribute("SERVICE_DETAIL", details);
+            }
+
             request.getRequestDispatcher("MechanicDashBoard.jsp").forward(request, response);
         }
-
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

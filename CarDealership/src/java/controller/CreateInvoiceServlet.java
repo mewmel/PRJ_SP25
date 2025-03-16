@@ -49,7 +49,7 @@ public class CreateInvoiceServlet extends HttpServlet {
         // Kiểm tra session
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("sale") == null) {
-            response.sendRedirect("LoginPage.jsp"); // Chuyển hướng nếu chưa đăng nhập
+            response.sendRedirect("LoginStaffPage.jsp"); // Chuyển hướng nếu chưa đăng nhập
             return;
         }
 

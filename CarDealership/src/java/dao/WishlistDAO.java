@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import model.Car;
 import mylib.DBUtils;
 
+//hết biết, hết cứu T.T
 public class WishlistDAO {
 
     public int createWishlist(String cusId, ArrayList<Car> wishlist) {
@@ -59,7 +60,7 @@ public class WishlistDAO {
         }
         return rs;
     }
-    //sua code remove: hen xui:
+    //sua code remove: hết cứu
 public int removeWishlist(String cusId, ArrayList<Car> wishlist) {
     int rs = 0;
     Connection cnn = null;

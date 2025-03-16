@@ -32,7 +32,7 @@
                 </div>
                 <div style="width: 100%">    
                     <div style="width: 50%; float: right">
-                        <c:if test="${not empty SERVICE_MECHANIC_RESULT}">
+                        <c:if test="${not empty SERVICE_DETAIL}">
                             <table>
                                 <tr>
                                     <th>Service Ticket ID</th>
@@ -42,20 +42,20 @@
                                     <th>Rate</th>
                                     <th>Action</th>
                                 </tr>
-                                <c:forEach var="serviceMechanic" items="${SERVICE_MECHANIC_RESULT}">
+                                <c:forEach var="serviceTicket" items="${SERVICE_DETAIL}">
                                     <tr>
-                                        <td>${serviceMechanic.serviceTicketID}</td>
-                                        <td>${serviceMechanic.serviceID}</td>
-                                        <td>${serviceMechanic.hours}</td>
-                                        <td>${serviceMechanic.comment}</td>
-                                        <td>${serviceMechanic.rate}</td>
+                                        <td>${serviceTicket.serviceTicketID}</td>
+                                        <td>${serviceTicket.serviceID}</td>
+                                        <td>${serviceTicket.hours}</td>
+                                        <td>${serviceTicket.comment}</td>
+                                        <td>${serviceTicket.rate}</td>
                                         <td>
                                             <form action="DetailServiceTicket.jsp" method="POST">
-                                                <input type="hidden" name="txtServiceTicketId" value="${serviceMechanic.serviceTicketID}"/>
-                                                <input type="hidden" name="txtServiceId" value="${serviceMechanic.serviceID}"/>
-                                                <input type="hidden" name="txtHours" value="${serviceMechanic.hours}"/>
-                                                <input type="hidden" name="txtComment" value="${serviceMechanic.comment}"/>
-                                                <input type="hidden" name="txtRate" value="${serviceMechanic.rate}"/>
+                                                <input type="hidden" name="txtServiceTicketId" value="${serviceTicket.serviceTicketID}"/>
+                                                <input type="hidden" name="txtServiceId" value="${serviceTicket.serviceID}"/>
+                                                <input type="hidden" name="txtHours" value="${serviceTicket.hours}"/>
+                                                <input type="hidden" name="txtComment" value="${serviceTicket.comment}"/>
+                                                <input type="hidden" name="txtRate" value="${serviceTicket.rate}"/>
                                                 <input type="submit" value="Detail"/>
                                             </form>
                                         </td>
@@ -83,7 +83,7 @@
                                         <td>${serviceTicket.cusID}</td>
                                         <td>${serviceTicket.carID}</td>
                                         <td>
-                                            <form action="ServiceMechanicServlet" method="POST">
+                                            <form action="ServiceTicketServlet" method="POST">
                                                 <input type="hidden" name="txtServiceTicketId" value="${serviceTicket.id}"/>
                                                 <input type="submit" value="show"/>
                                             </form>
@@ -109,7 +109,7 @@
                         </div>
                     </div>
                 </c:if>
-
+                </div>
                 <c:if test="${empty sessionScope.mechanic}">
                     <c:redirect url="LoginStaffPage.jsp"/>
                 </c:if>

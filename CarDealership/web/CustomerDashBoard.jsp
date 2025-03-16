@@ -84,13 +84,11 @@
         <% } else { %>
         <p>Click "Invoice" to load your Invoice list</p>
         <% } %>
-
+        <!-- Service Tickets List -->
         <%
             ArrayList<ServiceTicketDetail> ticketList = (ArrayList<ServiceTicketDetail>) request.getAttribute("TICKET_LIST");
         %>
-
         <h2>Your Service Tickets</h2>
-
         <% if (ticketList != null && !ticketList.isEmpty()) { %>
         <table border="1" style="width: 100%; border-collapse: collapse;">
             <tr style="background-color: yellowgreen; color: white;"> 
