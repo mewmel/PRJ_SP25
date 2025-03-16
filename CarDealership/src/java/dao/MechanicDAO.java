@@ -67,7 +67,7 @@ public class MechanicDAO {
             cnn = DBUtils.getConnection();
             if (cnn != null) {
                 String sql = "SELECT TOP 3 m.mechanicID, m.mechanicName, COUNT(s.serviceID) AS total_services " +
-                             "FROM ServiceMehanic s " +
+                             "FROM ServiceMechanic s " +
                              "JOIN Mechanic m ON s.mechanicID = m.mechanicID " +
                              "GROUP BY m.mechanicID, m.mechanicName " +
                              "ORDER BY total_services DESC";
