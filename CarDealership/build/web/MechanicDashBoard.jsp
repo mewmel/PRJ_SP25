@@ -32,6 +32,35 @@
                 </div>
                 <div style="width: 100%">    
                     <div style="width: 50%; float: right">
+                        <c:if test="${not empty requestScope.SERVICE_RESULT}">
+                            <table>
+                                <tr>
+                                    <th>Service Ticket ID</th>
+                                    <th>Date Received</th>
+                                    <th>Date Return</th>
+                                    <th>Customer ID</th>
+                                    <th>Car ID</th>
+                                    <th>Action</th>
+                                </tr>
+                                <c:forEach var="serviceTicket" items="${requestScope.SERVICE_RESULT}">
+                                    <tr>
+                                        <td>${serviceTicket.id}</td>
+                                        <td>${serviceTicket.dateReceived}</td>
+                                        <td>${serviceTicket.dateReturn}</td>
+                                        <td>${serviceTicket.cusID}</td>
+                                        <td>${serviceTicket.carID}</td>
+                                        <td>
+                                            <form action="ServiceTicketServlet" method="POST">
+                                                <input type="hidden" name="txtServiceTicketId" value="${serviceTicket.id}"/>
+                                                <input type="submit" value="show"/>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+                        </c:if>
+                    </div> 
+                    <section style="width: 50%; float: right">
                         <c:if test="${not empty SERVICE_DETAIL}">
                             <table>
                                 <tr>
@@ -63,35 +92,7 @@
                                 </c:forEach>
                             </table>
                         </c:if>
-                    </div> 
-                    <section style="width: 50%; float: right">
-                        <c:if test="${not empty requestScope.SERVICE_RESULT}">
-                            <table>
-                                <tr>
-                                    <th>Service Ticket ID</th>
-                                    <th>Date Received</th>
-                                    <th>Date Return</th>
-                                    <th>Customer ID</th>
-                                    <th>Car ID</th>
-                                    <th>Action</th>
-                                </tr>
-                                <c:forEach var="serviceTicket" items="${requestScope.SERVICE_RESULT}">
-                                    <tr>
-                                        <td>${serviceTicket.id}</td>
-                                        <td>${serviceTicket.dateReceived}</td>
-                                        <td>${serviceTicket.dateReturn}</td>
-                                        <td>${serviceTicket.cusID}</td>
-                                        <td>${serviceTicket.carID}</td>
-                                        <td>
-                                            <form action="ServiceTicketServlet" method="POST">
-                                                <input type="hidden" name="txtServiceTicketId" value="${serviceTicket.id}"/>
-                                                <input type="submit" value="show"/>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                            </table>
-                        </c:if>
+
                     </section>
                     <div style="width: 50%; float: left">
                         <c:if test="${not empty TICKET_RESULT}">

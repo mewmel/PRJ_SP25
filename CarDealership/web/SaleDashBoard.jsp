@@ -29,6 +29,7 @@
         <p><a href="ViewCustomer.jsp">Customer</a></p>
         <p><a href="CreateInvoiceServlet">Create Invoice</a></p>
         <p><a href="Report.jsp">Report</a></p>
+        <p><a href="ViewPartsServlet">View Parts</a></p>
     </div>
 
     <!-- Customer List -->
