@@ -22,7 +22,7 @@ import model.SalePerson;
  *
  * @author trant
  */
-public class LoginSalePersonServlet extends HttpServlet {
+public class LoginStaffServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
